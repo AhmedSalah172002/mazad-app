@@ -1,0 +1,467 @@
+:root{
+  --main-color:#07c0de;
+  --text-color: #262929;
+}
+
+body{
+  user-select: none;
+  overflow-x: hidden;
+}
+
+
+
+/*  Navbar  */
+
+.navbar{
+  background-color: #fff;
+  z-index: 100;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.06);
+}
+.navbar-toggler{
+  border: none !important;
+}
+.navbar-toggler-icon{
+  background-image: url("./images/menu.png") !important;
+}
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: none !important;
+}
+.navbar img{
+  width: 100px;
+}
+
+.nav-link{
+  font-weight: 600 !important;
+  transition: .3s  !important;
+}
+.nav-link:hover{
+  color: var(--main-color) !important;
+}
+
+.nav-btn{
+  display: block;
+  padding: 5px 25px;
+  background-color: var(--main-color);
+  color: white;
+  border-color: transparent;
+  font-weight: 700;
+}
+
+/* Home Page */
+.features h1{
+  color: var(--text-color);
+  font-weight: 700;
+}
+.features p{
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.feature p{
+  color: #8a9ca4;
+}
+.filter-home .container{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 50px 15px !important;
+}
+.filter-cont{
+  color: var(--text-color);
+}
+.filter-image img{
+  width:250px;
+  display: block;
+  margin:auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.product-card{
+  position: relative;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 8px;
+  transition: .3s;
+  min-height: 500px;
+}
+.product-sub-head{
+  padding: 1px 10px;
+    position: absolute;
+    font-size: 14px;
+    color: #fff;
+    font-size: 12px;
+    top: -10px;
+    right: -14px;
+}
+.product-card:hover{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transform: scale(1.08);
+}
+.date p{
+  width: 33px;
+    height: 33px;
+    border-radius: 0;
+    background-color: #f2f2f2;
+    margin: 6px 4px 0;
+    padding: 4px;
+    border: 0px;
+    color: #262929;
+    font-size: 10.87px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.date span{
+  color: #262929;
+  font-size: 12.87px;
+  text-align: center;
+}
+.details{
+  display: block;
+  padding: 3px 15px;
+  text-align: center;
+  margin-top: 25px;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 6px;
+  border-color: transparent;
+}
+.active>.page-link, .page-link.active {
+  z-index: 3;
+  background-color: var(--main-color) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+
+}
+.page-link {
+  border: none !important;
+  border-right: 1px solid rgba(171,184,190,.3) !important;
+  box-shadow: none !important;
+}
+
+
+.mazad{
+  background-color: #B70404;
+  color: white;
+  padding: 5px 20px;
+  margin: 15px 0 0;
+  border-radius: 8px;
+  border-color: transparent;
+  transition: .3s;
+}
+.mazad:hover{
+  background-color: #8e0505;
+}
+
+
+
+/*  Product Details Page  */
+
+.final-price p{
+ color: var(--main-color);
+}
+
+.final-price h1 {
+  color: var(--text-color);
+  margin-bottom: 50px;
+}
+
+.details-text span{
+  color: #109f79;
+    font-size: 12px;
+    font-weight: bold;
+}
+.details-text h2{
+  color: var(--main-color);
+  
+}
+.more-details .container{
+  border: 2.5px solid #1d2122;
+    background-color: #fff;
+    padding: 50px;
+}
+.more-details h4{
+  color: var(--main-color);
+}
+.more-details p {
+  font-weight: 700;
+  color: var(--text-color);
+}
+.whatsapp{
+  display: block;
+  padding: 5px 0;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  border-radius: 6px;
+  background-color: #2ca620!important;
+    border-color: transparent !important;
+    color: #fff;
+   
+}
+
+
+
+/* Login Page  */
+
+.email label , .password label ,.passwordConfirm label , .phone label ,.name label ,.role label{
+font-size: 1.2em;
+font-weight: 600;
+color: var(--text-color);
+}
+
+
+.email input , .password input ,.passwordConfirm input , .phone input ,.name input{
+  width: 80%;
+  padding: 8px;
+  border: 2px solid #f7f7f7;
+  color: var(--text-color);
+  font-weight: 400;
+  outline-color: var(--main-color);
+  }
+  .register-btn ,.login-btn{
+    display: block;
+    width: 80%;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+  }
+  .login-btn{
+    background-color: var(--main-color);
+    border-color: transparent;
+    color: white;
+  }
+  .register-btn{
+    background-color: transparent;
+    border-color: var(--text-color);
+    transition: .3s;
+  }
+  .register-btn:hover{
+    background-color: var(--text-color);
+    color: white;
+  }
+
+
+
+
+
+  /* Add Product Page */
+
+  .productImage{
+    visibility: hidden;
+  }
+  .product-input label{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    }
+    
+.product-input input{
+  width: 80%;
+  padding: 8px;
+  border: 2px solid #e3e3e3;
+  color: var(--text-color);
+  font-weight: 400;
+  outline-color: var(--main-color);
+  }
+
+  .settings{
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    z-index: 1000000000000;
+    width: 100%;
+  }
+
+
+
+  /* Mazad chat Page */
+
+  .mazadat{
+    min-height: 100vh;
+    background-image: url("./images/chat-background.jpg");
+    padding: 30px 15px;
+  }
+  .mazadat .container{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 0 !important;
+    background-color: white;
+    overflow: hidden;
+
+  }
+
+  .mazad-details h5 ,.chatting h5{
+    background-color: #d1d7db;
+    padding: 15px 10px;
+    color: #667781;
+  }
+.mazad-details h5{
+  width: 111%;
+}
+.chatting h5 .merchant-icon{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #8e0505;
+  font-size: 12px;
+  margin-left: 5px;
+}
+.chatting h5{
+  margin-bottom: 0 !important;
+}
+.chatting{
+  position: relative;
+}
+
+.Chatting-form{
+  padding-bottom: 80px;
+  background-image: url("./images/chat.png");
+  min-height: 79vh;
+  max-height: 80vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+.Chatting-input{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 8px;
+  background-color: #d1d7db;
+}
+.Chatting-input input{
+  padding: 8px 5px;
+  width: 90%;
+  border-color: transparent;
+  outline-color: transparent;
+  border-radius: 6px;
+}
+.Chatting-input .send{
+  width: 35px;
+  transform: rotate(180deg);
+  margin-right: 10px;
+  cursor: pointer;
+} 
+
+
+
+.Message{
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  margin: 15px 5px 20px 15px;
+}
+.Message-icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.Message-cont{
+  background-color: #00a884;
+  color: white;
+  padding: 5px 30px;
+  border-radius: 0 8px 8px 8px;
+  position: relative;
+}
+
+.Message-cont::before{
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: -9%;
+  border: 15px solid;
+  border-color: transparent #00a884 transparent transparent;
+  transform: rotate(270deg);
+
+}
+
+.bell-btn{
+  background-color: transparent;
+  border-color: transparent;
+}
+.notification{
+  position: absolute;
+  right: 25%;
+  top: 3px;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
+.order-payment{
+  display: block;
+  color: white;
+  background-color: var(--main-color);
+  border-radius: 6px;
+  padding: 5px 0;
+  margin: auto;
+  text-decoration: none;
+  text-align: center;
+
+}
+
+.user-orders{
+  min-height: 70vh;
+}
+
+
+.order-details .container{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 25px 15px;
+  border-radius: 8px;
+}
+.order-details p{
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.payment .container{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 25px 15px ;
+  border-radius: 8px;
+}
+.payment select{
+  width: 300px;
+  padding: 5px 15px;
+  font-weight: 600;
+  border-color: #d1d7db;
+}
+.add-address{
+  display: block;
+  margin-right: 15px;
+  padding: 5px 50px;
+  background-color:#667781;
+  color: white;
+  border-color: transparent;
+  font-weight: 700;
+  border-radius: 8px;
+}
+.pay-btn,.add-address-btn{
+  padding: 5px 25px;
+  background-color: var(--main-color);
+  border-color: transparent;
+  color: white;
+  border-radius: 3px;
+}
+.offcanvas-body input{
+  padding: 5px 10px !important;
+  border-color: #1d2122 !important;
+  font-weight: 400 !important;
+}
+.add-address-btn{
+  display: block;
+  margin: auto;
+  width: 50%;
+}
