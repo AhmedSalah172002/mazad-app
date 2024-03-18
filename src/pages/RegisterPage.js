@@ -1,22 +1,17 @@
 import React from 'react'
-import Register from '../component/register/Register'
-import RegisterCont from '../component/register/RegisterCont'
+import Register from '../component/registerr/Register'
+
 
 const RegisterPage = () => {
   return (
-   <>
+   <div>
    <div dir='rtl' className="row">
-    <div className="col-lg-6 col-md-12">
+    <div className="col-lg-12 col-md-12">
         <Register />
-    </div>
-    <div className="col-lg-6 col-md-12">
-        <RegisterCont />
-    </div>
+  </div>
    </div>
-   
-   
-   </>
+   </div>
   )
 }
 
-export default RegisterPage
+export default RegisterPage;
