@@ -3,7 +3,7 @@ import { Container, Typography } from '@mui/material';
 
 
 
-const Login = () => {
+const CodeCont = () => {
   
   return (
     <>
@@ -30,4 +30,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default CodeCont;

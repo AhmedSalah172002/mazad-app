@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import LoginHook from '../../hook/auth/LoginHook';
+
 import { Container, Typography, TextField, Button, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import 'react-toastify/dist/ReactToastify.css';
+import LoginHook from '../../../hook/auth/LoginHook';
 
-const LoginCont = () => {
+const Code = () => {
   const [email, password, loading, onChangeEmail, onChangePassword, onSubmit] = LoginHook();
 
   return (
@@ -31,30 +32,21 @@ const LoginCont = () => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <TextField fullWidth type="email" onChange={(e) => onChangeEmail(e)} value={email} name="email" label="البريد الالكترونى" />
+          <TextField fullWidth type="password" onChange={(e) => onChangePassword(e)} value={password} name="password" label=" ادخل  الكود " variant="outlined" />
         </Grid>
+        
         <Grid item xs={12}>
-          <TextField fullWidth type="password" onChange={(e) => onChangePassword(e)} value={password} name="password" label="كلمة المرور" variant="outlined" />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="body2">
-            <Link style={{ textDecoration: "none" }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} to='gmailfield'>هل نسيت كلمة المرور</Link>
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
+        <Link to ="forgetPassword">
           <Button onClick={() => onSubmit()} fullWidth variant="contained" style={{ background: 'rgb(34,33,89)', background: "linear-gradient(90deg, rgba(34,33,89,1) 11%, rgba(67,64,164,1) 33%, rgba(100,95,238,1) 48%, rgba(34,33,89,1) 82%, rgba(47,46,119,1) 89%)", color: 'white', padding: '8px', borderRadius: '10px' }}>
             <Typography variant="h6">دخول</Typography>
           </Button>
+            </Link>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="body2">
-            <Link style={{ textDecoration: "none" }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} to='/register'>ليس لديك حساب؟ انشاء حساب</Link>
-          </Typography>
-        </Grid>
+        
       </Grid>
       <ToastContainer />
     </Container>
   );
 }
 
-export default LoginCont;
+export default Code;

@@ -20,17 +20,29 @@ import OrderDetailsPage from "./pages/OrderDetailsPage";
 import PaymentPage from "./pages/PaymentPage";
 import ProtectedRouteHook from "./hook/auth/ProtectedRouteHook";
 import ProtectedRoute from "./component/utils/ProtectedRoute";
+import HiddenFooter from "./component/login/hiddenFooter";
+import HiddenNav from "./component/login/hiddenNav";
+
+import Forgettenpass from "./pages/forgetpassPage";
+import CodePage from "./pages/CodePage";
+
+import Gmail from "./pages/GmailField";
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook()
   return (
    <>
    <BrowserRouter>
+   <HiddenNav>
    <Navbar />
+   </HiddenNav>
    <Routes>
    <Route path="/" element={<HomePage /> } />
    <Route path="product/:productId" element={<ProductDetailsPage /> } />
    <Route path="login" element={<LoginPage /> } />
+   <Route path="login/gmailfield/code/forgetPassword" element={<Forgettenpass /> } />
+   <Route path="login/gmailfield/code" element={<CodePage /> } />
+   <Route path="login/gmailfield" element={<Gmail /> } />
    <Route path="register" element={<RegisterPage /> } />
 
    <Route element={<ProtectedRoute auth={isUser} />}>
@@ -50,7 +62,11 @@ function App() {
  
    
    </Routes>
+
+   <HiddenFooter>
    <Footer />
+   </HiddenFooter>
+   
    </BrowserRouter>
   
    
