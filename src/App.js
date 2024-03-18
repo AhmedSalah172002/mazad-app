@@ -10,7 +10,7 @@ import Navbar from './component/utils/Navbar';
 import HomePage from './pages/HomePage';
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+
 import AddProductPage from "./pages/AddProductPage";
 import MerchantProductsPage from "./pages/MerchantProductsPage";
 import EditProductPage from "./pages/EditProductPage";
@@ -20,18 +20,20 @@ import OrderDetailsPage from "./pages/OrderDetailsPage";
 import PaymentPage from "./pages/PaymentPage";
 import ProtectedRouteHook from "./hook/auth/ProtectedRouteHook";
 import ProtectedRoute from "./component/utils/ProtectedRoute";
+import RegisterPage from "./pages/RegisterPage";
+
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook()
   return (
-   <>
+   <div>
    <BrowserRouter>
    <Navbar />
    <Routes>
    <Route path="/" element={<HomePage /> } />
    <Route path="product/:productId" element={<ProductDetailsPage /> } />
    <Route path="login" element={<LoginPage /> } />
-   <Route path="register" element={<RegisterPage /> } />
+   <Route path="register" element={<RegisterPage/>} />
 
    <Route element={<ProtectedRoute auth={isUser} />}>
         <Route path="mazad/:productId" element={<MazadChatPage /> } />
@@ -55,7 +57,7 @@ function App() {
   
    
    
-   </>
+   </div>
   );
 }
 

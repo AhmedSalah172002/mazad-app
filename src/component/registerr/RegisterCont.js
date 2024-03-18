@@ -8,7 +8,7 @@ const RegisterCont = () => {
     SignupHook()
 
   return (
-    <div className='py-5' style={{backgroundColor:"white"}}>
+   /* <div className='py-5' style={{backgroundColor:"white"}}>
     <div className="name d-flex flex-column mb-3" >
       <label className='mb-3'  htmlFor="name">الاسم :</label>
       <input type="text" onChange={(e)=>onChangeName(e)} value={name} name="name" placeholder='اكتب الاسم ...' id="name" />
@@ -41,7 +41,8 @@ const RegisterCont = () => {
     </div>
     <button onClick={()=> OnSubmit()} className='login-btn mb-3'>إنشاء الحساب </button>
     <ToastContainer />
-  </div>
+  </div>*/
+  <div></div>
   )
 }
 
