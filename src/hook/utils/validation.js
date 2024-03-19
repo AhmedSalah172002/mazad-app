@@ -4,6 +4,6 @@ export function isValidEmail(email) {
 }
 
 export function isEgyptianPhoneNumber(phoneNumber) {
-  const egyptianPhoneRegex = /^(?:\+?20|0)?1[0-2]\d{8}$/;
+  const egyptianPhoneRegex = /^(?:\+?20|0)?1(0|1|2|5)\d{8}$/;
   return egyptianPhoneRegex.test(phoneNumber);
 }
