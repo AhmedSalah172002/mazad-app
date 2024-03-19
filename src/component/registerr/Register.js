@@ -14,6 +14,8 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import logo from "../../images/mazady-logo.png";
+import authTop from "../../images/auth-top.png";
+import authBottom from "../../images/auth-bottom.png";
 import { Icon } from "@iconify/react";
 import RegisterHook from "../../hook/auth/RegisterHook";
 
@@ -25,8 +27,6 @@ const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [rtlPlugin],
 });
-
-
 
 const Register = () => {
   const {
@@ -71,7 +71,7 @@ const Register = () => {
                 sx={{
                   backgroundColor: "#d9d9d9",
                   padding: "15px",
-                  borderRadius: " 25px 0 0 25px",
+                  borderRadius: " 10px 0 0 10px",
                 }}
               >
                 <img
@@ -87,75 +87,80 @@ const Register = () => {
                   إنشاء حساب جديد
                 </Typography>
 
-                <TextField
-                  error={errors.has("email")}
-                  helperText={errors.get("email")}
-                  dir="rtl"
-                  type="email"
-                  label="البريد الالكترونى"
-                  fullWidth
-                  margin="normal"
-                  value={email}
-                  onChange={(e) => {
-                    errors.has("email") && errors.delete("email");
-                    setEmail(e.target.value);
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexWrap: "wrap",
                   }}
-                />
-                <TextField
-                  error={errors.has("name")}
-                  helperText={errors.get("name")}
-                  dir="rtl"
-                  label="اسم المستخدم"
-                  fullWidth
-                  margin="normal"
-                  value={name}
-                  onChange={(e) => {
-                    errors.has("name") && errors.delete("name");
-                    setName(e.target.value);
-                  }}
-                />
-                <TextField
-                  error={errors.has("phone")}
-                  helperText={errors.get("phone")}
-                  dir="rtl"
-                  label="رقم الهاتف"
-                  fullWidth
-                  margin="normal"
-                  value={phone}
-                  onChange={(e) => {
-                    errors.has("phone") && errors.delete("phone");
-                    setPhone(e.target.value);
-                  }}
-                />
-                <TextField
-                  error={errors.has("password")}
-                  helperText={errors.get("password")}
-                  type="password"
-                  dir="rtl"
-                  label="كلمة المرور"
-                  fullWidth
-                  margin="normal"
-                  value={password}
-                  onChange={(e) => {
-                    errors.has("password") && errors.delete("password");
-                    setPassword(e.target.value);
-                  }}
-                />
-                <TextField
-                  error={errors.has("passwordConfirm")}
-                  helperText={errors.get("passwordConfirm")}
-                  type="password"
-                  dir="rtl"
-                  label="تأكيد كلمة المرور"
-                  fullWidth
-                  margin="normal"
-                  value={passwordConfirm}
-                  onChange={(e) => {
-                    errors.has("passwordConfirm") &&
-                      errors.delete("passwordConfirm");
-                    setPasswordConfirm(e.target.value);
-                  }}
-                />
+                >
+                  <TextField
+                    error={errors.has("email")}
+                    helperText={errors.get("email")}
+                    dir="rtl"
+                    type="email"
+                    label="البريد الالكترونى"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={email}
+                    onChange={(e) => {
+                      errors.has("email") && errors.delete("email");
+                      setEmail(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    error={errors.has("name")}
+                    helperText={errors.get("name")}
+                    dir="rtl"
+                    label="اسم المستخدم"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={name}
+                    onChange={(e) => {
+                      errors.has("name") && errors.delete("name");
+                      setName(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    error={errors.has("phone")}
+                    helperText={errors.get("phone")}
+                    dir="rtl"
+                    label="رقم الهاتف"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={phone}
+                    onChange={(e) => {
+                      errors.has("phone") && errors.delete("phone");
+                      setPhone(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    error={errors.has("password")}
+                    helperText={errors.get("password")}
+                    type="password"
+                    dir="rtl"
+                    label="كلمة المرور"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={password}
+                    onChange={(e) => {
+                      errors.has("password") && errors.delete("password");
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    error={errors.has("passwordConfirm")}
+                    helperText={errors.get("passwordConfirm")}
+                    type="password"
+                    dir="rtl"
+                    label="تأكيد كلمة المرور"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={passwordConfirm}
+                    onChange={(e) => {
+                      errors.has("passwordConfirm") &&
+                        errors.delete("passwordConfirm");
+                      setPasswordConfirm(e.target.value);
+                    }}
+                  />
+                </Box>
+
                 <Box
                   sx={{
                     display: "flex",
@@ -216,12 +221,12 @@ const Register = () => {
                 )}
 
                 <Button
-                  fullWidth
                   variant="contained"
                   style={{
-                    background: "rgb(34,33,89)",
+                    background: "#403DA8",
                     background:
-                      "linear-gradient(90deg, rgba(34,33,89,1) 11%, rgba(67,64,164,1) 33%, rgba(100,95,238,1) 48%, rgba(34,33,89,1) 82%, rgba(47,46,119,1) 89%)",
+                      "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
+                    boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
                     color: "white",
                     fontSize: "22px",
                     width: "fit-content",
@@ -236,6 +241,54 @@ const Register = () => {
                   إنشاء حساب
                   {loading && <CircularProgress size={24} color="inherit" />}
                 </Button>
+              </Grid>
+              <Grid
+                item
+                md={12}
+                lg={4}
+                sx={{
+                  backgroundColor: "#403da8",
+                  position: "relative",
+                  display: { xs: "none", sm: "none", md: "none", lg: "block" },
+                  borderRadius: "0 10px 10px 0",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  component="h3"
+                  sx={{
+                    color: "white",
+                    textAlign: "center",
+                    marginLeft: "5px",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%,-50%)",
+                    width: "100%",
+                  }}
+                >
+                  أهلا بكم في موقع مزادى
+                </Typography>
+                <img
+                  src={authTop}
+                  alt="authTop"
+                  style={{
+                    width: "230px",
+                    position: "absolute",
+                    right: "0",
+                    top: "-8px",
+                  }}
+                />
+                <img
+                  src={authBottom}
+                  alt="authTop"
+                  style={{
+                    width: "230px",
+                    position: "absolute",
+                    left: "0px",
+                    bottom: "-26px",
+                  }}
+                />
               </Grid>
             </Grid>
           </Box>
