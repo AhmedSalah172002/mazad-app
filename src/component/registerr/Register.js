@@ -1,69 +1,242 @@
-import React, { useState } from 'react'
-import { Col, Container } from 'react-bootstrap'
-import vec5 from '../../images/Vector 5.png';
-import vec6 from '../../images/Vector 6.svg';
-import logo from '../../images/logo (1).svg';
-import group from '../../images/Group 1.svg';
-import com from '../../images/Component 1.svg';
-import rect from '../../images/Rectangle 43 (1).png';
-import { Button, Typography } from '@mui/material';
+import React from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import rtlPlugin from "stylis-plugin-rtl";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import SignupHook from "../../hook/auth/SignupHook";
+import logo from "../../images/mazady-logo.png";
+import authTop from "../../images/auth-top.png";
+import authBottom from "../../images/auth-bottom.png";
+
+import { Icon } from "@iconify/react";
+
+const theme = createTheme({
+  direction: "rtl",
+});
+
+const cacheRtl = createCache({
+  key: "muirtl",
+  stylisPlugins: [rtlPlugin],
+});
 
 const Register = () => {
-  const[val , setVal]= useState({
-    gmail:"",
-    user:"",
-    pass:"",
-    confirmPass:""
-  });
- 
+  const [
+    name,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    loading,
+    onChangeName,
+    onChangeEmail,
+    onChangePhone,
+    onChangePassword,
+    onChangeConfirmPassword,
+    onChangeRole,
+    OnSubmit,
+  ] = SignupHook();
+
   return (
-    <div  style={{background: "#21204C", width:"100%" , height:"650px",display:"flex",
-    justifyContent:"center", alignItems:"center"}}>
-    <div className='container'>
-   <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2  w-[100%] sm:w-[100%] md:w-[70%] lg:w-[70%] xl:w-[70%] 2xl:w-[60%] bg-slate-500 md:bg-slate-600'  style={{background: "#D9D9D9", height:"560px", borderRadius:10 ,  position:"relative"
-    , margin:"0 auto"}}>
-   
-  
+    <CacheProvider value={cacheRtl}>
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            width: "100%",
+            minHeight: "100vh",
+            backgroundColor: "#21204c",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "50px",
+          }}
+          dir="rtl"
+        >
+          <Box sx={{ width: "min(900px,100%)" }}>
+            <Grid container>
+              <Grid
+                item
+                md={12}
+                lg={8}
+                sx={{
+                  backgroundColor: "#d9d9d9",
+                  padding: "15px",
+                  borderRadius: " 25px 0 0 25px",
+                }}
+              >
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{ display: "block", margin: "auto", width: "80px" }}
+                />
+                <Typography
+                  variant="h4"
+                  component="h4"
+                  sx={{ color: "#403da8", textAlign: "center" }}
+                >
+                  إنشاء حساب جديد
+                </Typography>
 
+                <TextField
+                  dir="rtl"
+                  type="email"
+                  label="البريد الالكترونى"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  dir="rtl"
+                  label="اسم المستخدم"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  dir="rtl"
+                  label="رقم الهاتف"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  type="password"
+                  dir="rtl"
+                  label="كلمة المرور"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  type="password"
+                  dir="rtl"
+                  label="تأكيد كلمة المرور"
+                  fullWidth
+                  margin="normal"
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "25px",
+                    margin: "15px 0",
+                  }}
+                >
+                  <ToggleButtonGroup
+                    color="primary"
+                    exclusive
+                    aria-label="Platform"
+                  >
+                    <ToggleButton value="tv">
+                      {" "}
+                      <Icon icon="mingcute:auction-fill" width={20} />
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        sx={{
+                          color: "#403da8",
+                          textAlign: "center",
+                          marginLeft: "5px",
+                        }}
+                      >
+                        تاجر
+                      </Typography>
+                    </ToggleButton>
+                    <ToggleButton value="android">
+                      {" "}
+                      <Icon
+                        icon="fa-solid:user-tie"
+                        width={20}
+                        sx={{ display: "block", margin: "auto" }}
+                      />
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        sx={{ color: "#403da8", marginLeft: "5px" }}
+                      >
+                        مستخدم
+                      </Typography>
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Box>
 
-   <div className=' mt-[15px] flex flex-col items-center sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto' >
-   <img className='' src={logo} style={{width:"120px"}}></img>
-   <Typography variant='h5' sx={{color:" #403DA8", marginTop:"10px"}}>إنشاء حساب جديد</Typography>
-   <form className='mt-[20px] text-center  sm:items-center md:items-center' >
-   <input className='w-[80%] p-2 m-2 bg-transparent  border-solid border-2
-    border-black rounded-[5px] focus:outline-violet-700
-    ' placeholder='البريد الإلكتروني' value={val.gmail} onChange={(e) =>setVal({...val,gmail:e.target.value})}></input>
-   <input className='m-2 p-2 w-[80%] border-spacing-4 border-solid border-2
-    border-black bg-transparent rounded-[5px] focus:outline-violet-700' placeholder='إسم المستخدم' value={val.user} onChange={(e) =>setVal({...val,user:e.target.value})}></input>
-   <input className='m-2 p-2 w-[80%] border-solid border-2 border-black bg-transparent
-    rounded-[5px] focus:outline-violet-700 placeholder:right-1' placeholder='كلمة المرور' value={val.pass} onChange={(e) =>setVal({...val,pass:e.target.value})}></input>
-   <input className='w-[80%] p-2 m-2 border-solid border-2 border-black bg-transparent
-    rounded-[5px] focus:outline-violet-700' placeholder='إعادة كتابة كلمة المرور' value={val.confirmPass} onChange={(e) =>setVal({...val,confirmPass:e.target.value})}></input>
-   </form>
-   <div className='flex mt-[20px] gap-5'>
-   <img className='w-[50px] cursor-pointer' src={group} alt=''></img>
-   <img className='w-[50px] cursor-pointer' src={com} alt=''></img>
-   </div>
-   <div>
-   <Button className='shadow-[#50d71e] bg-gradient-to-r from-blue-950 to-blue-950 w-[180px] xs:w-[320px] sm:w-[400px] md:w-[200px] lg:w-[300px]' variant="contained" sx={{marginTop:"15px" , padding:"13px",fontSize:"1.2em"  
-}}>إنشاء حساب</Button>
-   </div>
-   </div>
-   
+                <Button
+                  fullWidth
+                  variant="contained"
+                  style={{
+                    background: "rgb(34,33,89)",
+                    background:
+                      "linear-gradient(90deg, rgba(34,33,89,1) 11%, rgba(67,64,164,1) 33%, rgba(100,95,238,1) 48%, rgba(34,33,89,1) 82%, rgba(47,46,119,1) 89%)",
+                    color: "white",
+                    fontSize: "22px",
+                    width: "fit-content",
+                    display: "block",
+                    margin: "25px auto",
+                    padding: "10px 70px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  إنشاء حساب
+                </Button>
+              </Grid>
+              <Grid
+                item
+                md={12}
+                lg={4}
+                sx={{
+                  backgroundColor: "#403da8",
+                  position: "relative",
+                  display: { md: "none", lg: "block" },
+                  borderRadius: "0 25px 25px 0",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  component="h3"
+                  sx={{
+                    color: "white",
+                    textAlign: "center",
+                    marginLeft: "5px",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%,-50%)",
+                    width: "100%",
+                  }}
+                >
+                  أهلا بكم في موقع مزادى
+                </Typography>
+                <img
+                  src={authTop}
+                  alt="authTop"
+                  style={{
+                    width: "230px",
+                    position: "absolute",
+                    right: "0",
+                    top: "-8px",
+                  }}
+                />
+                <img
+                  src={authBottom}
+                  alt="authTop"
+                  style={{
+                    width: "230px",
+                    position: "absolute",
+                    left: "0px",
+                    bottom: "-26px",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </ThemeProvider>
+    </CacheProvider>
+  );
+};
 
-
-
-   <div  className='hidden sm:hidden md:block' style={{position:"relative"}}>
-   <Typography className='text-center  right-[30%] lg:right-[46%] xl:right-[38%]' variant='h4' sx={{position:"absolute", top:"42%", zIndex:2, color:"white" , fontSize:"2.2em", width:"50%"}}>أهلا بكم في موقع مزادي</Typography>
-   <img className='w-[140px] sm-w[150px] md:w-[220px] xl:w-[300px]'  src={rect} style={{position:"absolute" , left:0,  height:" 560px" }}></img>
-   <img  className='w-[100px] md:w-[194px] xl:w-[274px]'  src={vec5} style={{position:"absolute" , left:26,top:0 }}></img>
-   <img className='w-[200px] xl:w-[280px]'   src={vec6} style={{position:"absolute" , left:0,bottom:0 }}></img>
-    </div>
-   </div>
-   </div>
-    </div>
-   
-  )
-}
-
-export default Register
+export default Register;

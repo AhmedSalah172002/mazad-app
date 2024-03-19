@@ -18,16 +18,17 @@ import ProtectedRoute from "./component/utils/ProtectedRoute";
 import HiddenFooter from "./component/login/hiddenFooter";
 import HiddenNav from "./component/login/hiddenNav";
 
-import Forgettenpass from "./pages/forgetpassPage";
+import Forgettenpass from "./pages/NewPasswordPage";
 import CodePage from "./pages/CodePage";
 
-import Gmail from "./pages/GmailField";
 import RegisterPage from "./pages/RegisterPage";
+import ForgetPasswordPage from "./pages/ForgetPasswordPage";
+import NewPasswordPage from "./pages/NewPasswordPage";
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook();
   return (
-    <div>
+    
       <BrowserRouter>
         <HiddenNav>
           <Navbar />
@@ -35,14 +36,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="product/:productId" element={<ProductDetailsPage />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route
-            path="forgetPassword"
-            element={<Forgettenpass />}
+            path="/new-password"
+            element={<NewPasswordPage />}
           />
-          <Route path="passwordResetCode" element={<CodePage />} />
-          <Route path="confirmPasswordResetCode" element={<Gmail />} />
-          <Route path="register" element={<RegisterPage />} />
+          <Route path="/email-authentication-code" element={<CodePage />} />
+          <Route path="/forget-password" element={<ForgetPasswordPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
           <Route element={<ProtectedRoute auth={isUser} />}>
             <Route path="mazad/:productId" element={<MazadChatPage />} />
@@ -65,7 +66,7 @@ function App() {
           <Footer />
         </HiddenFooter>
       </BrowserRouter>
-    </div>
+    
   );
 }
 

@@ -12,11 +12,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import SignupHook from "../../hook/auth/SignupHook";
-import logo from "../../images/mazady-logo.png";
-import authTop from "../../images/auth-top.png";
-import authBottom from "../../images/auth-bottom.png";
-import LoginHook from "../../hook/auth/LoginHook";
+import logo from "../../../images/mazady-logo.png";
+import authTop from "../../../images/auth-top.png";
+import authBottom from "../../../images/auth-bottom.png";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
@@ -29,10 +27,7 @@ const cacheRtl = createCache({
   stylisPlugins: [rtlPlugin],
 });
 
-const Login = () => {
-  const [email, password, loading, onChangeEmail, onChangePassword, onSubmit] =
-    LoginHook();
-
+const NewPassword = () => {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
@@ -70,16 +65,8 @@ const Login = () => {
                   component="h4"
                   sx={{ color: "#403da8", textAlign: "center" }}
                 >
-                  تسجيل الدخول
+                  تغيير كلمة السر
                 </Typography>
-
-                <TextField
-                  dir="rtl"
-                  type="email"
-                  label="البريد الالكترونى"
-                  fullWidth
-                  margin="normal"
-                />
 
                 <TextField
                   type="password"
@@ -88,17 +75,13 @@ const Login = () => {
                   fullWidth
                   margin="normal"
                 />
-                <Typography variant="body2">
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    onClick={() =>
-                      window.scrollTo({ top: 0, behavior: "smooth" })
-                    }
-                    to="/forget-password"
-                  >
-                    هل نسيت كلمة المرور ؟
-                  </Link>
-                </Typography>
+                <TextField
+                  type="password"
+                  dir="rtl"
+                  label="تأكيد كلمة المرور"
+                  fullWidth
+                  margin="normal"
+                />
 
                 <Button
                   fullWidth
@@ -116,20 +99,8 @@ const Login = () => {
                     borderRadius: "10px",
                   }}
                 >
-                  تسجيل الدخول
+                  تأكيد
                 </Button>
-
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    onClick={() =>
-                      window.scrollTo({ top: 0, behavior: "smooth" })
-                    }
-                    to="/register"
-                  >
-                    ليس لديك حساب؟ انشاء حساب
-                  </Link>
-                </Typography>
               </Grid>
               <Grid
                 item
@@ -187,4 +158,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default NewPassword;
