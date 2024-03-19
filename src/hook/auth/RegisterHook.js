@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../redux/actions/authAction";
 import notify from "../../hook/useNotifaction";
-import {isEgyptianPhoneNumber, isValidEmail} from '../utils/validation'
-
+import { isEgyptianPhoneNumber, isValidEmail } from "../utils/validation";
 
 const validation = (
   email,
@@ -40,7 +39,7 @@ const validation = (
   if (!passwordConfirm) {
     newErrors.set("passwordConfirm", "تأكيد كلمه المرور مطلوبه");
   }
-  if (password !== passwordConfirm) {
+  if (password && passwordConfirm && password !== passwordConfirm) {
     newErrors.set("passwordConfirm", "يجب ان تكون كلمات المرور متطابقه");
   }
   if (!role) {
@@ -111,11 +110,10 @@ const RegisterHook = () => {
       registerResponse?.data?.errors[0].path === "email"
     ) {
       notify("هذا البريد الالكتورنى مستخدم بالفعل", "error");
-    } else if(registerResponse.status) {
+    } else if (registerResponse.status) {
       notify("حاول مجددا فى وقت لاحق", "error");
     }
   }, [registerResponse]);
-
 
   return {
     name,
@@ -135,9 +133,7 @@ const RegisterHook = () => {
     errors,
     setErrors,
     handleSubmit,
-  }
-
-
+  };
 };
 
 export default RegisterHook;
