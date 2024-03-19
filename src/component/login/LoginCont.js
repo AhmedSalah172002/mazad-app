@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import SignupHook from "../../hook/auth/SignupHook";
+import SignupHook from "../../hook/auth/RegisterHook";
 import logo from "../../images/mazady-logo.png";
 import authTop from "../../images/auth-top.png";
 import authBottom from "../../images/auth-bottom.png";

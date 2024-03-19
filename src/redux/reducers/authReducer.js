@@ -1,16 +1,16 @@
-import { CREATE_NEW_USER, LOGIN_USER, } from '../type'
+import { REGISTER, LOGIN_USER, } from '../type'
 
 const inital = {
-    createUser: [],
+    register: [],
     loginUser: [],
     loading: true,
 }
 const authReducer = (state = inital, action) => {
     switch (action.type) {
-        case CREATE_NEW_USER:
+        case REGISTER:
             return {
                 ...state,
-                createUser: action.payload,
+                register: action.payload,
             }
         case LOGIN_USER:
             return {

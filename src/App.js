@@ -5,7 +5,7 @@ import Navbar from "./component/utils/Navbar";
 import HomePage from "./pages/HomePage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import LoginPage from "./pages/LoginPage";
-
+import { ToastContainer } from "react-toastify";
 import AddProductPage from "./pages/AddProductPage";
 import MerchantProductsPage from "./pages/MerchantProductsPage";
 import EditProductPage from "./pages/EditProductPage";
@@ -17,8 +17,6 @@ import ProtectedRouteHook from "./hook/auth/ProtectedRouteHook";
 import ProtectedRoute from "./component/utils/ProtectedRoute";
 import HiddenFooter from "./component/login/hiddenFooter";
 import HiddenNav from "./component/login/hiddenNav";
-
-import Forgettenpass from "./pages/NewPasswordPage";
 import CodePage from "./pages/CodePage";
 
 import RegisterPage from "./pages/RegisterPage";
@@ -65,6 +63,8 @@ function App() {
         <HiddenFooter>
           <Footer />
         </HiddenFooter>
+
+        <ToastContainer />
       </BrowserRouter>
     
   );

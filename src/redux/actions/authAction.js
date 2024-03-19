@@ -1,21 +1,20 @@
 
-import { CREATE_NEW_USER, LOGIN_USER } from '../type'
+import { LOGIN_USER, REGISTER } from '../type'
 
 import { useInsertData } from '../../hooks/useInsertData';
 
 //create new user 
-export const createNewUser = (data) => async (dispatch) => {
+export const register = (data) => async (dispatch) => {
     try {
         const response = await useInsertData(`/api/v1/auth/signup`, data);
         dispatch({
-            type: CREATE_NEW_USER,
+            type: REGISTER,
             payload: response,
-            loading: true
         })
 
     } catch (e) {
-        dispatch({
-            type: CREATE_NEW_USER,
+        dispatch({ 
+            type: REGISTER,
             payload: e.response,
         })
     }
