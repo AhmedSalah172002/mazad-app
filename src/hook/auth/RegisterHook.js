@@ -111,7 +111,7 @@ const RegisterHook = () => {
       registerResponse?.data?.errors[0].path === "email"
     ) {
       notify("هذا البريد الالكتورنى مستخدم بالفعل", "error");
-    } else {
+    } else if(registerResponse.status) {
       notify("حاول مجددا فى وقت لاحق", "error");
     }
   }, [registerResponse]);
