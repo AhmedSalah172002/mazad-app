@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import {
   Box,
   Button,
@@ -15,8 +14,6 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import logo from "../../images/mazady-logo.png";
-import authTop from "../../images/auth-top.png";
-import authBottom from "../../images/auth-bottom.png";
 import { Icon } from "@iconify/react";
 import RegisterHook from "../../hook/auth/RegisterHook";
 
