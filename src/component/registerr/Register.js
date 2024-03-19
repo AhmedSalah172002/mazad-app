@@ -240,54 +240,6 @@ const Register = () => {
                   {loading && <CircularProgress size={24} color="inherit" />}
                 </Button>
               </Grid>
-              <Grid
-                item
-                md={12}
-                lg={4}
-                sx={{
-                  backgroundColor: "#403da8",
-                  position: "relative",
-                  display: { md: "none", lg: "block" },
-                  borderRadius: "0 25px 25px 0",
-                }}
-              >
-                <Typography
-                  variant="h3"
-                  component="h3"
-                  sx={{
-                    color: "white",
-                    textAlign: "center",
-                    marginLeft: "5px",
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%,-50%)",
-                    width: "100%",
-                  }}
-                >
-                  أهلا بكم في موقع مزادى
-                </Typography>
-                <img
-                  src={authTop}
-                  alt="authTop"
-                  style={{
-                    width: "230px",
-                    position: "absolute",
-                    right: "0",
-                    top: "-8px",
-                  }}
-                />
-                <img
-                  src={authBottom}
-                  alt="authTop"
-                  style={{
-                    width: "230px",
-                    position: "absolute",
-                    left: "0px",
-                    bottom: "-26px",
-                  }}
-                />
-              </Grid>
             </Grid>
           </Box>
         </Box>
