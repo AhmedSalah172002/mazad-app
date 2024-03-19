@@ -4,19 +4,17 @@ import {
   Button,
   Grid,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
+
   Typography,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import logo from "../../../images/mazady-logo.png";
+import logo from "../../../images/mazady-logo-white.png";
 import authTop from "../../../images/auth-top.png";
 import authBottom from "../../../images/auth-bottom.png";
-import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+
 
 const theme = createTheme({
   direction: "rtl",
@@ -51,38 +49,45 @@ const ForgetPassword = () => {
                 lg={8}
                 sx={{
                   backgroundColor: "#d9d9d9",
-                  padding: "15px",
+                  padding: "40px 15px",
                   borderRadius: " 10px 0 0 10px",
                 }}
               >
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ display: "block", margin: "auto", width: "80px" }}
-                />
                 <Typography
                   variant="h4"
                   component="h4"
-                  sx={{ color: "#403da8", textAlign: "center" }}
+                  sx={{
+                    color: "#403da8",
+                    textAlign: "center",
+                    marginBottom: "15px",
+                  }}
                 >
-                  البحث عن حسابك
+                  نسيت كلمة المرور
                 </Typography>
-
-                <TextField
-                  dir="rtl"
-                  type="email"
-                  label="البريد الالكترونى"
-                  fullWidth
-                  margin="normal"
-                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <TextField
+                    dir="rtl"
+                    type="email"
+                    label="أدخل البريد الالكتروني"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                  />
+                </Box>
 
                 <Button
                   fullWidth
                   variant="contained"
                   style={{
-                    background: "rgb(34,33,89)",
+                    background: "#403DA8",
                     background:
-                      "linear-gradient(90deg, rgba(34,33,89,1) 11%, rgba(67,64,164,1) 33%, rgba(100,95,238,1) 48%, rgba(34,33,89,1) 82%, rgba(47,46,119,1) 89%)",
+                      "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
+                    boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
                     color: "white",
                     fontSize: "22px",
                     width: "fit-content",
@@ -92,7 +97,7 @@ const ForgetPassword = () => {
                     borderRadius: "10px",
                   }}
                 >
-                  بحث
+                  تأكيد
                 </Button>
               </Grid>
               <Grid
@@ -106,22 +111,18 @@ const ForgetPassword = () => {
                   borderRadius: "0 10px 10px 0",
                 }}
               >
-                <Typography
-                  variant="h3"
-                  component="h3"
-                  sx={{
-                    color: "white",
-                    textAlign: "center",
-                    marginLeft: "5px",
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{
                     position: "absolute",
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%,-50%)",
-                    width: "100%",
+                    width: "100px",
                   }}
-                >
-                  أهلا بكم في موقع مزادى
-                </Typography>
+                />
+
                 <img
                   src={authTop}
                   alt="authTop"

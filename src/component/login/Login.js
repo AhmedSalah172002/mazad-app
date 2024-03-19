@@ -4,20 +4,16 @@ import {
   Button,
   Grid,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import SignupHook from "../../hook/auth/RegisterHook";
 import logo from "../../images/mazady-logo.png";
 import authTop from "../../images/auth-top.png";
 import authBottom from "../../images/auth-bottom.png";
 import LoginHook from "../../hook/auth/LoginHook";
-import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
 const theme = createTheme({
@@ -68,27 +64,29 @@ const Login = () => {
                 <Typography
                   variant="h4"
                   component="h4"
-                  sx={{ color: "#403da8", textAlign: "center" }}
+                  sx={{ color: "#403da8", textAlign: "center",marginBottom:'15px' }}
                 >
                   تسجيل الدخول
                 </Typography>
+                <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',flexWrap:'wrap'}}>
+
 
                 <TextField
                   dir="rtl"
                   type="email"
                   label="البريد الالكترونى"
-                  fullWidth
-                  margin="normal"
+                  sx={{marginBottom:'10px',width:'70%'}}
                 />
 
                 <TextField
                   type="password"
                   dir="rtl"
                   label="كلمة المرور"
-                  fullWidth
-                  margin="normal"
+                  sx={{marginBottom:'10px',width:'70%'}}
                 />
-                <Typography variant="body2">
+                </Box>
+
+                <Typography variant="body2" sx={{width:'70%',margin:'0 auto 15px'}}>
                   <Link
                     style={{ textDecoration: "none" }}
                     onClick={() =>
@@ -104,10 +102,11 @@ const Login = () => {
                   fullWidth
                   variant="contained"
                   style={{
-                    background: "rgb(34,33,89)",
+                    background: "#403DA8",
                     background:
-                      "linear-gradient(90deg, rgba(34,33,89,1) 11%, rgba(67,64,164,1) 33%, rgba(100,95,238,1) 48%, rgba(34,33,89,1) 82%, rgba(47,46,119,1) 89%)",
-                    color: "white",
+                      "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
+                    boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
+                    color:'white',
                     fontSize: "22px",
                     width: "fit-content",
                     display: "block",
