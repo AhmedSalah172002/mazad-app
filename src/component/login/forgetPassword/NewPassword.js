@@ -7,6 +7,7 @@ import createCache from "@emotion/cache";
 import logo from "../../../images/mazady-logo-white.png";
 import authTop from "../../../images/auth-top.png";
 import authBottom from "../../../images/auth-bottom.png";
+import NewPasswordHook from "../../../hook/auth/NewPasswordHook";
 
 const theme = createTheme({
   direction: "rtl",
@@ -18,6 +19,16 @@ const cacheRtl = createCache({
 });
 
 const NewPassword = () => {
+  const [
+    newPassword,
+    passwordConfirm,
+    errors,
+    loading,
+    setErrors,
+    onChangePassword,
+    onChangeConfirmPassword,
+    onSubmit,
+  ] = NewPasswordHook();
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
@@ -48,7 +59,11 @@ const NewPassword = () => {
                 <Typography
                   variant="h4"
                   component="h4"
-                  sx={{ color: "#403da8", textAlign: "center",marginBottom:'15px' }}
+                  sx={{
+                    color: "#403da8",
+                    textAlign: "center",
+                    marginBottom: "15px",
+                  }}
                 >
                   تغيير كلمة المرور
                 </Typography>
@@ -65,12 +80,27 @@ const NewPassword = () => {
                     dir="rtl"
                     label="كلمة المرور"
                     sx={{ marginBottom: "10px", width: "70%" }}
+                    value={newPassword}
+                    error={errors.has("password")}
+                    helperText={errors.get("password")}
+                    onChange={(e) => {
+                      errors.has("password") && errors.delete("password");
+                      onChangePassword(e);
+                    }}
                   />
                   <TextField
                     type="password"
                     dir="rtl"
                     label="تأكيد كلمة المرور"
                     sx={{ marginBottom: "10px", width: "70%" }}
+                    error={errors.has("passwordConfirm")}
+                    helperText={errors.get("passwordConfirm")}
+                    value={passwordConfirm}
+                    onChange={(e) => {
+                      errors.has("passwordConfirm") &&
+                        errors.delete("passwordConfirm");
+                      onChangeConfirmPassword(e);
+                    }}
                   />
                 </Box>
 
@@ -90,6 +120,7 @@ const NewPassword = () => {
                     padding: "10px 70px",
                     borderRadius: "10px",
                   }}
+                  onClick={onSubmit}
                 >
                   تأكيد
                 </Button>

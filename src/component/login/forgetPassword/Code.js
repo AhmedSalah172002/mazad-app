@@ -7,6 +7,7 @@ import createCache from "@emotion/cache";
 import logo from "../../../images/mazady-logo-white.png";
 import authTop from "../../../images/auth-top.png";
 import authBottom from "../../../images/auth-bottom.png";
+import SendCodeHook from "../../../hook/auth/SendCodeHook";
 
 const theme = createTheme({
   direction: "rtl",
@@ -18,6 +19,7 @@ const cacheRtl = createCache({
 });
 
 const Code = () => {
+  const [ resetCode ,loading ,onChangeCode ,onSubmit] =SendCodeHook()
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
@@ -64,6 +66,8 @@ const Code = () => {
                     dir="rtl"
                     label="الكود"
                     sx={{ marginBottom: "10px", width: "70%" }}
+                    value={resetCode}
+                    onChange={(e)=> onChangeCode(e)}
                   />
                 </Box>
 
@@ -83,6 +87,7 @@ const Code = () => {
                     padding: "10px 70px",
                     borderRadius: "10px",
                   }}
+                  onClick={onSubmit}
                 >
                   إدخال
                 </Button>
