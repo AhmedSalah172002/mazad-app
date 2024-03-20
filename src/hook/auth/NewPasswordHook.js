@@ -65,7 +65,9 @@ const NewPasswordHook = () => {
     if (res.status === 200) {
       window.localStorage.removeItem("email-forget-password");
       notify("تم تغيير كلمة المرور بنجاح", "success");
-      navigate("/login");
+      setTimeout(() => {
+        window.location.href="/login";
+      }, 1500);
     } else if (res.status === 400) {
       notify("انتهت صلاحية الكود الخاص بك", "error");
     } else if (res.status) {

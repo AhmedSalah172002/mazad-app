@@ -52,8 +52,8 @@ const ForgetPasswordHook = () => {
   useEffect(() => {
     if (res.status === 201) {
       window.localStorage.setItem("email-forget-password", email);
-      notify("تم ارسال الكود بنجاح", "success");
       navigate("/email-authentication-code");
+      notify("تم ارسال الكود بنجاح", "success");
     } else if (res.status === 404) {
       notify(res?.data?.message, "error");
     } else if (res.status) {
