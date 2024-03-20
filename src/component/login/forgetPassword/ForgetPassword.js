@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  TextField,
-
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
@@ -14,7 +7,7 @@ import createCache from "@emotion/cache";
 import logo from "../../../images/mazady-logo-white.png";
 import authTop from "../../../images/auth-top.png";
 import authBottom from "../../../images/auth-bottom.png";
-
+import ForgetPasswordHook from "../../../hook/auth/ForgetPasswordHook";
 
 const theme = createTheme({
   direction: "rtl",
@@ -26,6 +19,8 @@ const cacheRtl = createCache({
 });
 
 const ForgetPassword = () => {
+  const [email, loading, errors, onChangeEmail, setErrors, onSubmit] =
+    ForgetPasswordHook();
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
@@ -73,10 +68,17 @@ const ForgetPassword = () => {
                   }}
                 >
                   <TextField
+                    error={errors.has("email")}
+                    helperText={errors.get("email")}
                     dir="rtl"
                     type="email"
                     label="أدخل البريد الالكتروني"
                     sx={{ marginBottom: "10px", width: "70%" }}
+                    value={email}
+                    onChange={(e) => {
+                      errors.has("email") && errors.delete("email");
+                      onChangeEmail(e);
+                    }}
                   />
                 </Box>
 
@@ -96,6 +98,7 @@ const ForgetPassword = () => {
                     padding: "10px 70px",
                     borderRadius: "10px",
                   }}
+                  onClick={onSubmit}
                 >
                   تأكيد
                 </Button>

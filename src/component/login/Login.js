@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
@@ -26,8 +20,14 @@ const cacheRtl = createCache({
 });
 
 const Login = () => {
-  const [email, password, loading, onChangeEmail, onChangePassword, onSubmit] =
-    LoginHook();
+  const [
+    email,
+    password,
+    loading,
+    onChangeEmail,
+    onChangePassword,
+    onSubmit,
+  ] = LoginHook();
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -64,29 +64,52 @@ const Login = () => {
                 <Typography
                   variant="h4"
                   component="h4"
-                  sx={{ color: "#403da8", textAlign: "center",marginBottom:'15px' }}
+                  sx={{
+                    color: "#403da8",
+                    textAlign: "center",
+                    marginBottom: "15px",
+                  }}
                 >
                   تسجيل الدخول
                 </Typography>
-                <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',flexWrap:'wrap'}}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <TextField
+             
+                    dir="rtl"
+                    type="email"
+                    label="البريد الالكترونى"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={email}
+                    onChange={(e) => {
+                      
+                      onChangeEmail(e);
+                    }}
+                  />
 
+                  <TextField
 
-                <TextField
-                  dir="rtl"
-                  type="email"
-                  label="البريد الالكترونى"
-                  sx={{marginBottom:'10px',width:'70%'}}
-                />
-
-                <TextField
-                  type="password"
-                  dir="rtl"
-                  label="كلمة المرور"
-                  sx={{marginBottom:'10px',width:'70%'}}
-                />
+                    type="password"
+                    dir="rtl"
+                    label="كلمة المرور"
+                    sx={{ marginBottom: "10px", width: "70%" }}
+                    value={password}
+                    onChange={(e) => {
+                      onChangePassword(e);
+                    }}
+                  />
                 </Box>
 
-                <Typography variant="body2" sx={{width:'70%',margin:'0 auto 15px'}}>
+                <Typography
+                  variant="body2"
+                  sx={{ width: "70%", margin: "0 auto 15px" }}
+                >
                   <Link
                     style={{ textDecoration: "none" }}
                     onClick={() =>
@@ -106,7 +129,7 @@ const Login = () => {
                     background:
                       "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
                     boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
-                    color:'white',
+                    color: "white",
                     fontSize: "22px",
                     width: "fit-content",
                     display: "block",
@@ -114,6 +137,7 @@ const Login = () => {
                     padding: "10px 70px",
                     borderRadius: "10px",
                   }}
+                  onClick={onSubmit}
                 >
                   تسجيل الدخول
                 </Button>
