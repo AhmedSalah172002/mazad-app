@@ -1,19 +1,25 @@
 import React from 'react'
-import Landing from "../component/Home/Landing"
-import Features from "../component/Home/Features"
-import Filter from '../component/Home/Filter'
-import Products from '../component/Home/Products'
 import GetAllProducts from '../hook/products/GetAllProducts'
+import Hero from '../component/Home/Hero'
+import Category from '../component/Home/Category'
+import WhyMazady from '../component/Home/WhyMazady'
+import HomeProducts from '../component/Home/HomeProducts'
+import HowToUse from '../component/Home/HowToUse'
+import HomeLogin from '../component/Home/HomeLogin'
+import HomeReviews from '../component/Home/HomeReviews'
 
 
 const HomePage = () => {
   const [items,filter , setFilter ,onPress,pageCount,results] = GetAllProducts(12)
   return (
    <>
-    <Landing />
-   <Features />
-   <Filter setFilter={setFilter}/>
-   <Products items={items}  onPress={onPress} pageCount={pageCount}  />
+    <Hero />
+    <Category />
+    <WhyMazady />
+   <HomeProducts  />
+   <HowToUse />
+   <HomeLogin />
+   <HomeReviews />
    </>
   )
 }

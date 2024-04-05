@@ -16,9 +16,8 @@ body{
 /*  Navbar  */
 
 .navbar{
-  background-color: #fff;
+  background-color: #442DB9;
   z-index: 100;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.06);
 }
 .navbar-toggler{
   border: none !important;
