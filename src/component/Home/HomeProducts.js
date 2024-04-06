@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import ProductCard from "./ProductCard";
 
-
 const HomeProducts = () => {
   return (
     <>
@@ -15,7 +14,13 @@ const HomeProducts = () => {
           marginY: "15vh",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between",marginBottom:'35px' }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "35px",
+          }}
+        >
           <Typography
             variant="h4"
             component="h4"
@@ -32,19 +37,25 @@ const HomeProducts = () => {
               color: "#2E3D62",
               fontWeight: "600",
               textDecoration: "none",
-              display:'flex',
-              alignItems:'center'
+              display: "flex",
+              alignItems: "center",
             }}
           >
-           عرض الكل <Icon icon="ep:d-arrow-left" style={{marginRight:'10px'}} />
+            عرض الكل{" "}
+            <Icon icon="ep:d-arrow-left" style={{ marginRight: "10px" }} />
           </Link>
         </Box>
-        <Box sx={{display:'flex',justifyContent:'space-between',flexWrap:'wrap'}}>
-        <ProductCard status={'E'} />
-        <ProductCard status={'S'} />
-        <ProductCard status={'F'} />
-        <ProductCard status={'E'} />
-
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          <ProductCard status={"E"} />
+          <ProductCard status={"S"} />
+          <ProductCard status={"F"} />
+          <ProductCard status={"E"} />
         </Box>
       </Box>
     </>
