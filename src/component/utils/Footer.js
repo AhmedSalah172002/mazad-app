@@ -1,74 +1,206 @@
-import React from 'react';
-import logo from "../../images/logo.svg"
-import facebook from "../../images/facebook.png"
-import twitter from "../../images/twitter.png"
-import linkedIn from "../../images/linkedin.png"
-import instagram from "../../images/instagram.png"
-
-import phone from "../../images/phone-call.png"
-import email from "../../images/email.png"
-import home from "../../images/home-button.png"
-import fax from "../../images/fax.png"
+import React from "react";
+import logo from "../../images/mazady-logo-white.png";
+import facebook from "../../images/facebook.png";
+import twitter from "../../images/twitter.png";
+import linkedIn from "../../images/linkedin.png";
+import instagram from "../../images/instagram.png";
+import phone from "../../images/phone-call.png";
+import grandPhone from "../../images/grand-phone.jpg";
+import email from "../../images/email.png";
+import home from "../../images/home-button.png";
+import fax from "../../images/fax.png";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 function Footer() {
+  const categories = ["سيارات", "ساعات", "عقارات", "رياضه", "مجوهرات"];
+
+  const pages = [
+    {
+      title: "الرئيسيه",
+      link: "/",
+    },
+    {
+      title: "صفحتى",
+      link: "/",
+    },
+    {
+      title: "المزاد",
+      link: "/",
+    },
+  ];
+
+  const helps = [
+    {
+      title: "الامان والحمايه",
+      link: "/",
+    },
+    {
+      title: "الشروط والاحكام",
+      link: "/",
+    },
+    {
+      title: "اتصل بنا",
+      link: "/",
+    },
+  ];
+
+  const followUs = [
+    {
+      content: "01231233123",
+      icon: phone,
+    },
+    {
+      content: "04286526",
+      icon: grandPhone,
+    },
+    {
+      content: "support.mazady@gmail.com",
+      icon: email,
+    },
+  ];
+
+  const links = [
+    {
+      link: "http://facebook.com",
+      icon: facebook,
+    },
+    {
+      link: "http://twitter.com",
+      icon: twitter,
+    },
+    {
+      link: "http://linkedIn.com",
+      icon: linkedIn,
+    },
+    {
+      link: "http://instagram.com",
+      icon: instagram,
+    },
+  ];
+
   return (
-    <div className=" ">
-      <footer dir='ltr' className="text-center text-lg-start" style={{ borderTop: '2px solid #ebeff1',color:"#262929" }}>
-        <div className="container p-4 pb-0">
-          <section>
-            <div className="row">
-              <div className="col-md-12 col-lg-4  mx-auto mt-3">
-                <img src={logo} alt="img" style={{width:"200px",display:"block",margin:"auto"}} className='mb-3' />
-               <p>المزاد هي
-                    المنصة الرائدة للمزادات من تطوير وتشغيل شركة ثقة والتي تمكن
-                    المستفيدين من إجراء عمليات المزايدة وطرح المنتجات المراد بيعها
-                    بسهولة وأمان، وتتيح المنصة المشاركة في مزادات متنوعة من أي
-                    مكان بشكل يتوافق مع قوانين إقامة المزادات والبيع والشراء في
-                    جمهورية مصر العربية</p>
-              </div>
+    <Box
+      sx={{
+        backgroundColor: "#442DB9",
+        borderRadius: "200px 200px 0 0",
+        position: "relative",
+        overflow: "hidden",
+        padding: "200px 200px 20px",
+        color: "white",
+        direction: "rtl",
+      }}
+    >
+      <Grid
+        container
+        spacing={3}
+        sx={{ paddingBottom: "30px", borderBottom: "2px solid #b3b3b3" }}
+      >
+        <Grid item xs={12} md={6} lg={3}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            {" "}
+            فئات المزاد{" "}
+          </Typography>
+          {categories?.map((item) => (
+            <Link
+              style={{
+                color: "white",
+                display: "block",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+              key={item}
+              to={"/"}
+            >
+              {item}{" "}
+            </Link>
+          ))}
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            {" "}
+            الصفحات{" "}
+          </Typography>
+          {pages?.map((item, index) => (
+            <Link
+              style={{
+                color: "white",
+                display: "block",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+              key={index}
+              to={item.link}
+            >
+              {item.title}{" "}
+            </Link>
+          ))}
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            المساعده
+          </Typography>
+          {helps?.map((item, index) => (
+            <Link
+              style={{
+                color: "white",
+                display: "block",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+              key={index}
+              to={item.link}
+            >
+              {item.title}{" "}
+            </Link>
+          ))}
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            تابعنا
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+            {followUs?.map((item, index) => (
+              <Box key={index} sx={{ display: "flex", gap: "10px" }}>
+                <Avatar src={item.icon} />
+                <Typography component={"span"}>{item.content}</Typography>
+              </Box>
+            ))}
+          </Box>
+          <Box sx={{ display: "flex", gap: "5px" }}>
+            {links?.map((item, index) => (
+              <a
+                key={index}
+                style={{
+                  display: "flex",
+                  borderRadius: "50%",
+                  gap: "10px",
+                  padding: "5px",
+                  backgroundColor: "white",
+                }}
+                href={item.link}
+              >
+                <Avatar src={item.icon} sx={{ borderRadius: "50%" }} />
+              </a>
+            ))}
+          </Box>
+        </Grid>
+      </Grid>
 
-              <hr className="w-100 clearfix d-md-none" />
-
-              <div className="col-md-12 col-lg-4 mx-auto mt-3">
-                <h6 className="mb-4 font-weight-bold">تواصل معنا</h6>
-                <p className='mb-4'><img src={phone} style={{width:"20px",marginRight:"5px"}} alt="phone" />  +201095572350</p>
-                <p className='mb-4'><img src={email} style={{width:"20px",marginRight:"5px"}} alt="email" />  ahmed172002tayel@gmail.com</p>
-                <p className='mb-4'><img src={home} style={{width:"20px",marginRight:"5px"}} alt="phone" />  Menoufia , Egypt</p>
-                <p className='mb-4'><img src={fax} style={{width:"20px",marginRight:"5px"}} alt="phone" />  3232265(013)</p>
-              </div>
-
-            
-            </div>
-          </section>
-
-          <hr className="my-3" />
-
-          <section className="p-3 pt-0">
-            <div className="row d-flex align-items-center">
-              <div className="col-md-7 col-lg-8 text-center text-md-start">
-                <div className="p-3">
-                  © 2023 Copyright : <img src={logo} alt="logo" style={{width:"80px"}} />
-                </div>
-              </div>
-
-              <div className="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-                <a className="btn text-black btn-outline-light btn-floating m-1" role="button">
-                <img src={facebook} style={{width:"20px",marginRight:"5px"}} alt="social" />
-                </a>
-                <a className="btn text-black btn-outline-light btn-floating m-1" role="button">
-                <img src={twitter} style={{width:"20px",marginRight:"5px"}} alt="social" />
-                </a>
-                <a className="btn text-black btn-outline-light btn-floating m-1" role="button">
-                <img src={linkedIn} style={{width:"20px",marginRight:"5px"}} alt="social" />
-                </a>
-                <a className="btn text-black btn-outline-light btn-floating m-1" role="button">
-                <img src={instagram} style={{width:"20px",marginRight:"5px"}} alt="social" />
-                </a>
-              </div>
-            </div>
-          </section>
-        </div>
-      </footer>
-    </div>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingTop: "20px",
+        }}
+      >
+        <img src={logo} style={{ width: "80px" }} alt={"mazady-logo"} />
+        <Typography component={"span"}>
+          &copy; حقوق النشر محفوظه |{" "}
+          <span className="text-danger"> مزادى </span>
+        </Typography>
+      </Box>
+    </Box>
   );
 }
 
