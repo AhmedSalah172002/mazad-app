@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
+import star1 from "../../images/star1.svg";
+import star2 from "../../images/star2.svg";
 
 const HomeLogin = () => {
   return (
@@ -21,6 +23,33 @@ const HomeLogin = () => {
         }}
       >
         <Grid container>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={6}
+            sx={{ marginBottom: "15px" }}
+          >
+            <Button
+              sx={{
+                background: "#ffffff !important",
+                display: "block",
+                margin: "auto",
+                width: "fit-content",
+                padding: "15px 80px",
+                borderRadius: "50px",
+                fontSize: "20px",
+                fontWeight: "600",
+                color: "#6965F2",
+                "&:hover": {
+                  background: "#ffffff",
+                },
+              }}
+            >
+              تسجيل الدخول{" "}
+            </Button>{" "}
+          </Grid>
           <Grid
             item
             xs={12}
@@ -50,39 +79,12 @@ const HomeLogin = () => {
               و إبدأ رحلتك في المزادات
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={6}
-            sx={{ marginBottom: "15px" }}
-          >
-            <Button
-              sx={{
-                background: "#ffffff",
-                display: "block",
-                margin: "auto",
-                width: "fit-content",
-                padding: "15px 80px",
-                borderRadius: "50px",
-                fontSize: "20px",
-                fontWeight: "600",
-                color: "#6965F2",
-                "&:hover": {
-                  background: "#ffffff",
-                },
-              }}
-            >
-              تسجيل الدخول{" "}
-            </Button>{" "}
-          </Grid>
         </Grid>
         <Box
           sx={{
             position: "absolute",
-            top:'-150px',
-            right:'20%',
+            top: "-150px",
+            right: "20%",
             width: "250px",
             height: "250px",
             borderRadius: "50%",
@@ -90,11 +92,11 @@ const HomeLogin = () => {
             backgroundColor: "transparent",
           }}
         ></Box>
-         <Box
+        <Box
           sx={{
             position: "absolute",
-            bottom:'-130px',
-            left:'-80px',
+            bottom: "-130px",
+            left: "-80px",
             width: "250px",
             height: "250px",
             borderRadius: "50%",
@@ -102,6 +104,26 @@ const HomeLogin = () => {
             backgroundColor: "transparent",
           }}
         ></Box>
+        <img
+          src={star1}
+          style={{
+            position: "absolute",
+            bottom: "50px",
+            left: "90px",
+            width: "80px",
+          }}
+          alt="cat"
+        />
+          <img
+          src={star2}
+          style={{
+            position: "absolute",
+            bottom: "0px",
+            left: "220px",
+            width: "40px",
+          }}
+          alt="cat"
+        />
       </Box>
     </>
   );

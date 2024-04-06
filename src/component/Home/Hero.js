@@ -94,7 +94,7 @@ const Hero = () => {
             <Button
               sx={{
                 background:
-                  "linear-gradient(180deg, #FFC547 21.28%, #FF9454 84.75%)",
+                  "linear-gradient(180deg, #FFC547 21.28%, #FF9454 84.75%) !important",
                 display: "block",
                 margin: "50px auto",
                 width: "fit-content",

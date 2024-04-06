@@ -50,6 +50,7 @@ const HomeProducts = () => {
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
+            gap:'5px'
           }}
         >
           <ProductCard status={"E"} />
