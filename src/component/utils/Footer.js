@@ -7,10 +7,9 @@ import instagram from "../../images/instagram.png";
 import phone from "../../images/phone-call.png";
 import grandPhone from "../../images/grand-phone.jpg";
 import email from "../../images/email.png";
-import home from "../../images/home-button.png";
-import fax from "../../images/fax.png";
-import { Avatar, Box, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
+
 function Footer() {
   const categories = ["سيارات", "ساعات", "عقارات", "رياضه", "مجوهرات"];
 
@@ -82,12 +81,13 @@ function Footer() {
     <Box
       sx={{
         backgroundColor: "#442DB9",
-        borderRadius: "200px 200px 0 0",
+        borderRadius: "65px 65px 0 0",
         position: "relative",
         overflow: "hidden",
-        padding: "200px 200px 20px",
+        padding: "54px 54px 20px" ,
         color: "white",
         direction: "rtl",
+        userSelect: 'text'
       }}
     >
       <Grid
@@ -158,15 +158,15 @@ function Footer() {
           <Typography variant="h5" sx={{ fontWeight: "bold" }}>
             تابعنا
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
             {followUs?.map((item, index) => (
               <Box key={index} sx={{ display: "flex", gap: "10px" }}>
                 <Avatar src={item.icon} />
-                <Typography component={"span"}>{item.content}</Typography>
+                <Typography sx={{wordBreak: 'break-all'}} component={"span"}>{item.content}</Typography>
               </Box>
             ))}
           </Box>
-          <Box sx={{ display: "flex", gap: "5px" }}>
+          <Box sx={{ display: "flex", gap: "15px", marginTop: "50px", flexWrap: 'wrap' }}>
             {links?.map((item, index) => (
               <a
                 key={index}

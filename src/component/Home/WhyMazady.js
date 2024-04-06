@@ -1,12 +1,41 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { Box, Grid, Typography, Button } from "@mui/material";
 import info1 from "../../images/info1.svg";
 import info2 from "../../images/info2.svg";
 import info3 from "../../images/info3.svg";
 
-import { Link } from "react-router-dom";
+const gridItems = [
+  {
+    imageSrc: info1,
+    title: "تعدد الخيارات",
+    description:
+      "تتيح لك منصة مزادي في المزايدة في او الشراء بشكل مباشر دون الدخول في المزاد",
+  },
+  {
+    imageSrc: info2,
+    title: "طبقات حماية متعددة",
+    description:
+      "يوجد لدنيا طبقات حماية قوية و متعددة قادرة على حماية البيانات الخاصة بك , مشترايتك و طرق الدفع",
+  },
+  {
+    imageSrc: info3,
+    title: "المشاركة المتعدد",
+    description:
+      "يمكنك المشاركة في اكثر من مزاد في النفس الوقت مع سهولة في المزايدة و الدفع",
+  },
+];
 
 const WhyMazady = () => {
+  const [expandedIndices, setExpandedIndices] = useState([]);
+
+  const handleToggleDescription = (index) => {
+    if (expandedIndices.includes(index)) {
+      setExpandedIndices(expandedIndices.filter((i) => i !== index));
+    } else {
+      setExpandedIndices([...expandedIndices, index]);
+    }
+  };
+
   return (
     <>
       <Box sx={{ textAlign: "center", color: "#2E3D62", marginTop: "50px" }}>
@@ -43,196 +72,73 @@ const WhyMazady = () => {
           marginTop: { xs: "5vh", sm: "5vh", lg: "25vh" },
         }}
       >
-        <Grid item md={12} lg={3.5}>
-          <Box
-            sx={{
-              backgroundColor: "#ffffff",
-              padding: "10px 2px 20px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              textAlign: "center",
-              zIndex: "50",
-            }}
-          >
-            
-            <img
-              src={info1}
-              style={{
-                display: "block",
-                margin: "15px auto 10px",
-                width: "150px",
-                height: "200px",
-              }}
-              alt="cat"
-            />
-            <Box sx={{ height: "200px" }}>
-              <Typography
-                variant="h4"
-                component="h4"
-                sx={{
-                  color: "#2E3D62",
-                  fontWeight: "600",
-                }}
-              >
-                تعدد الخيارات
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h6"
-                sx={{
-                  color: "#2E3D62",
-                  fontWeight: "600",
-                  padding: "15px",
-                }}
-              >
-                تتيح لك منصة مزادي في المزايدة في او الشراء بشكل مباشر دون
-                الدخول في المزاد{" "}
-              </Typography>
-            </Box>
-            <Link
-              to="/"
-              style={{
-                color: "#442DB9",
-                fontWeight: "600",
-                textDecoration: "none",
+        {gridItems.map((item, index) => (
+          <Grid item key={index} md={12} lg={3.5}>
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                padding: "10px 2px 20px",
+                borderRadius: "15px",
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                textAlign: "center",
+                zIndex: "50",
               }}
             >
-              {" "}
-              قراءة المزيد{" "}
-            </Link>
-            
-          </Box>
-        </Grid>
-
-        <Grid
-          item
-          md={12}
-          lg={3.5}
-          sx={{
-            transform: {
-              xs: "none",
-              sm: "none",
-              lg: "none",
-              xl: "translateY(-100px)",
-            },
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: "#ffffff",
-              padding: "10px 2px 20px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              textAlign: "center",
-              zIndex: "50",
-            }}
-          >
-            <img
-              src={info2}
-              style={{
-                display: "block",
-                margin: "15px auto 10px",
-                width: "150px",
-                height: "200px",
-              }}
-              alt="cat"
-            />
-            <Box sx={{ height: "200px" }}>
-              <Typography
-                variant="h4"
-                component="h4"
-                sx={{
-                  color: "#2E3D62",
-                  fontWeight: "600",
+              <img
+                src={item.imageSrc}
+                style={{
+                  display: "block",
+                  margin: "15px auto 10px",
+                  width: "150px",
+                  height: "200px",
                 }}
-              >
-                طبقات حماية متعددة{" "}
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h6"
-                sx={{
-                  color: "#2E3D62",
-                  fontWeight: "600",
-                  padding: "15px",
-                }}
-              >
-                يوجد لدنيا طبقات حماية قوية و متعددة قادرة على حماية البيانات
-                الخاصة بك , مشترايتك و طرق الدفع
-              </Typography>
+                alt="cat"
+              />
+              <Box>
+                <Typography
+                  variant="h4"
+                  component="h4"
+                  sx={{
+                    color: "#2E3D62",
+                    fontWeight: "600",
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  component="h6"
+                  sx={{
+                    color: "#2E3D62",
+                    fontWeight: "600",
+                    padding: "15px",
+                    maxHeight: expandedIndices.includes(index)
+                      ? "none"
+                      : "100px",
+                    overflow: "hidden",
+                  }}
+                >
+                  {item.description}
+                </Typography>
+              </Box>
+              {item.description.length > 20 && (
+                <Button
+                  onClick={() => handleToggleDescription(index)}
+                  style={{
+                    color: "#442DB9",
+                    fontWeight: "600",
+                    textDecoration: "none",
+                  }}
+                >
+                  {" "}
+                  {expandedIndices.includes(index)
+                    ? "أقرأ أقل"
+                    : "قراءة المزيد"}
+                </Button>
+              )}
             </Box>
-            <Link
-              to="/"
-              style={{
-                color: "#442DB9",
-                fontWeight: "600",
-                textDecoration: "none",
-              }}
-            >
-              {" "}
-              قراءة المزيد{" "}
-            </Link>
-          </Box>
-        </Grid>
-
-        <Grid item md={12} lg={3.5}>
-          <Box
-            sx={{
-              backgroundColor: "#ffffff",
-              padding: "10px 2px 20px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              textAlign: "center",
-              zIndex: "50",
-            }}
-          >
-            <img
-              src={info3}
-              style={{
-                display: "block",
-                margin: "15px auto 10px",
-                width: "150px",
-                height: "200px",
-              }}
-              alt="cat"
-            />
-            <Box sx={{ height: "200px" }}>
-              <Typography
-                variant="h4"
-                component="h4"
-                sx={{
-                  color: "#2E3D62",
-                  fontWeight: "600",
-                }}
-              >
-                المشاركة المتعدد
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h6"
-                sx={{
-                  color: "#2E3D62",
-                  fontWeight: "600",
-                  padding: "15px",
-                }}
-              >
-                يمكنك المشاركة في اكثر من مزاد في النفس الوقت مع سهولة في
-                المزايدة و الدفع
-              </Typography>
-            </Box>
-            <Link
-              to="/"
-              style={{
-                color: "#442DB9",
-                fontWeight: "600",
-                textDecoration: "none",
-              }}
-            >
-              {" "}
-              قراءة المزيد{" "}
-            </Link>
-          </Box>
-        </Grid>
+          </Grid>
+        ))}
       </Grid>
     </>
   );
