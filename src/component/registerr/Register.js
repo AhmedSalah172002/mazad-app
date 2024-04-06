@@ -82,7 +82,7 @@ const Register = () => {
                 <Typography
                   variant="h4"
                   component="h4"
-                  sx={{ color: "#403da8", textAlign: "center" }}
+                  sx={{ color: "#403da8", textAlign: "center",marginBottom:'15px' }}
                 >
                   إنشاء حساب جديد
                 </Typography>

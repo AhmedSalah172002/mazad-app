@@ -1,14 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
 :root{
   --main-color:#07c0de;
   --text-color: #262929;
 }
 
+*{
+  font-family: "Cairo", sans-serif !important;
+}
+
 body{
   user-select: none;
   overflow-x: hidden;
+  font-family: "Cairo", sans-serif !important;
 }
 
 

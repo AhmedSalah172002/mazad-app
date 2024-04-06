@@ -9,6 +9,7 @@ import grandPhone from "../../images/grand-phone.jpg";
 import email from "../../images/email.png";
 import { Avatar, Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 function Footer() {
   const categories = ["سيارات", "ساعات", "عقارات", "رياضه", "مجوهرات"];
@@ -30,6 +31,10 @@ function Footer() {
 
   const helps = [
     {
+      title: "حسابك الشخصي",
+      link: "/",
+    },
+    {
       title: "الامان والحمايه",
       link: "/",
     },
@@ -41,39 +46,70 @@ function Footer() {
       title: "اتصل بنا",
       link: "/",
     },
+    {
+      title: "التعليمات",
+      link: "/",
+    },
   ];
 
   const followUs = [
     {
       content: "01231233123",
-      icon: phone,
+      icon: (
+        <Icon icon="ph:phone-bold" width={25} style={{ color: "#9747FF" }} />
+      ),
     },
     {
       content: "04286526",
-      icon: grandPhone,
+      icon: (
+        <Icon icon="carbon:phone-ip" width={25} style={{ color: "#9747FF" }} />
+      ),
     },
     {
       content: "support.mazady@gmail.com",
-      icon: email,
+      icon: (
+        <Icon icon="ic:outline-email" width={25} style={{ color: "#9747FF" }} />
+      ),
+    },
+    {
+      content: "Egypt - Cairo",
+      icon: (
+        <Icon icon="mingcute:telegram-line" width={25} style={{ color: "#9747FF" }} />
+      ),
     },
   ];
 
   const links = [
     {
       link: "http://facebook.com",
-      icon: facebook,
+      icon: <Icon icon="logos:facebook" width={30} />,
     },
     {
       link: "http://twitter.com",
-      icon: twitter,
+      icon: <Icon icon="ri:twitter-x-fill" width={30} />,
     },
     {
       link: "http://linkedIn.com",
-      icon: linkedIn,
+      icon: <Icon icon="entypo-social:linkedin-with-circle" width={30} />,
     },
     {
       link: "http://instagram.com",
-      icon: instagram,
+      icon: <Icon icon="skill-icons:instagram" width={30} />,
+    },
+  ];
+
+  const payments = [
+    {
+      icon: <Icon icon="fontisto:visa" width={35} />,
+    },
+    {
+      icon: <Icon icon="fontisto:paypal" width={35} />,
+    },
+    {
+      icon: <Icon icon="formkit:discover" width={35} />,
+    },
+    {
+      icon: <Icon icon="brandico:mastercard" width={35} />,
     },
   ];
 
@@ -84,10 +120,10 @@ function Footer() {
         borderRadius: "65px 65px 0 0",
         position: "relative",
         overflow: "hidden",
-        padding: "54px 54px 20px" ,
+        padding: "54px 54px 20px",
         color: "white",
         direction: "rtl",
-        userSelect: 'text'
+        userSelect: "text",
       }}
     >
       <Grid
@@ -96,7 +132,10 @@ function Footer() {
         sx={{ paddingBottom: "30px", borderBottom: "2px solid #b3b3b3" }}
       >
         <Grid item xs={12} md={6} lg={3}>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", marginBottom: "20px" }}
+          >
             {" "}
             فئات المزاد{" "}
           </Typography>
@@ -105,6 +144,7 @@ function Footer() {
               style={{
                 color: "white",
                 display: "block",
+                marginBottom: "15px",
                 textDecoration: "none",
                 fontWeight: "bold",
               }}
@@ -116,7 +156,10 @@ function Footer() {
           ))}
         </Grid>
         <Grid item xs={12} md={6} lg={3}>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", marginBottom: "20px" }}
+          >
             {" "}
             الصفحات{" "}
           </Typography>
@@ -124,6 +167,7 @@ function Footer() {
             <Link
               style={{
                 color: "white",
+                marginBottom: "15px",
                 display: "block",
                 textDecoration: "none",
                 fontWeight: "bold",
@@ -136,13 +180,17 @@ function Footer() {
           ))}
         </Grid>
         <Grid item xs={12} md={6} lg={3}>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", marginBottom: "20px" }}
+          >
             المساعده
           </Typography>
           {helps?.map((item, index) => (
             <Link
               style={{
                 color: "white",
+                marginBottom: "15px",
                 display: "block",
                 textDecoration: "none",
                 fontWeight: "bold",
@@ -155,18 +203,33 @@ function Footer() {
           ))}
         </Grid>
         <Grid item xs={12} md={6} lg={3}>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", marginBottom: "20px" }}
+          >
             تابعنا
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
             {followUs?.map((item, index) => (
-              <Box key={index} sx={{ display: "flex", gap: "10px" }}>
-                <Avatar src={item.icon} />
-                <Typography sx={{wordBreak: 'break-all'}} component={"span"}>{item.content}</Typography>
+              <Box
+                key={index}
+                sx={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+               {item.icon}
+                <Typography sx={{ wordBreak: "break-all" }} component={"span"}>
+                  {item.content}
+                </Typography>
               </Box>
             ))}
           </Box>
-          <Box sx={{ display: "flex", gap: "15px", marginTop: "50px", flexWrap: 'wrap' }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "15px",
+              marginTop: "50px",
+              flexWrap: "wrap",
+            }}
+          >
             {links?.map((item, index) => (
               <a
                 key={index}
@@ -179,7 +242,7 @@ function Footer() {
                 }}
                 href={item.link}
               >
-                <Avatar src={item.icon} sx={{ borderRadius: "50%" }} />
+                 {item.icon} 
               </a>
             ))}
           </Box>
@@ -195,6 +258,29 @@ function Footer() {
         }}
       >
         <img src={logo} style={{ width: "80px" }} alt={"mazady-logo"} />
+        <Box
+            sx={{
+              display: "flex",
+              justifyContent:'center',
+              alignItems:'center',
+              gap: "15px",
+              flexWrap: "wrap",
+            }}
+          >
+            {payments?.map((item, index) => (
+              <a
+                key={index}
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                color:'white'
+                }}
+                href='/'
+              >
+                 {item.icon} 
+              </a>
+            ))}
+          </Box>
         <Typography component={"span"}>
           &copy; حقوق النشر محفوظه |{" "}
           <span className="text-danger"> مزادى </span>
