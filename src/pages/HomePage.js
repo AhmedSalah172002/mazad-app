@@ -10,13 +10,13 @@ import HomeReviews from '../component/Home/HomeReviews'
 
 
 const HomePage = () => {
-  const [items,filter , setFilter ,onPress,pageCount,results] = GetAllProducts(12)
+  const [items,filter , setFilter ,onPress,pageCount,results] = GetAllProducts(4)
   return (
    <>
     <Hero />
     <Category />
     <WhyMazady />
-   <HomeProducts  />
+   <HomeProducts items={items}  />
    <HowToUse />
    <HomeLogin />
    <HomeReviews />

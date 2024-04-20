@@ -62,10 +62,12 @@ const Register = () => {
           }}
           dir="rtl"
         >
-          <Box sx={{ width: "min(900px,100%)" }}>
+          <Box sx={{ width: { xs:'100%', sm:'100%', md:'100%', lg:"900px"} }}>
             <Grid container>
               <Grid
                 item
+                xs={12}
+                sm={12}
                 md={12}
                 lg={8}
                 sx={{

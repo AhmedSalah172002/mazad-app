@@ -136,15 +136,19 @@ body{
 }
 .active>.page-link, .page-link.active {
   z-index: 3;
-  background-color: var(--main-color) !important;
+  background-color: #DB2768!important;
   border-color: transparent !important;
   box-shadow: none !important;
+  color: white !important
 
 }
 .page-link {
   border: none !important;
   border-right: 1px solid rgba(171,184,190,.3) !important;
   box-shadow: none !important;
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: 700 !important;
 }
 
 
