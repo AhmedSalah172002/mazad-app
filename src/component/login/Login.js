@@ -10,24 +10,19 @@ import authBottom from "../../images/auth-bottom.png";
 import LoginHook from "../../hook/auth/LoginHook";
 import { Link } from "react-router-dom";
 
-const theme = createTheme({
-  direction: "rtl",
-});
 
-const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [rtlPlugin],
-});
 
 const Login = () => {
-  const [
-    email,
-    password,
-    loading,
-    onChangeEmail,
-    onChangePassword,
-    onSubmit,
-  ] = LoginHook();
+  const [email, password, loading, onChangeEmail, onChangePassword, onSubmit] =
+    LoginHook();
+    const theme = createTheme({
+      direction: "rtl",
+    });
+    
+    const cacheRtl = createCache({
+      key: "muirtl",
+      stylisPlugins: [rtlPlugin],
+    });
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -44,10 +39,14 @@ const Login = () => {
           }}
           dir="rtl"
         >
-          <Box sx={{ width: "min(900px,100%)" }}>
+          <Box
+            sx={{ width: { xs: "100%", sm: "100%", md: "100%", lg: "900px" } }}
+          >
             <Grid container>
               <Grid
                 item
+                xs={12}
+                sm={12}
                 md={12}
                 lg={8}
                 sx={{
@@ -81,20 +80,17 @@ const Login = () => {
                   }}
                 >
                   <TextField
-             
                     dir="rtl"
                     type="email"
                     label="البريد الالكترونى"
                     sx={{ marginBottom: "10px", width: "70%" }}
                     value={email}
                     onChange={(e) => {
-                      
                       onChangeEmail(e);
                     }}
                   />
 
                   <TextField
-
                     type="password"
                     dir="rtl"
                     label="كلمة المرور"
@@ -161,7 +157,7 @@ const Login = () => {
                 sx={{
                   backgroundColor: "#403da8",
                   position: "relative",
-                  display: { md: "none", lg: "block" },
+                  display: { xs: "none", sm: "none", md: "none", lg: "block" },
                   borderRadius: "0 10px 10px 0",
                 }}
               >

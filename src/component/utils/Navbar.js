@@ -1,127 +1,47 @@
-// import React from 'react'
-// import logo from "../../images/mazady-logo-white.png"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faUser } from '@fortawesome/free-solid-svg-icons'
-// import { Link, useNavigate } from 'react-router-dom'
-// import logout from "../../images/logout.png"
-// import bell from "../../images/bell.png"
-// import UnopDropdown from 'unop-react-dropdown'
-// import GetLoggedCartHook from '../../hook/cart/GetLoggedCartHook'
-
-// const Navbar = () => {
-
-//   const [res] =GetLoggedCartHook()
-
-//   const navigate = useNavigate();
-//   let auth
-//   if(localStorage.getItem("user") !== null){
-//     auth = JSON.parse(localStorage.getItem("user"))
-//   }
-
-//   const Logout =()=>{
-//     localStorage.removeItem("user")
-//     localStorage.removeItem("token")
-//     navigate("/login")
-//   }
-// const CloseDropDown = () => {
-//   const dropdownBtn= document.querySelector(".dropdown-btn .bell-btn")
-//   dropdownBtn.click()
-// }
-
-//   return (
-//     <>
-//    <nav dir='rtl' className="navbar navbar-expand-lg ">
-//   <div className="container">
-//     <Link className="navbar-brand" to="/"><img src={logo} style={{width:'60px'}} alt="logo" /></Link>
-//     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-//       <span className="navbar-toggler-icon"></span>
-//     </button>
-//     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-//       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-//         {
-//           auth ? auth.role ==="Merchant" ? <>
-//           <li className="nav-item">
-//           <Link className="nav-link" to='/add-product'>أضف منتج</Link>
-//         </li>
-//         <li className="nav-item">
-//           <Link className="nav-link" to="/merchant-product">منجاتي</Link>
-//         </li>
-//           </>:<li className="nav-item">
-//           <Link className="nav-link" to={'/my-orders'}>مشترياتي</Link>
-//         </li> :null
-//         }
-
-//       </ul>
-//       {
-//         auth && auth.role === "user" ?   <div className='dropdown-btn position-relative'>
-//         <UnopDropdown
-//           align="RIGHT"
-//           trigger={<button className='bell-btn'><img src={bell} alt="bell" style={{width:"28px"}} /></button>}
-//         >
-//           <ul className='dropdown-ul'
-//             style={{
-//               marginTop:"5px",
-//               backgroundColor: 'white',
-//               borderRadius: '8px',
-//               boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-//               boxSizing: 'border-box',
-//               padding: '30px',
-//               width: '300px'
-//             }}
-//           >
-//             {
-//               res?.data?._id ?
-//                 <li>
-//                  <div className='d-flex justify-content-between align-items-center'>
-//                  <Link onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })} to={`/product/${res.data.product?._id}`}>
-//                  <img src={res.data.product?.image} style={{width:"40px"}} alt="image" /></Link>
-//                   <p>{res.data.product?.name}</p>
-//                   <p>{res.data.totalPrice}</p>
-//                  </div>
-//                  <Link className='order-payment mt-2' onClick={()=> CloseDropDown()} to={"order/payment"}>الشراء</Link>
-//                 </li> : <li>لايوجد منتجات حتي الأن</li>
-
-//             }
-//           </ul>
-
-//         </UnopDropdown>
-//         {
-//             res?.data?._id ?<span className='notification'></span> :null
-//           }
-//       </div>  :null
-//       }
-
-//       {
-//         auth ?<button onClick={()=>Logout()} className='nav-btn' style={{backgroundColor:"#242672"}}> <img src={logout} style={{width:"20px",marginLeft:"15px"}}  alt="" /> تسجيل خروج </button> : <Link onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })} to='/login'><button className='nav-btn'> <FontAwesomeIcon icon={faUser} /> تسجيل الدخول </button></Link>
-//       }
-//     </div>
-//   </div>
-// </nav>
-//     </>
-//   )
-// }
-
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import { useMediaQuery } from "@mui/material";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { Icon } from "@iconify/react";
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const navigate = useNavigate();
+  let auth;
+  if (localStorage.getItem("user") !== null) {
+    auth = JSON.parse(localStorage.getItem("user"));
+  }
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const settings =
+    auth && auth.role === "user"
+      ? [
+          { link: "الصفحة الشخصية", event: () => navigate("/login") },
+          { link: "تسجيل خروج", event: () => logout() },
+        ]
+      : auth && auth.role === "merchant"
+      ? [
+          { link: "الصفحة الشخصية", event: () => navigate("/login") },
+          { link: "تسجيل خروج", event: () => logout() },
+        ]
+      : auth && auth.role === "admin"
+      ? [
+          { link: "لوجة التحكم", event: () => navigate("/login") },
+          { link: "تسجيل خروج", event: () => logout() },
+        ]
+      : null;
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -145,14 +65,20 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const location = useLocation();
 
   return (
     <AppBar
       sx={{
         direction: "rtl",
-        backgroundColor: isScrolled ? "#442DB9" : "transparent",
+        backgroundColor:
+          location.pathname !== "/"
+            ? "#442DB9"
+            : isScrolled
+            ? "#442DB9"
+            : "transparent",
         paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
-        paddingY:'2px',
+        paddingY: "2px",
         boxShadow: isScrolled
           ? "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
           : "none",
@@ -166,50 +92,63 @@ function Navbar() {
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
 
-        <Box>
-          <Tooltip title="Open settings">
-            <Box
-              sx={{
-                width: "50px",
-                height: "50px",
-                borderRadius: "50%",
-                background:
-                  "linear-gradient(101.96deg, #01ece7 5.37%, rgb(7 247 176 / 41%) 100.31%)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-                fontWeight: "600",
-                fontSize: "22px",
+        {settings ? (
+          <Box>
+              <Box
+                sx={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  background:
+                    " linear-gradient(178.1deg, rgb(60, 55, 106) 8.5%, rgb(23, 20, 69) 82.4%)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                  fontSize: "22px",
+                }}
+                onClick={handleOpenUserMenu}
+              >
+                <Icon
+                  icon="fa-solid:user"
+                  width={23}
+                  style={{ cursor: "pointer" }}
+                />
+              </Box>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
               }}
-              onClick={handleOpenUserMenu}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              P
-            </Box>
-          </Tooltip>
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={setting.event}>
+                    {setting.link}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        ) : (
+          <Icon
+            icon="streamline:login-1"
+            width={35}
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/login")}
+          />
+        )}
       </Toolbar>
     </AppBar>
   );

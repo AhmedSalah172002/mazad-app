@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import ProductCard from "./ProductCard";
 
-const HomeProducts = () => {
+const HomeProducts = ({ items }) => {
   return (
     <>
       <Box
@@ -32,7 +32,7 @@ const HomeProducts = () => {
             أحدث المزادات
           </Typography>
           <Link
-            to="/"
+            to="/products"
             style={{
               color: "#2E3D62",
               fontWeight: "600",
@@ -40,6 +40,10 @@ const HomeProducts = () => {
               display: "flex",
               alignItems: "center",
             }}
+            onClick={()=> window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            })}
           >
             عرض الكل{" "}
             <Icon icon="ep:d-arrow-left" style={{ marginRight: "10px" }} />
@@ -50,13 +54,15 @@ const HomeProducts = () => {
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
-            gap:'5px'
+            gap: "5px",
           }}
         >
-          <ProductCard status={"E"} />
-          <ProductCard status={"S"} />
-          <ProductCard status={"F"} />
-          <ProductCard status={"E"} />
+          {items?.length > 0
+            ? items.map((item) => <ProductCard status={"E"} item={item} />)
+            : null}
+          {items?.length > 0
+            ? items.map((item) => <ProductCard status={"E"} item={item} />)
+            : null}
         </Box>
       </Box>
     </>

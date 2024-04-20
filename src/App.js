@@ -22,6 +22,7 @@ import CodePage from "./pages/CodePage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import NewPasswordPage from "./pages/NewPasswordPage";
+import ProductsPage from "./pages/ProductsPage";
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook();
@@ -33,6 +34,7 @@ function App() {
         </HiddenNav>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
           <Route path="product/:productId" element={<ProductDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
