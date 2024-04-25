@@ -91,7 +91,7 @@ function Navbar() {
         <Link className="navbar-brand" to="/">
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
-
+        
         {settings ? (
           <Box>
               <Box

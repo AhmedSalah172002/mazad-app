@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import ProductCard from "./ProductCard";
 
 const HomeProducts = ({ items }) => {
+ 
   return (
     <>
       <Box
@@ -40,10 +41,12 @@ const HomeProducts = ({ items }) => {
               display: "flex",
               alignItems: "center",
             }}
-            onClick={()=> window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            })}
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }
           >
             عرض الكل{" "}
             <Icon icon="ep:d-arrow-left" style={{ marginRight: "10px" }} />
@@ -58,11 +61,8 @@ const HomeProducts = ({ items }) => {
           }}
         >
           {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
+            ? items.map((item) => <ProductCard status={item?.status} item={item} />)
+            : <p style={{textAlign:'center',width:'100%',fontSize:'22px'}}>لا يوجد منتجات حتي الأن </p>}
         </Box>
       </Box>
     </>

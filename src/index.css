@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 :root{
   --main-color:#07c0de;
   --text-color: #262929;
@@ -16,7 +18,22 @@ body{
   overflow-x: hidden;
   font-family: "Cairo", sans-serif !important;
 }
+.image-gallery-left-nav , .image-gallery-right-nav{
+  padding: 0px 10px !important;
+}
+.image-gallery-left-nav .image-gallery-svg ,.image-gallery-right-nav .image-gallery-svg{
+  width: 30px !important;
+  height: 70px !important;
+}
 
+.swiper-button-next , .swiper-button-prev{
+  display: none !important;
+}
+
+.swiper{
+  width: 100% !important;
+  height: 100% !important;
+}
 
 
 /*  Navbar  */
