@@ -15,6 +15,7 @@ import React from "react";
 import GetAllProducts from "../hook/products/GetAllProducts";
 import ProductCard from "../component/Home/ProductCard";
 import Pagination from "../component/utils/Pagination";
+import { Zoom } from "react-awesome-reveal";
 
 const ProductsPage = () => {
   const [items, filter, setFilter, onPress, pageCount, results] =
@@ -28,13 +29,13 @@ const ProductsPage = () => {
   return (
     <Box
       sx={{
-        paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
+        paddingX: { xs: "1rem", sm: "2rem" },
         direction: "rtl",
         marginY: "15vh",
       }}
     >
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={12} md={12} lg={3}  sx={{ marginBottom: "15px" }}>
+        <Grid item xs={12} sm={12} md={12} lg={3} sx={{ marginBottom: "15px" }}>
           <Box
             sx={{
               background: "#D9D9D9",
@@ -264,86 +265,16 @@ const ProductsPage = () => {
                 gap: "5px",
               }}
             >
-                {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-          {items?.length > 0
-            ? items.map((item) => <ProductCard status={"E"} item={item} />)
-            : null}
-            </Box>
-            <Pagination pageCount={7} onPress={onPress}/>
+              {items?.length > 0
+                ? items.map((item) => (
+                    <Zoom>
+                      <ProductCard status={item?.status} item={item} />
+                    </Zoom>
+                  ))
+                : <p style={{textAlign:'center',width:'100%',fontSize:'22px'}}>لا يوجد منتجات حتي الأن </p>}
+            </Box> 
+            {/* <Pagination pageCount={0} onPress={onPress} /> */}
+
           </Box>
         </Grid>
       </Grid>
