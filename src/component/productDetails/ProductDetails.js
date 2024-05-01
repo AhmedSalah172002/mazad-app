@@ -1,52 +1,91 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import { Icon } from "@iconify/react";
 import bele from "../../images/bele.jpg";
 import ProductCard from "../Home/ProductCard";
+import { useNavigate, useParams } from "react-router-dom";
+import GetProductDetails from "../../hook/products/GetProductDetails";
+import { NozProgress } from "nozolan-library";
+import {
+  convertTimeTo12Hours,
+  convertToArabicDate,
+} from "../utils/convertUTCToLocalTime";
 
-const images = [
-  {
-    original:
-      "https://d25trxery91118.cloudfront.net/202212/9d5886a0-72ee-47f6-a65c-466a931c7e35.jpg",
-    thumbnail:
-      "https://d25trxery91118.cloudfront.net/202212/9d5886a0-72ee-47f6-a65c-466a931c7e35.jpg",
-  },
-  {
-    original:
-      "https://d25trxery91118.cloudfront.net/202212/425dbb46-9d38-4fb2-82b0-b8febc7c0629.jpg",
-    thumbnail:
-      "https://d25trxery91118.cloudfront.net/202212/425dbb46-9d38-4fb2-82b0-b8febc7c0629.jpg",
-  },
-  {
-    original:
-      "https://d25trxery91118.cloudfront.net/202212/8605be69-28aa-448e-86d9-25556e83dfc6.jpg",
-    thumbnail:
-      "https://d25trxery91118.cloudfront.net/202212/8605be69-28aa-448e-86d9-25556e83dfc6.jpg",
-  },
-];
-const items=[]
 const customRenderItem = (item) => {
   return (
     <div className="image-gallery-image">
       <img
         src={item.original}
         alt={item.originalAlt}
-        style={{ borderRadius: "15px" }}
+        style={{ borderRadius: "15px", width: "100%", height: "450px" }}
       />
     </div>
   );
 };
 
-
-
 const ProductDetails = () => {
-  useEffect(()=>{
+  let { productId } = useParams();
+  const [item] = GetProductDetails(productId);
+  const images = item?.images?.map((image) => ({
+    original: image,
+    thumbnail: image,
+  }));
+const navigate = useNavigate()
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-    })
-  },[])
+    });
+  }, []);
+
+  // time
+
+  const calculateTime = (date, time) => {
+    const difference =
+      new Date(`${date?.split("T")[0]}T${time}:00+03:00`) - new Date();
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    return difference > 0
+      ? { days, hours, minutes, seconds }
+      : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(
+    calculateTime(
+      item?.date,
+      item?.status === "not-started" ? item?.startTime : item?.endTime
+    )
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(
+        calculateTime(
+          item?.date,
+          item?.status === "not-started" ? item?.startTime : item?.endTime
+        )
+      );
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [item?.date, item?.startTime, item?.endTime, item?.status]);
+
+  if (!item || images?.length < 1) {
+    return (
+      <>
+        <Box sx={{ margin: "100px 15px 80vh", direction: "rtl" }}>
+          <NozProgress />
+        </Box>
+      </>
+    );
+  }
+
   return (
     <>
       <Box
@@ -66,8 +105,9 @@ const ProductDetails = () => {
             sx={{ marginBottom: "15px" }}
           >
             <ImageGallery
-              items={images}
+              items={images || []}
               showPlayButton={false}
+              showFullscreenButton={false}
               renderItem={customRenderItem}
             />
           </Grid>
@@ -89,7 +129,7 @@ const ProductDetails = () => {
                   marginBottom: "35px",
                 }}
               >
-                خاتم زمرد الأسد
+                {item?.name}
               </Typography>
               <Box
                 sx={{
@@ -114,7 +154,7 @@ const ProductDetails = () => {
                     width={30}
                     style={{ color: "#403DA8" }}
                   />
-                  01095572350
+                  {item?.user?.phone}
                 </Box>
                 <Box
                   sx={{
@@ -169,7 +209,8 @@ const ProductDetails = () => {
                     fontWeight: "700",
                   }}
                 >
-                  لا تفوت هذا العرض , سوف ينتهي بعد{" "}
+                  لا تفوت هذا العرض , سوف{" "}
+                  {item?.status === "not-started" ? "يبدأ" : "ينتهي"} بعد{" "}
                 </Typography>
                 <Box
                   sx={{
@@ -190,8 +231,6 @@ const ProductDetails = () => {
                       flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
-                      alignItems: "center",
-                      justifyContent: "center",
                     }}
                   >
                     <Typography
@@ -201,7 +240,7 @@ const ProductDetails = () => {
                         fontWeight: "700",
                       }}
                     >
-                      00
+                      {timeLeft.days}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -238,7 +277,7 @@ const ProductDetails = () => {
                         fontWeight: "700",
                       }}
                     >
-                      00
+                      {timeLeft.hours}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -275,7 +314,7 @@ const ProductDetails = () => {
                         fontWeight: "700",
                       }}
                     >
-                      00
+                      {timeLeft.minutes}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -312,7 +351,7 @@ const ProductDetails = () => {
                         fontWeight: "700",
                       }}
                     >
-                      00
+                      {timeLeft.seconds}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -424,7 +463,7 @@ const ProductDetails = () => {
                         marginBottom: "35px",
                       }}
                     >
-                      مجوهرات
+                      {item?.category?.name}
                     </Typography>
                   </Box>
                 </Box>
@@ -453,7 +492,8 @@ const ProductDetails = () => {
                       fontSize: "18px",
                     }}
                   >
-                    27 أكتوبر 2025 PM 7:12
+                    {convertToArabicDate(item?.date?.split("T")[0])}{"  -  "} 
+                    {convertTimeTo12Hours(`${item?.endTime}:00`)}
                   </Typography>
                 </Box>
               </Grid>
@@ -487,7 +527,8 @@ const ProductDetails = () => {
                       color: "#403DA8",
                     }}
                   >
-                    5000 <sub style={{ fontSize: "15px" }}>جنية مصرى</sub>
+                    {item?.initialPrice}{" "}
+                    <sub style={{ fontSize: "15px" }}>جنية مصرى</sub>
                   </Typography>
                 </Box>
                 <Box
@@ -498,32 +539,36 @@ const ProductDetails = () => {
                     gap: "15px",
                   }}
                 >
-                  <Typography
-                    variant="body1"
-                    component="body1"
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "800",
-                    }}
-                  >
-                    27 مناقصة
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="body1"
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "800",
-                      color: "#403DA8",
-                    }}
-                  >
-                    "اظهار السجل"
-                  </Typography>
+                  {item?.status === "not-started" || item?.status === "start-now" ? null : (
+                    <>
+                      <Typography
+                        variant="body1"
+                        component="body1"
+                        sx={{
+                          fontSize: "18px",
+                          fontWeight: "800",
+                        }}
+                      >
+                        27 مناقصة
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        component="body1"
+                        sx={{
+                          fontSize: "18px",
+                          fontWeight: "800",
+                          color: "#403DA8",
+                        }}
+                      >
+                        "اظهار السجل"
+                      </Typography>
+                    </>
+                  )}
+
                   <Button
                     fullWidth
                     variant="contained"
                     style={{
-                      background: "#403DA8",
                       background:
                         "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
                       boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
@@ -534,7 +579,10 @@ const ProductDetails = () => {
                       margin: "10px auto",
                       padding: "10px 30px",
                       borderRadius: "50px",
+                      opacity:item?.status === "not-started" || item?.status === "finished" ? '.5' :'1'
                     }}
+                    disabled={item?.status === "not-started" || item?.status === "finished" }
+                    onClick={()=> navigate(`/user/mazad/${productId}`)}
                   >
                     المزايدة الأن
                   </Button>
@@ -559,15 +607,7 @@ const ProductDetails = () => {
                     fontWeight: "500",
                   }}
                 >
-                  الخاتم المصنوع من الزمرد الأسود يتميز بأناقته الفريدة وجاذبيته
-                  الغامضة. يمكن أن يكون لون الزمرد الأسود متنوعًا، حيث يمكن أن
-                  يكون غامقًا جدًا شبه أسود أو يحتوي على درجات مختلفة من اللون
-                  الأخضر الداكن. يمكن أن تعزز الأضواء المنعكسة على سطح الزمرد
-                  الأسود تألقه وجماله. يتميز الخاتم بتصميم فريد من نوعه يبرز
-                  جمال الحجر، سواء كان على شكل قطعة كبيرة تسيطر على الخاتم
-                  بأناقتها أو كجزء من تصميم معقد يتضمن تفاصيل متقنة. إن تألق
-                  الزمرد الأسود يجعله خيارًا رائعًا للأشخاص الذين يبحثون عن قطعة
-                  مجوهرات فريدة تعكس ذوقهم الرفيع وأسلوبهم الخاص.
+                  {item?.description}
                 </Typography>
               </Box>
               <hr />
@@ -743,7 +783,6 @@ const ProductDetails = () => {
                   </Typography>
                   <Box
                     sx={{
-                      
                       fontSize: "18px",
                       fontWeight: "700",
                       color: "#403DA8",
@@ -773,7 +812,6 @@ const ProductDetails = () => {
                   </Typography>
                   <Box
                     sx={{
-                      
                       fontSize: "18px",
                       fontWeight: "700",
                       color: "#403DA8",
@@ -803,7 +841,6 @@ const ProductDetails = () => {
                   </Typography>
                   <Box
                     sx={{
-                     
                       fontSize: "18px",
                       fontWeight: "700",
                       color: "#403DA8",
@@ -833,7 +870,6 @@ const ProductDetails = () => {
                   </Typography>
                   <Box
                     sx={{
-                     
                       fontSize: "18px",
                       fontWeight: "700",
                       color: "#403DA8",
@@ -846,33 +882,7 @@ const ProductDetails = () => {
             </Box>
           </Grid>
         </Grid>
-        <Box
-          sx={{
-            marginTop: 30,
-            background: "#9747FF2B",
-            padding: "25px 15px",
-            borderRadius: "15px",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: "5px",
-            }}
-          >
-            {items?.length > 0 ? (
-              items.map((item) => <ProductCard status={"E"} item={item} />)
-            ) : (
-              <p
-                style={{ textAlign: "center", width: "100%", fontSize: "22px" }}
-              >
-                لا يوجد منتجات حتي الأن{" "}
-              </p>
-            )}
-          </Box>
-        </Box>
+      
       </Box>
     </>
   );

@@ -45,7 +45,7 @@ function App() {
           <Route path="/forget-password" element={<ForgetPasswordPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          <Route element={<ProtectedRoute auth={isUser} />}>
+          <Route path="/user" element={<ProtectedRoute auth={isUser} />}>
             <Route path="mazad/:productId" element={<MazadChatPage />} />
             <Route path="my-orders" element={<UserOrdersPage />} />
             <Route path="order/:orderId" element={<OrderDetailsPage />} />

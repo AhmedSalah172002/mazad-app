@@ -184,7 +184,7 @@ const Register = () => {
                       setRole(newValue);
                     }}
                   >
-                    <ToggleButton value="tarder">
+                    <ToggleButton value="merchant">
                       {" "}
                       <Icon icon="mingcute:auction-fill" width={20} />
                       <Typography
