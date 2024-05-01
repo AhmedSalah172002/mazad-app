@@ -27,9 +27,9 @@ export const createProduct = (formatData) => async (dispatch) => {
 }
 
 //get all products with pagination
-export const getAllProducts = (limit,status,page) => async (dispatch) => {
+export const getAllProducts = (limit,status,category,search,priceFilter,page) => async (dispatch) => {
     try {
-        const response = await useGetData(`/api/v1/products?page=${page}&limit=${limit}&status=${status}`);
+        const response = await useGetData(`/api/v1/products?page=${page}&keyword=${search}&limit=${limit}&sort=-createdAt&${status}${category}&${priceFilter}`);
         dispatch({
             type: GET_ALL_PRODUCTS,
             payload: response,

@@ -4,11 +4,56 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
+import user from "../../images/user-placeholder.jpg";
+
 import { Icon } from "@iconify/react";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+import { styled, alpha } from "@mui/material/styles";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+
+  [theme.breakpoints.up("xs")]: {
+    marginLeft: theme.spacing(1),
+    width: "50%",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  left: "0px",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  width: "100%",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+}));
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -91,33 +136,32 @@ function Navbar() {
         <Link className="navbar-brand" to="/">
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
-        
+
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="بحث…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
+
         {settings ? (
           <Box>
-              <Box
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  background:
-                    " linear-gradient(178.1deg, rgb(60, 55, 106) 8.5%, rgb(23, 20, 69) 82.4%)",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  fontWeight: "600",
-                  fontSize: "22px",
-                }}
-                onClick={handleOpenUserMenu}
-              >
-                <Icon
-                  icon="fa-solid:user"
-                  width={23}
-                  style={{ cursor: "pointer" }}
-                />
-              </Box>
+            <img
+              src={user}
+              alt="user"
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                cursor: "pointer",
+              }}
+              onClick={handleOpenUserMenu}
+            />
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "55px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

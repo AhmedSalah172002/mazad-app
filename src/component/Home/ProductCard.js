@@ -15,29 +15,18 @@ const ProductCard = ({ status, item }) => {
   // time
 
   const calculateTime = (date, time) => {
-    const now = new Date();
-    const targetDate = new Date(date?.split("T")[0]);
-    const timeDifference = targetDate.getTime() - now.getTime();
+    const difference =
+      new Date(`${date?.split("T")[0]}T${time}:00+03:00`) - new Date();
 
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-    const desiredTime = new Date();
-    const startTime = time.split(":");
-    desiredTime.setHours(+startTime[0], +startTime[1], +startTime[2], 0);
-
-    const timeDifferenceMillis = desiredTime.getTime() - now.getTime();
-    const hoursDiff = Math.floor(timeDifferenceMillis / (1000 * 60 * 60));
-    const minutesDiff = Math.floor(
-      (timeDifferenceMillis % (1000 * 60 * 60)) / (1000 * 60)
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
-    const secondsDiff = Math.floor((timeDifferenceMillis % (1000 * 60)) / 1000);
-
-    return {
-      days,
-      hours: hoursDiff,
-      minutes: minutesDiff,
-      seconds: secondsDiff,
-    };
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    return difference > 0
+      ? { days, hours, minutes, seconds }
+      : { days: 0, hours: 0, minutes: 0, seconds: 0 };
   };
 
   const [timeLeft, setTimeLeft] = useState(
@@ -69,7 +58,10 @@ const ProductCard = ({ status, item }) => {
 
   return (
     <>
-      <Link to={`/product/${item._id}`}>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to={`/product/${item._id}`}
+      >
         <Box
           className="box-product-card"
           sx={{
@@ -255,7 +247,7 @@ const ProductCard = ({ status, item }) => {
                 status === "not-started"
                   ? "#5D5D5D"
                   : status === "start-now"
-                  ? "#62EC21"
+                  ? "#47cd5d"
                   : "#E62C2C",
             }}
           >

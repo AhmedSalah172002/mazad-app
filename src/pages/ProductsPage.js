@@ -4,28 +4,89 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
-  FormLabel,
   Grid,
   Tab,
   Tabs,
+  TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import GetAllProducts from "../hook/products/GetAllProducts";
 import ProductCard from "../component/Home/ProductCard";
 import Pagination from "../component/utils/Pagination";
 import { Zoom } from "react-awesome-reveal";
+import GetCategoryHook from "../hook/category/GetCategoryHook";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import rtlPlugin from "stylis-plugin-rtl";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 
 const ProductsPage = () => {
+  const theme = createTheme({
+    direction: "rtl",
+  });
+
+  const cacheRtl = createCache({
+    key: "muirtl",
+    stylisPlugins: [rtlPlugin],
+  });
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+
+  const [search, setSearch] = useState("");
+
   const [items, filter, setFilter, onPress, pageCount, results] =
-    GetAllProducts();
+    GetAllProducts(6, categoryFilter, search, priceFilter);
+  const [res] = GetCategoryHook();
   const [value, setValue] = React.useState(3);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if (newValue === 3) {
+      setFilter("");
+    } else if (newValue === 2) {
+      setFilter("status=start-now&");
+    } else if (newValue === 1) {
+      setFilter("status=finished&");
+    } else if (newValue === 0) {
+      setFilter("status=not-started&");
+    }
   };
 
+  const [checkedValues, setCheckedValues] = useState({});
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    setCheckedValues((prevValues) => {
+      if (checked) {
+        return {
+          ...prevValues,
+          [value]: true,
+        };
+      } else {
+        const { [value]: removedItem, ...rest } = prevValues;
+        return rest;
+      }
+    });
+  };
+
+  const handleCategory = () => {
+    if (maxPrice)
+      setPriceFilter(
+        `initialPrice[gte]=${minPrice}&initialPrice[lte]=${maxPrice}`
+      );
+    else setPriceFilter(`initialPrice[gte]=${minPrice}`);
+    setCategoryFilter(Object.keys(checkedValues).join("&"));
+  };
+  const resetChecked = () => {
+    setCheckedValues({});
+    setCategoryFilter("");
+    setPriceFilter("");
+    setMaxPrice("");
+    setMinPrice("");
+  };
   return (
     <Box
       sx={{
@@ -40,7 +101,8 @@ const ProductsPage = () => {
             sx={{
               background: "#D9D9D9",
               width: "100%",
-              height: "100vh",
+              minHeight: "80vh",
+              maxHeight: "fit-content",
               borderRadius: "20px",
               overflow: "hidden",
             }}
@@ -71,10 +133,26 @@ const ProductsPage = () => {
                   السعر
                 </Typography>
                 <Box sx={{ display: "flex", gap: "20px", marginY: "20px" }}>
-                  <label>من</label>
-                  <input type="number" style={{ width: "70px" }} />
-                  <label>الى</label>
-                  <input type="number" style={{ width: "70px" }} />
+                  <CacheProvider value={cacheRtl}>
+                    <ThemeProvider theme={theme}>
+                      <TextField
+                        type="number"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="من"
+                      />
+                      <TextField
+                        type="number"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="الى"
+                      />
+                    </ThemeProvider>
+                  </CacheProvider>
                 </Box>
               </Box>
               <Box>
@@ -97,42 +175,16 @@ const ProductsPage = () => {
                   }}
                 >
                   <FormControl component="fieldset">
-                    <FormControlLabel
-                      value="start"
-                      control={<Checkbox />}
-                      label="ساعات"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="start"
-                      control={<Checkbox />}
-                      label="مجوهرات"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="start"
-                      control={<Checkbox />}
-                      label="سيارات"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="start"
-                      control={<Checkbox />}
-                      label="عقارات"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="start"
-                      control={<Checkbox />}
-                      label="رياضة"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="start"
-                      control={<Checkbox />}
-                      label="إلكترونيات"
-                      labelPlacement="end"
-                    />
+                    {res?.data?.map((cat) => (
+                      <FormControlLabel
+                        value={`category=${cat?._id}`}
+                        control={<Checkbox />}
+                        label={cat?.name}
+                        labelPlacement="end"
+                        onChange={handleCheckboxChange}
+                        checked={checkedValues[`category=${cat?._id}`] || false}
+                      />
+                    ))}
                   </FormControl>
                 </Box>
                 <Box sx={{ margin: "40px auto 15px" }}>
@@ -147,7 +199,11 @@ const ProductsPage = () => {
                       fontSize: "16px",
                       fontWeight: "600",
                       color: "#ffffff",
+                      ":hover": {
+                        background: "#403DA8",
+                      },
                     }}
+                    onClick={handleCategory}
                   >
                     بحث{" "}
                   </Button>
@@ -162,7 +218,11 @@ const ProductsPage = () => {
                       fontSize: "16px",
                       fontWeight: "600",
                       color: "#ffffff",
+                      ":hover": {
+                        background: " #ED1313B5",
+                      },
                     }}
+                    onClick={resetChecked}
                   >
                     الإعدادات الإفتراضية{" "}
                   </Button>
@@ -207,7 +267,7 @@ const ProductsPage = () => {
                     fontWeight: "700",
                   }}
                 >
-                  المزادات
+                  المزادات ({results})
                 </Typography>
                 <input
                   type="text"
@@ -218,6 +278,8 @@ const ProductsPage = () => {
                     borderRadius: "50px",
                     width: "40%",
                   }}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                   placeholder="بحث 🔍"
                 />
               </Box>
@@ -240,19 +302,19 @@ const ProductsPage = () => {
                 >
                   <Tab
                     sx={{ fontWeight: "700", fontSize: "15px" }}
-                    label="المزادات القادمة (50)"
+                    label={`المزادات القادمة `}
                   />
                   <Tab
                     sx={{ fontWeight: "700", fontSize: "15px" }}
-                    label="المزادات المنتهية (10)"
+                    label={`المزادات المنتهية `}
                   />
                   <Tab
                     sx={{ fontWeight: "700", fontSize: "15px" }}
-                    label="المزادات النشطة (40)"
+                    label={`المزادات النشطة `}
                   />
                   <Tab
                     sx={{ fontWeight: "700", fontSize: "15px" }}
-                    label="جميع المزادات (100)"
+                    label={`جميع المزادات`}
                   />
                 </Tabs>
               </Box>
@@ -265,16 +327,25 @@ const ProductsPage = () => {
                 gap: "5px",
               }}
             >
-              {items?.length > 0
-                ? items.map((item) => (
-                    <Zoom>
-                      <ProductCard status={item?.status} item={item} />
-                    </Zoom>
-                  ))
-                : <p style={{textAlign:'center',width:'100%',fontSize:'22px'}}>لا يوجد منتجات حتي الأن </p>}
-            </Box> 
-            {/* <Pagination pageCount={0} onPress={onPress} /> */}
-
+              {items?.length > 0 ? (
+                items.map((item) => (
+                  <Zoom>
+                    <ProductCard status={item?.status} item={item} />
+                  </Zoom>
+                ))
+              ) : (
+                <p
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    fontSize: "22px",
+                  }}
+                >
+                  لا يوجد منتجات حتي الأن{" "}
+                </p>
+              )}
+            </Box>
+            {pageCount > 1 && <Pagination pageCount={pageCount} onPress={onPress} />}
           </Box>
         </Grid>
       </Grid>

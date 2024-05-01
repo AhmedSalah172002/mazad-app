@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import {  getAllProducts } from '../../redux/actions/productsAction';
 import { useDispatch, useSelector } from 'react-redux';
 
-const GetAllProducts = (limitProducts) => {
-    const limit=limitProducts||5
+const GetAllProducts = (limitProducts=15,category='',search='',priceFilter='') => {
+    const limit=limitProducts
     const [filter , setFilter]=useState("")
     const dispatch = useDispatch();
 
     const getProductsFunc= async()=>{
-        await dispatch(getAllProducts(limit,filter))
+        await dispatch(getAllProducts(limit,filter,category,search,priceFilter))
         
     }
     useEffect(() => {
@@ -16,7 +16,7 @@ const GetAllProducts = (limitProducts) => {
     }, [])
     useEffect(() => {
         getProductsFunc()
-    }, [filter])
+    }, [filter,category,search,priceFilter])
 
 
     const allProducts = useSelector((state) => state.allproducts.allProducts);
@@ -51,7 +51,7 @@ const GetAllProducts = (limitProducts) => {
     
 
      const onPress = async (page) => {      
-        await dispatch(getAllProducts(limit,filter,page))
+        await dispatch(getAllProducts(limit,filter,category,search,priceFilter,page))
     
     }
 

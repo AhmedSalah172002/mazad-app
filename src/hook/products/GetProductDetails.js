@@ -11,6 +11,7 @@ const GetProductDetails = (id) => {
         dispatch(getOneProduct(id))
     },[id])
 
+    
     const Product = useSelector((state) => state.allproducts.oneProduct);
     let item = [];
     try {
