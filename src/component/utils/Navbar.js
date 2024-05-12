@@ -83,7 +83,7 @@ function Navbar() {
         ]
       : auth && auth.role === "admin"
       ? [
-          { link: "لوجة التحكم", event: () => navigate("/login") },
+          { link: "لوجة التحكم", event: () => navigate("/dashboard/overview") },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : null;

@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import DashboardIndex from "./layouts/dashboard/index";
+
 import Footer from "./component/utils/Footer";
 import Navbar from "./component/utils/Navbar";
 import HomePage from "./pages/HomePage";
@@ -23,52 +25,49 @@ import RegisterPage from "./pages/RegisterPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import NewPasswordPage from "./pages/NewPasswordPage";
 import ProductsPage from "./pages/ProductsPage";
+import Dashboard from "./pages/Dashboard/overview/view/app-view";
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook();
   return (
-    
-      <BrowserRouter>
-        <HiddenNav>
-          <Navbar />
-        </HiddenNav>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product/:productId" element={<ProductDetailsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/new-password"
-            element={<NewPasswordPage />}
-          />
-          <Route path="/email-authentication-code" element={<CodePage />} />
-          <Route path="/forget-password" element={<ForgetPasswordPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+    <BrowserRouter>
+      <HiddenNav>
+        <Navbar />
+      </HiddenNav>
 
-          <Route path="/user" element={<ProtectedRoute auth={isUser} />}>
-            <Route path="mazad/:productId" element={<MazadChatPage />} />
-            <Route path="my-orders" element={<UserOrdersPage />} />
-            <Route path="order/:orderId" element={<OrderDetailsPage />} />
-            <Route path="order/payment" element={<PaymentPage />} />
-          </Route>
+      <Routes>
+        <Route path="/dashboard" element={<DashboardIndex />}>
+          <Route path="overview" element={<Dashboard />} />
+        </Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/product/:productId" element={<ProductDetailsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/new-password" element={<NewPasswordPage />} />
+        <Route path="/email-authentication-code" element={<CodePage />} />
+        <Route path="/forget-password" element={<ForgetPasswordPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
-          <Route element={<ProtectedRoute auth={isAdmin} />}>
-            <Route path="add-product" element={<AddProductPage />} />
-            <Route path="merchant-product" element={<MerchantProductsPage />} />
-            <Route
-              path="edit-product/:productId"
-              element={<EditProductPage />}
-            />
-          </Route>
-        </Routes>
+        <Route path="/user" element={<ProtectedRoute auth={isUser} />}>
+          <Route path="mazad/:productId" element={<MazadChatPage />} />
+          <Route path="my-orders" element={<UserOrdersPage />} />
+          <Route path="order/:orderId" element={<OrderDetailsPage />} />
+          <Route path="order/payment" element={<PaymentPage />} />
+        </Route>
 
-        <HiddenFooter>
-          <Footer />
-        </HiddenFooter>
+        <Route element={<ProtectedRoute auth={isAdmin} />}>
+          <Route path="add-product" element={<AddProductPage />} />
+          <Route path="merchant-product" element={<MerchantProductsPage />} />
+          <Route path="edit-product/:productId" element={<EditProductPage />} />
+        </Route>
+      </Routes>
 
-        <ToastContainer />
-      </BrowserRouter>
-    
+      <HiddenFooter>
+        <Footer />
+      </HiddenFooter>
+
+      <ToastContainer />
+    </BrowserRouter>
   );
 }
 
