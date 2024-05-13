@@ -5,9 +5,19 @@ import AddMazadHook from "../../hook/products/AddMazadHook";
 import notify from "../../hook/useNotifaction";
 import { ToastContainer } from "react-toastify";
 import { Box, Button, Typography } from "@mui/material";
+import AddCartHook from "../../hook/cart/AddCartHook";
+import { useNavigate } from "react-router-dom";
 
 const Chatting = ({ item }) => {
   const [onSubmit] = AddMazadHook(item._id);
+  const [addToCartHandel] = AddCartHook(item._id);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (item.status !== "start-now") {
+      navigate("/");
+    }
+  }, [item, item.status]);
   let auth;
   if (localStorage.getItem("user") !== null) {
     auth = JSON.parse(localStorage.getItem("user"));
@@ -36,19 +46,6 @@ const Chatting = ({ item }) => {
       item?.status === "not-started" ? item?.startTime : item?.endTime
     )
   );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(
-        calculateTime(
-          item?.date,
-          item?.status === "not-started" ? item?.startTime : item?.endTime
-        )
-      );
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [item?.date, item?.startTime, item?.endTime, item?.status]);
 
   const socket = io.connect("http://127.0.0.1:9000");
   const [value, setValue] = useState("");
@@ -140,230 +137,255 @@ const Chatting = ({ item }) => {
     setValue("");
   };
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (
+        timeLeft.days === 0 &&
+        timeLeft.hours === 0 &&
+        timeLeft.minutes === 0 &&
+        timeLeft.seconds === 0
+      ) {
+        if (item.mazad?.length > 0 || messages.length > 0) {
+          if (messages.length > 0)
+            addToCartHandel(messages[messages.length - 1]?.userId);
+          else addToCartHandel(item.mazad[item.mazad?.length - 1].user._id);
+        }
+        navigate("/");
+      }
+      setTimeLeft(
+        calculateTime(
+          item?.date,
+          item?.status === "not-started" ? item?.startTime : item?.endTime
+        )
+      );
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [item?.date, item?.startTime, item?.endTime, item?.status, timeLeft]);
+
   return (
     <>
-      <Box sx={{position:'relative'}}>
-      <Box  className="Chatting-form">
-        <div className="Chatting-messages">
-          {item.mazad?.length >= 1
-            ? item.mazad.map((message, i) => (
-                <Box
-                  sx={{
-                    direction: message.user._id === auth?._id ? "rtl" : "ltr",
-                  }}
-                  key={i + 1}
-                  className="Message"
-                >
-                  <div
-                    className="Message-icon"
-                    style={{ backgroundColor: messageColors[i] }}
+      <Box sx={{ position: "relative" }}>
+        <Box className="Chatting-form">
+          <div className="Chatting-messages">
+            {item.mazad?.length >= 1
+              ? item.mazad.map((message, i) => (
+                  <Box
+                    sx={{
+                      direction: message.user._id === auth?._id ? "rtl" : "ltr",
+                    }}
+                    key={i + 1}
+                    className="Message"
                   >
-                    {message?.user?.name[0].toUpperCase()}
-                  </div>
-                  <div className="Message-cont">{message.price} جنية</div>
-                </Box>
-              ))
-            : null}
-          {messages.map((message) => (
-            <Box
-              key={message.id}
-              sx={{ direction: message.userId === auth?._id ? "rtl" : "ltr" }}
-              className="Message"
-            >
-              <div
-                className="Message-icon"
-                style={{ backgroundColor: message.color }}
+                    <div
+                      className="Message-icon"
+                      style={{ backgroundColor: messageColors[i] }}
+                    >
+                      {message?.user?.name[0].toUpperCase()}
+                    </div>
+                    <div className="Message-cont">{message.price} جنية</div>
+                  </Box>
+                ))
+              : null}
+            {messages.map((message) => (
+              <Box
+                key={message.id}
+                sx={{ direction: message.userId === auth?._id ? "rtl" : "ltr" }}
+                className="Message"
               >
-                {message.icon}
-              </div>
-              <div className="Message-cont">{message.text}</div>
+                <div
+                  className="Message-icon"
+                  style={{ backgroundColor: message.color }}
+                >
+                  {message.icon}
+                </div>
+                <div className="Message-cont">{message.text}</div>
+              </Box>
+            ))}
+          </div>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "-60px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: "4",
+              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+              width: "350px",
+              background: "rgba(238, 224, 255, 1)",
+              padding: "20px",
+              borderRadius: "15px",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "5px",
+            }}
+          >
+            <Box
+              sx={{
+                direction: "ltr",
+                borderRadius: "15px",
+                width: "220px",
+                height: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "#2E3D62",
+                backgroundColor: " rgba(255, 255, 255, 0.7)",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft.days}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  يوم
+                </Typography>
+              </Box>
+              <Typography
+                variant="h6"
+                component="h6"
+                sx={{
+                  fontWeight: "600",
+                  marginX: "8px",
+                }}
+              >
+                :
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft.hours}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  ساعة
+                </Typography>
+              </Box>
+              <Typography
+                variant="h6"
+                component="h6"
+                sx={{
+                  fontWeight: "600",
+                  marginX: "8px",
+                }}
+              >
+                :
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft.minutes}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  دقيقة
+                </Typography>
+              </Box>
+              <Typography
+                variant="h6"
+                component="h6"
+                sx={{
+                  fontWeight: "600",
+                  marginX: "8px",
+                }}
+              >
+                :
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft.seconds}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  ثانية
+                </Typography>
+              </Box>
             </Box>
-          ))}
-        </div>
-        <Box
-        sx={{
-          position:'absolute',
-          top:'-60px',
-          left:'50%',
-          transform:'translateX(-50%)',
-          zIndex:'4',
-          boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' ,
-          width:'350px',
-          background: 'rgba(238, 224, 255, 1)' ,
-          padding: "20px",
-          borderRadius: "15px",
-          display: "flex",
-          justifyContent: "center",
-          flexDirection:'column',
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "5px",
-        }}
-      >
-        
-        <Box
-          sx={{
-            direction: "ltr",
-            borderRadius: "15px",
-            width: "220px",
-            height: "50px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#2E3D62",
-            backgroundColor: " rgba(255, 255, 255, 0.7)",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
             <Typography
-              variant="body2"
-              component="body2"
+              variant="h6"
+              component="h6"
               sx={{
                 fontWeight: "700",
               }}
             >
-              {timeLeft.days}
-            </Typography>
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              يوم
-            </Typography>
-          </Box>
-          <Typography
-            variant="h6"
-            component="h6"
-            sx={{
-              fontWeight: "600",
-              marginX: "8px",
-            }}
-          >
-            :
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              {timeLeft.hours}
-            </Typography>
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              ساعة
-            </Typography>
-          </Box>
-          <Typography
-            variant="h6"
-            component="h6"
-            sx={{
-              fontWeight: "600",
-              marginX: "8px",
-            }}
-          >
-            :
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              {timeLeft.minutes}
-            </Typography>
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              دقيقة
-            </Typography>
-          </Box>
-          <Typography
-            variant="h6"
-            component="h6"
-            sx={{
-              fontWeight: "600",
-              marginX: "8px",
-            }}
-          >
-            :
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              {timeLeft.seconds}
-            </Typography>
-            <Typography
-              variant="body2"
-              component="body2"
-              sx={{
-                fontWeight: "700",
-              }}
-            >
-              ثانية
+              حتى نهاية المزاد{" "}
             </Typography>
           </Box>
         </Box>
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{
-            fontWeight: "700",
-          }}
-        >
-          حتى نهاية المزاد {" "}
-        </Typography>
-      </Box>
-      </Box>
       </Box>
       <Box
         sx={{
@@ -480,7 +502,7 @@ const Chatting = ({ item }) => {
           </Typography>
         </Box>
       </Box>
-    
+
       <ToastContainer />
     </>
   );

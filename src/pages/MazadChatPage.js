@@ -1,13 +1,12 @@
-import React from 'react'
-import MazadChat from '../component/mazad/MazadChat'
-
+import React from "react";
+import MazadChat from "../component/mazad/MazadChat";
 
 const MazadChatPage = () => {
   return (
     <>
-    <MazadChat />
+      <MazadChat />
     </>
-  )
-}
+  );
+};
 
-export default MazadChatPage
+export default MazadChatPage;

@@ -27,11 +27,15 @@ const customRenderItem = (item) => {
 const ProductDetails = () => {
   let { productId } = useParams();
   const [item] = GetProductDetails(productId);
+  let auth;
+  if (localStorage.getItem("user") !== null) {
+    auth = JSON.parse(localStorage.getItem("user"));
+  }
   const images = item?.images?.map((image) => ({
     original: image,
     thumbnail: image,
   }));
-const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -492,7 +496,8 @@ const navigate = useNavigate()
                       fontSize: "18px",
                     }}
                   >
-                    {convertToArabicDate(item?.date?.split("T")[0])}{"  -  "} 
+                    {convertToArabicDate(item?.date?.split("T")[0])}
+                    {"  -  "}
                     {convertTimeTo12Hours(`${item?.endTime}:00`)}
                   </Typography>
                 </Box>
@@ -539,7 +544,8 @@ const navigate = useNavigate()
                     gap: "15px",
                   }}
                 >
-                  {item?.status === "not-started" || item?.status === "start-now" ? null : (
+                  {item?.status === "not-started" ||
+                  item?.status === "start-now" ? null : (
                     <>
                       <Typography
                         variant="body1"
@@ -579,12 +585,25 @@ const navigate = useNavigate()
                       margin: "10px auto",
                       padding: "10px 30px",
                       borderRadius: "50px",
-                      opacity:item?.status === "not-started" || item?.status === "finished" ? '.5' :'1'
+                      opacity:
+                        item?.status === "not-started" ||
+                        item?.status === "finished"
+                          ? ".5"
+                          : "1",
                     }}
-                    disabled={item?.status === "not-started" || item?.status === "finished" }
-                    onClick={()=> navigate(`/user/mazad/${productId}`)}
+                    disabled={
+                      item?.status === "not-started" ||
+                      item?.status === "finished"
+                    }
+                    onClick={() =>
+                      auth.role === "merchant"
+                        ? console.log("aa")
+                        : navigate(`/user/mazad/${productId}`)
+                    }
                   >
-                    المزايدة الأن
+                    {auth.role === "merchant"
+                      ? "انهاء المزاد"
+                      : "المزايدة الأن"}
                   </Button>
                 </Box>
               </Box>
@@ -882,7 +901,6 @@ const navigate = useNavigate()
             </Box>
           </Grid>
         </Grid>
-      
       </Box>
     </>
   );

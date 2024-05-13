@@ -345,7 +345,9 @@ const ProductsPage = () => {
                 </p>
               )}
             </Box>
-            {pageCount > 1 && <Pagination pageCount={pageCount} onPress={onPress} />}
+            {pageCount > 1 && (
+              <Pagination pageCount={pageCount} onPress={onPress} />
+            )}
           </Box>
         </Grid>
       </Grid>

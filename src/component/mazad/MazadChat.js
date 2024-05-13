@@ -45,8 +45,6 @@ const MazadChat = () => {
     });
   }, []);
 
-  
-
   if (!item || images?.length < 1) {
     return (
       <>
