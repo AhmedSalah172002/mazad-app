@@ -1,13 +1,12 @@
-import React from 'react'
-import OrderDetails from '../component/User/OrderDetails'
+import React from "react";
+import OrderDetails from "../component/User/OrderDetails";
 
 const OrderDetailsPage = () => {
   return (
     <>
-    <OrderDetails />
-    
+      <OrderDetails />
     </>
-  )
-}
+  );
+};
 
-export default OrderDetailsPage
+export default OrderDetailsPage;
