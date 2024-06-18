@@ -28,6 +28,7 @@ const TerminateProductStatusHook = () => {
     }
   },[loading])
 
+  
   return [handleTerminateProduct];
 };
 
