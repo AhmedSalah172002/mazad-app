@@ -30,9 +30,6 @@ const CheckInsurancePaymentHook = () => {
         }
     }, [loading])
 
-    console.log(insurancePayment);
-
-
     return [handelCheckInsurancePayment , loading]
  
 }

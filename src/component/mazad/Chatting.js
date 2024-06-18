@@ -145,12 +145,12 @@ const Chatting = ({ item }) => {
         timeLeft.minutes === 0 &&
         timeLeft.seconds === 0
       ) {
-        if (item.mazad?.length > 0 || messages.length > 0) {
+        if ((item.mazad?.length > 0 || messages.length > 0) && Object.keys(item).length > 0) {
           if (messages.length > 0)
             addToCartHandel(messages[messages.length - 1]?.userId);
           else addToCartHandel(item.mazad[item.mazad?.length - 1].user._id);
         }
-        // navigate("/");
+        navigate("/");
       }
       setTimeLeft(
         calculateTime(
