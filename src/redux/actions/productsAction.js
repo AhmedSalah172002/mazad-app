@@ -1,6 +1,6 @@
 
 import { useInsertData, useInsertDataWithImage } from '../../hooks/useInsertData';
-import { DELETE_PRODUCTS,  UPDATE_PRODUCTS, CREATE_PRODUCTS, GET_ALL_PRODUCTS, GET_PRODUCT_DETALIS,ADD_TO_MAZAD } from '../type'
+import { DELETE_PRODUCTS,  UPDATE_PRODUCTS, CREATE_PRODUCTS, GET_ALL_PRODUCTS, GET_PRODUCT_DETAILS,ADD_TO_MAZAD } from '../type'
 import {useGetData, useGetDataToken} from '../../hooks/useGetData';
 import useDeleteData from '../../hooks/useDeleteData';
 
@@ -67,14 +67,14 @@ export const getOneProduct = (id) => async (dispatch) => {
     try {
         const response = await useGetData(`/api/v1/products/${id}`);
         dispatch({
-            type: GET_PRODUCT_DETALIS,
+            type: GET_PRODUCT_DETAILS,
             payload: response,
             loading: true
         })
 
     } catch (e) {
         dispatch({
-            type: GET_PRODUCT_DETALIS,
+            type: GET_PRODUCT_DETAILS,
             payload: e.response,
         })
     }

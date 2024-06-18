@@ -2,7 +2,7 @@ import { useInsertData } from "../../hooks/useInsertData";
 import {
   CREATE_CATEGORY,
   GET_ALL_CATEGORY,
-  GET_CATEGORY_DETALIS,
+  GET_CATEGORY_DETAILS,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
 } from "../type";
@@ -51,13 +51,13 @@ export const getOneCategory = (id) => async (dispatch) => {
   try {
     const response = await useGetData(`/api/v1/category/${id}`);
     dispatch({
-      type: GET_CATEGORY_DETALIS,
+      type: GET_CATEGORY_DETAILS,
       payload: response,
       loading: true,
     });
   } catch (e) {
     dispatch({
-      type: GET_CATEGORY_DETALIS,
+      type: GET_CATEGORY_DETAILS,
       payload: e.response,
     });
   }

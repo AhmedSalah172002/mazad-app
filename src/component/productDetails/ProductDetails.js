@@ -11,6 +11,7 @@ import {
   convertTimeTo12Hours,
   convertToArabicDate,
 } from "../utils/convertUTCToLocalTime";
+import CheckInsurancePaymentHook from "../../hook/checkout/CheckInsurancePaymentHook";
 
 const customRenderItem = (item) => {
   return (
@@ -27,6 +28,8 @@ const customRenderItem = (item) => {
 const ProductDetails = () => {
   let { productId } = useParams();
   const [item] = GetProductDetails(productId);
+  const [handelCheckInsurancePayment, loading] = CheckInsurancePaymentHook();
+
   let auth;
   if (localStorage.getItem("user") !== null) {
     auth = JSON.parse(localStorage.getItem("user"));
@@ -598,7 +601,9 @@ const ProductDetails = () => {
                     onClick={() =>
                       auth.role === "merchant"
                         ? console.log("aa")
-                        : navigate(`/user/mazad/${productId}`)
+                        : item?.involved.some((e) => e.user === auth._id)
+                        ? navigate(`/user/mazad/${productId}`)
+                        : handelCheckInsurancePayment(productId)
                     }
                   >
                     {auth.role === "merchant"
