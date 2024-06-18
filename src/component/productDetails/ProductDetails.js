@@ -12,6 +12,8 @@ import {
   convertToArabicDate,
 } from "../utils/convertUTCToLocalTime";
 import CheckInsurancePaymentHook from "../../hook/checkout/CheckInsurancePaymentHook";
+import TerminateProductStatusHook from "../../hook/products/TerminateProductStatusHook";
+import { ToastContainer } from "react-toastify";
 
 const customRenderItem = (item) => {
   return (
@@ -29,6 +31,7 @@ const ProductDetails = () => {
   let { productId } = useParams();
   const [item] = GetProductDetails(productId);
   const [handelCheckInsurancePayment, loading] = CheckInsurancePaymentHook();
+  const [handleTerminateProduct] = TerminateProductStatusHook();
 
   let auth;
   if (localStorage.getItem("user") !== null) {
@@ -558,7 +561,7 @@ const ProductDetails = () => {
                           fontWeight: "800",
                         }}
                       >
-                        27 مناقصة
+                        {item?.mazad?.length} مناقصة
                       </Typography>
                       <Typography
                         variant="body1"
@@ -600,7 +603,7 @@ const ProductDetails = () => {
                     }
                     onClick={() =>
                       auth.role === "merchant"
-                        ? console.log("aa")
+                        ? handleTerminateProduct(productId)
                         : item?.involved.some((e) => e.user === auth._id)
                         ? navigate(`/user/mazad/${productId}`)
                         : handelCheckInsurancePayment(productId)
@@ -906,6 +909,7 @@ const ProductDetails = () => {
             </Box>
           </Grid>
         </Grid>
+        <ToastContainer />
       </Box>
     </>
   );
