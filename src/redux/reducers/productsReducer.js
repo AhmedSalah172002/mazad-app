@@ -1,4 +1,4 @@
-import { DELETE_PRODUCTS,  UPDATE_PRODUCTS, CREATE_PRODUCTS,  GET_PRODUCT_DETALIS, GET_ALL_PRODUCTS,ADD_TO_MAZAD, GET_ERROR } from '../type'
+import { DELETE_PRODUCTS,  UPDATE_PRODUCTS, CREATE_PRODUCTS,  GET_PRODUCT_DETAILS, GET_ALL_PRODUCTS,ADD_TO_MAZAD, GET_ERROR } from '../type'
 
 const inital = {
     products: [],
@@ -23,7 +23,7 @@ const productsReducer = (state = inital, action) => {
                 allProducts: action.payload,
                 loading: false,
             }
-        case GET_PRODUCT_DETALIS:
+        case GET_PRODUCT_DETAILS:
             return {
                 oneProduct: action.payload,
                 loading: false,

@@ -12,16 +12,16 @@ const Chatting = ({ item }) => {
   const [onSubmit] = AddMazadHook(item._id);
   const [addToCartHandel] = AddCartHook(item._id);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (item.status !== "start-now") {
-      navigate("/");
-    }
-  }, [item, item.status]);
   let auth;
   if (localStorage.getItem("user") !== null) {
     auth = JSON.parse(localStorage.getItem("user"));
   }
+  
+  useEffect(() => {
+    if ((item?.status !== "start-now" || !item?.involved?.some((e) => e.user === auth._id)) && Object.keys(item).length > 0) {
+      navigate("/");
+    }
+  }, [item, item?.status]);
 
   // time
 
@@ -150,7 +150,7 @@ const Chatting = ({ item }) => {
             addToCartHandel(messages[messages.length - 1]?.userId);
           else addToCartHandel(item.mazad[item.mazad?.length - 1].user._id);
         }
-        navigate("/");
+        // navigate("/");
       }
       setTimeLeft(
         calculateTime(

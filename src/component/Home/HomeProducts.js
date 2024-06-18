@@ -55,9 +55,9 @@ const HomeProducts = ({ items }) => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: {sm:'center',md:"space-between", lg:"space-between"},
             flexWrap: "wrap",
-            gap: "5px",
+            gap: {sm:'15px',md:"5px", lg:"5px"},
           }}
         >
           {items?.length > 0

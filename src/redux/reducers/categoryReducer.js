@@ -1,7 +1,7 @@
 import {
   CREATE_CATEGORY,
   GET_ALL_CATEGORY,
-  GET_CATEGORY_DETALIS,
+  GET_CATEGORY_DETAILS,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
   GET_ERROR,
@@ -28,7 +28,7 @@ const categoryReducer = (state = inital, action) => {
         allCategory: action.payload,
         loading: false,
       };
-    case GET_CATEGORY_DETALIS:
+    case GET_CATEGORY_DETAILS:
       return {
         oneCategory: action.payload,
         loading: false,
