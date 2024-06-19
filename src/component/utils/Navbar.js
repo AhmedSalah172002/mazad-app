@@ -105,23 +105,32 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import { useMediaQuery } from "@mui/material";
+import { Typography } from "@mui/material";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  {
+    title: "الصفحة الشخصية",
+    link: "/profile",
+  },
+];
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [user, setUser] = React.useState({name: 'Test'});
+
+  React.useEffect(() => {
+    if(localStorage.user && localStorage.user != 'undefined'){
+      setUser(JSON.parse(localStorage.user))
+    }
+  }, [])
+
+
+  const navigate = useNavigate()
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -152,7 +161,7 @@ function Navbar() {
         direction: "rtl",
         backgroundColor: isScrolled ? "#442DB9" : "transparent",
         paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
-        paddingY:'2px',
+        paddingY: "2px",
         boxShadow: isScrolled
           ? "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
           : "none",
@@ -166,50 +175,70 @@ function Navbar() {
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
 
-        <Box>
-          <Tooltip title="Open settings">
-            <Box
-              sx={{
-                width: "50px",
-                height: "50px",
-                borderRadius: "50%",
-                background:
-                  "linear-gradient(101.96deg, #01ece7 5.37%, rgb(7 247 176 / 41%) 100.31%)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-                fontWeight: "600",
-                fontSize: "22px",
+        {localStorage?.user ? (
+          <Box>
+            <Tooltip title="Open settings">
+              <Box
+                sx={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  background:
+                    "linear-gradient(101.96deg, #01ece7 5.37%, rgb(7 247 176 / 41%) 100.31%)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                  fontSize: "22px",
+                }}
+                onClick={handleOpenUserMenu}
+              >
+                {user.name[0]}
+              </Box>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
               }}
-              onClick={handleOpenUserMenu}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              P
-            </Box>
-          </Tooltip>
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+              {settings.map((setting) => (
+                <MenuItem key={setting.title} onClick={()=>{
+                  handleCloseUserMenu()
+                  navigate(setting.link)
+                }}>
+                    {setting.title}
+                </MenuItem>
+              ))}
+              <MenuItem
+                onClick={() => {
+                  handleCloseUserMenu();
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("token");
+                  setUser(null);
+                  window.location.href = "/";
+                }}
+              >
+                <Typography>تسجيل الخروج</Typography>
               </MenuItem>
-            ))}
-          </Menu>
-        </Box>
+            </Menu>
+          </Box>
+        ) : (
+          <Link className="navbar-brand" to="/login">
+            تسجيل الدخول
+          </Link>
+        )}
       </Toolbar>
     </AppBar>
   );

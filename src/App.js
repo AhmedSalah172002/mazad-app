@@ -22,6 +22,7 @@ import CodePage from "./pages/CodePage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import NewPasswordPage from "./pages/NewPasswordPage";
+import { UpdateProfile } from "./pages/UpdateProfile";
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook();
@@ -42,6 +43,8 @@ function App() {
           <Route path="/email-authentication-code" element={<CodePage />} />
           <Route path="/forget-password" element={<ForgetPasswordPage />} />
           <Route path="/register" element={<RegisterPage />} />
+        
+          <Route path="/profile" element={<UpdateProfile />} />
 
           <Route element={<ProtectedRoute auth={isUser} />}>
             <Route path="mazad/:productId" element={<MazadChatPage />} />

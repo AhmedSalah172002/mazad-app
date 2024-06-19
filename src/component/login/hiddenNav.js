@@ -5,7 +5,6 @@ export default function HiddenNav({ children }) {
   const location = useLocation();
   const [showNavbar, setshowNavbar] = useState(false);
   useEffect(() => {
-    console.log("location is : ", location);
 
     if (
       location.pathname === "/login" ||

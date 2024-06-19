@@ -5,7 +5,6 @@ export default function HiddenFooter({ children }) {
   const location = useLocation();
   const [showFooter, setshowFooter] = useState(false);
   useEffect(() => {
-    console.log("location is : ", location);
 
     if (
       location.pathname === "/login" ||
