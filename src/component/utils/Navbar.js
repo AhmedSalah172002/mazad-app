@@ -57,6 +57,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [user, setUser] = React.useState({name: 'Test'});
+
+  React.useEffect(() => {
+    if(localStorage.user && localStorage.user != 'undefined'){
+      setUser(JSON.parse(localStorage.user))
+    }
+  }, [])
+
 
   const navigate = useNavigate();
   let auth;
