@@ -17,7 +17,7 @@ const Pagination = ({ pageCount, onPress }) => {
             pageRangeDisplayed={2}
             pageCount={pageCount}
             previousLabel={<Prev />}
-            containerClassName={"pagination justify-content-center p-3"}
+            containerClassName={"pagination justify-content-center align-items-center p-3"}
             pageClassName={"page-item"}
             pageLinkClassName={"page-link"}
             previousClassName={"page-item"}

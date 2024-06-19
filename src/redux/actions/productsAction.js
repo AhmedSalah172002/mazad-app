@@ -1,6 +1,6 @@
 
 import { useInsertData, useInsertDataWithImage } from '../../hooks/useInsertData';
-import { DELETE_PRODUCTS,  UPDATE_PRODUCTS, CREATE_PRODUCTS, GET_ALL_PRODUCTS, GET_PRODUCT_DETALIS,ADD_TO_MAZAD } from '../type'
+import { DELETE_PRODUCTS,  UPDATE_PRODUCTS, CREATE_PRODUCTS, GET_ALL_PRODUCTS, GET_PRODUCT_DETAILS,ADD_TO_MAZAD,TERMINATE_PRODUCT_STATUS } from '../type'
 import {useGetData, useGetDataToken} from '../../hooks/useGetData';
 import useDeleteData from '../../hooks/useDeleteData';
 
@@ -27,9 +27,9 @@ export const createProduct = (formatData) => async (dispatch) => {
 }
 
 //get all products with pagination
-export const getAllProducts = (limit,status,page) => async (dispatch) => {
+export const getAllProducts = (limit,status,category,search,priceFilter,page) => async (dispatch) => {
     try {
-        const response = await useGetData(`/api/v1/products?page=${page}&limit=${limit}&status=${status}`);
+        const response = await useGetData(`/api/v1/products?page=${page}&keyword=${search}&limit=${limit}&sort=-createdAt&${status}${category}&${priceFilter}`);
         dispatch({
             type: GET_ALL_PRODUCTS,
             payload: response,
@@ -67,14 +67,14 @@ export const getOneProduct = (id) => async (dispatch) => {
     try {
         const response = await useGetData(`/api/v1/products/${id}`);
         dispatch({
-            type: GET_PRODUCT_DETALIS,
+            type: GET_PRODUCT_DETAILS,
             payload: response,
             loading: true
         })
 
     } catch (e) {
         dispatch({
-            type: GET_PRODUCT_DETALIS,
+            type: GET_PRODUCT_DETAILS,
             payload: e.response,
         })
     }
@@ -143,3 +143,20 @@ export const addToMazad = (id, data) => async (dispatch) => {
 
 
 
+//get one product with id
+export const terminateProductStatus = (id) => async (dispatch) => {
+    try {
+        const response = await useGetData(`/api/v1/products/terminate/${id}`);
+        dispatch({
+            type: TERMINATE_PRODUCT_STATUS,
+            payload: response,
+            loading: true
+        })
+
+    } catch (e) {
+        dispatch({
+            type: TERMINATE_PRODUCT_STATUS,
+            payload: e.response,
+        })
+    }
+}

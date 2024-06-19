@@ -11,7 +11,8 @@ export default function HiddenFooter({ children }) {
       location.pathname === "/register" ||
       location.pathname === "/new-password" ||
       location.pathname === "/email-authentication-code" ||
-      location.pathname === "/forget-password"
+      location.pathname === "/forget-password"||
+      location.pathname.includes("dashboard")
     ) {
       setshowFooter(false);
     } else {

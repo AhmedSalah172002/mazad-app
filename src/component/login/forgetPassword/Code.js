@@ -35,10 +35,12 @@ const Code = () => {
           }}
           dir="rtl"
         >
-          <Box sx={{ width: "min(900px,100%)" }}>
+          <Box sx={{ width: { xs:'100%', sm:'100%', md:'100%', lg:"900px"} }}>
             <Grid container>
               <Grid
                 item
+                xs={12}
+                sm={12}
                 md={12}
                 lg={8}
                 sx={{
@@ -99,7 +101,7 @@ const Code = () => {
                 sx={{
                   backgroundColor: "#403da8",
                   position: "relative",
-                  display: { md: "none", lg: "block" },
+                  display: { xs:'none', sm:'none', md: "none", lg: "block" },
                   borderRadius: "0 10px 10px 0",
                 }}
               >

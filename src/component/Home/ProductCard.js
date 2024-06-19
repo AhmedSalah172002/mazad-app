@@ -1,239 +1,420 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import prod from "../../images/prod.jpg";
+import bele from "../../images/bele.jpg";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-const ProductCard = ({status}) => {
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { EffectFade, Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
+
+const ProductCard = ({ status, item }) => {
+  // time
+
+  const calculateTime = (date, time) => {
+    const difference =
+      new Date(`${date?.split("T")[0]}T${time}:00+03:00`) - new Date();
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    return difference > 0
+      ? { days, hours, minutes, seconds }
+      : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(
+    calculateTime(item?.date, item?.startTime)
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTime(item?.date, item?.startTime));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [item?.date, item?.startTime]);
+
+  // animation
+  const handleMouseEnter = () => {
+    const sliders = document.querySelectorAll(".box-product-card");
+    sliders.forEach(function (slider, i) {
+      slider.addEventListener("mouseenter", function (event) {
+        document.querySelectorAll(".swiper-button-next")[i].click();
+        return false;
+      });
+      slider.addEventListener("mouseleave", function (event) {
+        document.querySelectorAll(".swiper-button-prev")[i].click();
+        return false;
+      });
+    });
+  };
+
   return (
     <>
-      <Box
-        sx={{
-          borderRadius: "15px",
-          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-          width: "320px",
-          padding: "0px 0px 20px",
-          position: "relative",
-          cursor:'pointer',
-          marginBottom:'20px'
-        }}
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to={`/product/${item._id}`}
       >
-        <img
-          src={prod}
-          style={{
-            display: "block",
-            margin: "0px auto 10px",
-            width: "100%",
-            height: "250px",
-            borderRadius: "15px 15px 0 0",
-            marginBottom: "15px",
-
-            
-          }}
-          alt="prod"
-        />
-        <Typography
-            variant="h5"
-            component="h5"
-            sx={{
-              color: "#2E3D62",
-              fontWeight: "600",
-              textAlign:'center',
-              marginBottom: "25px",
-            }}
-          >
-            السحور الأخير
-          </Typography>
         <Box
-          sx={{ paddingX: "25px", display: "flex", justifyContent: "center" }}
-        >
-          <Typography
-            variant="h5"
-            component="h5"
-            sx={{
-              color: "#2E3D62",
-              fontWeight: "600",
-            }}
-          >
-            100000 ج.م
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h5"
-            sx={{
-              color: "#2E3D62",
-              fontWeight: "600",
-              marginX: "5px",
-            }}
-          >
-            |
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h5"
-            sx={{
-              color: "#2E3D62",
-              fontWeight: "600",
-            }}
-          >
-            5000 ج.م
-          </Typography>
-        </Box>
-        <Box
+          className="box-product-card"
           sx={{
-            position: "absolute",
-            top: "0px",
-            left: "0px",
-            borderRadius: "15px 0px 15px 0px",
-            width:'100px',
-            height:'40px',
-            display:'flex',
-            justifyContent:'center',
-            alignItems:'center',
-            color:'#ffffff',
-            backgroundColor: status === 'E' ? '#5D5D5D' : status === 'S' ? '#62EC21'  : '#E62C2C'
-          }}
-        >
-          {status === 'E' ? 'لم يبدأ بعد' : status === 'S' ? 'جارية'  : 'منتهية'}
-          
-        </Box>
-        <Box
-          sx={{
-            direction:'ltr',
-            position: "absolute",
-            bottom: "130px",
-            left: "50%",
-            transform:'translateX(-50%)',
             borderRadius: "15px",
-            width:'180px',
-            height:'50px',
-            display:'flex',
-            justifyContent:'center',
-            alignItems:'center',
-            color:'#2E3D62',
-            backgroundColor:' rgba(255, 255, 255, 0.7)' 
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+            width: "320px",
+            padding: "0px 0px 15px",
+            position: "relative",
+            cursor: "pointer",
+            margin: " 0 auto 20px",
+            background: "#fff",
+            overflow: "hidden",
           }}
+          onMouseEnter={handleMouseEnter}
         >
-          <Box sx={{display:'flex',flexDirection:'column'}}>
-
-           <Typography
-            variant="body2"
-            component="body2"
-            sx={{
-              fontWeight:'500'
-            }}
-            
-          >
-            00
-          </Typography>
-          <Typography
-             variant="body2"
-             component="body2"
-            sx={{
-              fontWeight: "500",
+          <Box
+            style={{
+              margin: "0px auto 20px",
+              width: "100%",
+              height: "250px",
+              borderRadius: "15px 15px 0 0",
+              overflow: "hidden",
             }}
           >
-            يوم
-          </Typography>
+            <Swiper
+              spaceBetween={30}
+              effect={"fade"}
+              navigation={true}
+              modules={[EffectFade, Navigation]}
+              className="mySwiper"
+            >
+              <SwiperSlide>
+                <img
+                  src={item.image}
+                  style={{
+                    display: "block",
+                    margin: "auto",
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "15px 15px 0 0",
+                  }}
+                  alt="prod"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img
+                  src={item.images[1]}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "15px 15px 0 0",
+                  }}
+                  alt="prod"
+                />
+              </SwiperSlide>
+            </Swiper>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center",
+              padding: "0 20px 10px",
+            }}
+          >
+            <img
+              src={item?.category?.image}
+              style={{ width: "22px", height: "22px" }}
+              alt="img"
+            />
+            <Typography
+              variant="body1"
+              component="body1"
+              sx={{
+                color: "#2E3D62",
+                fontWeight: "700",
+                fontSize: "12px",
+              }}
+            >
+              {item?.category?.name}
+            </Typography>
           </Box>
           <Typography
             variant="h6"
             component="h6"
             sx={{
-              fontWeight: "600",
-              marginX:'8px'
+              color: "#2E3D62",
+              fontWeight: "800",
+              marginBottom: "15px",
+              paddingX: "20px",
+              textAlign: "right",
             }}
           >
-            :
+            {item.name}
           </Typography>
-          <Box sx={{display:'flex',flexDirection:'column'}}>
 
-           <Typography
-            variant="body2"
-            component="body2"
+          <Box
             sx={{
-              fontWeight:'500'
-            }}
-            
-          >
-            00
-          </Typography>
-          <Typography
-             variant="body2"
-             component="body2"
-            sx={{
-              fontWeight: "500",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              paddingX: "20px",
             }}
           >
-            ساعة
-          </Typography>
+            <img
+              src={bele}
+              alt="img"
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                border: "3px solid #403DA8",
+                overflow: "hidden",
+              }}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography
+                variant="body1"
+                component="body1"
+                sx={{
+                  fontWeight: "700",
+                  marginBottom: "5px",
+                }}
+              >
+                جود بيلينجهام
+              </Typography>
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  marginBottom: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    background: "#4bae4f",
+                    display: "inline-block",
+                    marginLeft: "8px",
+                  }}
+                ></Box>{" "}
+                بائع موثوق
+              </Typography>
+            </Box>
           </Box>
-          <Typography
-            variant="h6"
-            component="h6"
-            sx={{
-              fontWeight: "600",
-              marginX:'8px'
-            }}
-          >
-            :
-          </Typography>
-          <Box sx={{display:'flex',flexDirection:'column'}}>
 
-           <Typography
-            variant="body2"
-            component="body2"
-            sx={{
-              fontWeight:'500'
-            }}
-            
-          >
-            00
-          </Typography>
           <Typography
-             variant="body2"
-             component="body2"
+            variant="h5"
+            component="h5"
             sx={{
-              fontWeight: "500",
+              color: "#2E3D62",
+              fontWeight: "700",
+              textAlign: "left",
+              paddingX: "20px",
+              marginTop: "15px",
             }}
           >
-            دقيقة
+            <sub style={{ fontSize: "12px" }}>جنية مصرى</sub>{" "}
+            {item.initialPrice}
           </Typography>
-          </Box>
-          <Typography
-            variant="h6"
-            component="h6"
-            sx={{
-              fontWeight: "600",
-              marginX:'8px'
-            }}
-          >
-            :
-          </Typography>
-          <Box sx={{display:'flex',flexDirection:'column'}}>
 
-           <Typography
-            variant="body2"
-            component="body2"
+          <Box
             sx={{
-              fontWeight:'500'
+              position: "absolute",
+              top: "0px",
+              left: "0px",
+              borderRadius: "15px 0px 15px 0px",
+              width: "100px",
+              height: "40px",
+              zIndex: "4",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#ffffff",
+              backgroundColor:
+                status === "not-started"
+                  ? "#5D5D5D"
+                  : status === "start-now"
+                  ? "#47cd5d"
+                  : "#E62C2C",
             }}
-            
           >
-            00
-          </Typography>
-          <Typography
-             variant="body2"
-             component="body2"
-            sx={{
-              fontWeight: "500",
-            }}
-          >
-            ثانية
-          </Typography>
+            {status === "not-started"
+              ? "لم يبدأ بعد"
+              : status === "start-now"
+              ? "جارية"
+              : "منتهية"}
           </Box>
-      
-          
+          <Box
+            sx={{
+              direction: "ltr",
+              position: "absolute",
+              bottom: "220px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              borderRadius: "10px",
+              width: "220px",
+              height: "50px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#fff",
+              zIndex: "4",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                {timeLeft?.days}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                يوم
+              </Typography>
+            </Box>
+            <Typography
+              variant="h6"
+              component="h6"
+              sx={{
+                fontWeight: "600",
+                marginX: "8px",
+              }}
+            >
+              :
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                {timeLeft?.hours}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                ساعة
+              </Typography>
+            </Box>
+            <Typography
+              variant="h6"
+              component="h6"
+              sx={{
+                fontWeight: "600",
+                marginX: "8px",
+              }}
+            >
+              :
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                {timeLeft?.minutes}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                دقيقة
+              </Typography>
+            </Box>
+            <Typography
+              variant="h6"
+              component="h6"
+              sx={{
+                fontWeight: "600",
+                marginX: "8px",
+              }}
+            >
+              :
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                {timeLeft?.seconds}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="body2"
+                sx={{
+                  fontWeight: "700",
+                }}
+              >
+                ثانية
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-      </Box>
+      </Link>
     </>
   );
 };

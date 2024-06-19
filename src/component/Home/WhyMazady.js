@@ -3,6 +3,7 @@ import React from "react";
 import info1 from "../../images/info1.svg";
 import info2 from "../../images/info2.svg";
 import info3 from "../../images/info3.svg";
+import { Icon } from "@iconify/react";
 
 import { Link } from "react-router-dom";
 
@@ -54,7 +55,6 @@ const WhyMazady = () => {
               zIndex: "50",
             }}
           >
-            
             <img
               src={info1}
               style={{
@@ -95,12 +95,14 @@ const WhyMazady = () => {
                 color: "#442DB9",
                 fontWeight: "600",
                 textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              {" "}
+              <Icon icon="ep:arrow-left-bold" style={{ marginRight: "10px" }} />
               قراءة المزيد{" "}
             </Link>
-            
           </Box>
         </Grid>
 
@@ -167,9 +169,12 @@ const WhyMazady = () => {
                 color: "#442DB9",
                 fontWeight: "600",
                 textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              {" "}
+              <Icon icon="ep:arrow-left-bold" style={{ marginRight: "10px" }} />
               قراءة المزيد{" "}
             </Link>
           </Box>
@@ -220,15 +225,19 @@ const WhyMazady = () => {
                 المزايدة و الدفع
               </Typography>
             </Box>
+
             <Link
               to="/"
               style={{
                 color: "#442DB9",
                 fontWeight: "600",
                 textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              {" "}
+              <Icon icon="ep:arrow-left-bold" style={{ marginRight: "10px" }} />
               قراءة المزيد{" "}
             </Link>
           </Box>

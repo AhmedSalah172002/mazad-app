@@ -62,10 +62,12 @@ const Register = () => {
           }}
           dir="rtl"
         >
-          <Box sx={{ width: "min(900px,100%)" }}>
+          <Box sx={{ width: { xs:'100%', sm:'100%', md:'100%', lg:"900px"} }}>
             <Grid container>
               <Grid
                 item
+                xs={12}
+                sm={12}
                 md={12}
                 lg={8}
                 sx={{
@@ -82,7 +84,7 @@ const Register = () => {
                 <Typography
                   variant="h4"
                   component="h4"
-                  sx={{ color: "#403da8", textAlign: "center" }}
+                  sx={{ color: "#403da8", textAlign: "center",marginBottom:'15px' }}
                 >
                   إنشاء حساب جديد
                 </Typography>
@@ -182,7 +184,7 @@ const Register = () => {
                       setRole(newValue);
                     }}
                   >
-                    <ToggleButton value="tarder">
+                    <ToggleButton value="merchant">
                       {" "}
                       <Icon icon="mingcute:auction-fill" width={20} />
                       <Typography

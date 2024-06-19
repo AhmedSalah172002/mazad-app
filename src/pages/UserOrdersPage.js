@@ -1,12 +1,12 @@
-import React from 'react'
-import UserOrder from '../component/User/UserOrder'
+import React from "react";
+import UserOrder from "../component/User/UserOrder";
 
 const UserOrdersPage = () => {
   return (
-  <>
-    <UserOrder />
-  </>
-  )
-}
+    <>
+      <UserOrder />
+    </>
+  );
+};
 
-export default UserOrdersPage
+export default UserOrdersPage;

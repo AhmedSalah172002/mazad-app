@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import ProductCard from "./ProductCard";
 
-
-const HomeProducts = () => {
+const HomeProducts = ({ items }) => {
+ 
   return (
     <>
       <Box
@@ -15,7 +15,13 @@ const HomeProducts = () => {
           marginY: "15vh",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between",marginBottom:'35px' }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "35px",
+          }}
+        >
           <Typography
             variant="h4"
             component="h4"
@@ -27,24 +33,36 @@ const HomeProducts = () => {
             أحدث المزادات
           </Typography>
           <Link
-            to="/"
+            to="/products"
             style={{
               color: "#2E3D62",
               fontWeight: "600",
               textDecoration: "none",
-              display:'flex',
-              alignItems:'center'
+              display: "flex",
+              alignItems: "center",
             }}
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }
           >
-           عرض الكل <Icon icon="ep:d-arrow-left" style={{marginRight:'10px'}} />
+            عرض الكل{" "}
+            <Icon icon="ep:d-arrow-left" style={{ marginRight: "10px" }} />
           </Link>
         </Box>
-        <Box sx={{display:'flex',justifyContent:'space-between',flexWrap:'wrap'}}>
-        <ProductCard status={'E'} />
-        <ProductCard status={'S'} />
-        <ProductCard status={'F'} />
-        <ProductCard status={'E'} />
-
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: {sm:'center',md:"space-between", lg:"space-between"},
+            flexWrap: "wrap",
+            gap: {sm:'15px',md:"5px", lg:"5px"},
+          }}
+        >
+          {items?.length > 0
+            ? items.map((item) => <ProductCard status={item?.status} item={item} />)
+            : <p style={{textAlign:'center',width:'100%',fontSize:'22px'}}>لا يوجد منتجات حتي الأن </p>}
         </Box>
       </Box>
     </>

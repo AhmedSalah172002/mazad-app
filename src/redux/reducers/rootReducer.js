@@ -6,6 +6,7 @@ import cartReducer from './cartReducer'
 import checkoutReducer from './checkoutReducer'
 import orderReducer from './orderReducer'
 import loggedUserReducer from './loggedUserReducer'
+import categoryReducer from './categoryReducer'
 
 
 
@@ -17,6 +18,5 @@ export default combineReducers({
     checkoutReducer,
     orderReducer,
     loggedUserReducer,
-
-
+    categoryReducer
 })

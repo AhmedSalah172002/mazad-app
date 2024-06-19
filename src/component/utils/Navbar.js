@@ -1,123 +1,59 @@
-// import React from 'react'
-// import logo from "../../images/mazady-logo-white.png"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faUser } from '@fortawesome/free-solid-svg-icons'
-// import { Link, useNavigate } from 'react-router-dom'
-// import logout from "../../images/logout.png"
-// import bell from "../../images/bell.png"
-// import UnopDropdown from 'unop-react-dropdown'
-// import GetLoggedCartHook from '../../hook/cart/GetLoggedCartHook'
-
-// const Navbar = () => {
-
-//   const [res] =GetLoggedCartHook()
-
-//   const navigate = useNavigate();
-//   let auth
-//   if(localStorage.getItem("user") !== null){
-//     auth = JSON.parse(localStorage.getItem("user"))
-//   }
-
-//   const Logout =()=>{
-//     localStorage.removeItem("user")
-//     localStorage.removeItem("token")
-//     navigate("/login")
-//   }
-// const CloseDropDown = () => {
-//   const dropdownBtn= document.querySelector(".dropdown-btn .bell-btn")
-//   dropdownBtn.click()
-// }
-
-//   return (
-//     <>
-//    <nav dir='rtl' className="navbar navbar-expand-lg ">
-//   <div className="container">
-//     <Link className="navbar-brand" to="/"><img src={logo} style={{width:'60px'}} alt="logo" /></Link>
-//     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-//       <span className="navbar-toggler-icon"></span>
-//     </button>
-//     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-//       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-//         {
-//           auth ? auth.role ==="Merchant" ? <>
-//           <li className="nav-item">
-//           <Link className="nav-link" to='/add-product'>أضف منتج</Link>
-//         </li>
-//         <li className="nav-item">
-//           <Link className="nav-link" to="/merchant-product">منجاتي</Link>
-//         </li>
-//           </>:<li className="nav-item">
-//           <Link className="nav-link" to={'/my-orders'}>مشترياتي</Link>
-//         </li> :null
-//         }
-
-//       </ul>
-//       {
-//         auth && auth.role === "user" ?   <div className='dropdown-btn position-relative'>
-//         <UnopDropdown
-//           align="RIGHT"
-//           trigger={<button className='bell-btn'><img src={bell} alt="bell" style={{width:"28px"}} /></button>}
-//         >
-//           <ul className='dropdown-ul'
-//             style={{
-//               marginTop:"5px",
-//               backgroundColor: 'white',
-//               borderRadius: '8px',
-//               boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-//               boxSizing: 'border-box',
-//               padding: '30px',
-//               width: '300px'
-//             }}
-//           >
-//             {
-//               res?.data?._id ?
-//                 <li>
-//                  <div className='d-flex justify-content-between align-items-center'>
-//                  <Link onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })} to={`/product/${res.data.product?._id}`}>
-//                  <img src={res.data.product?.image} style={{width:"40px"}} alt="image" /></Link>
-//                   <p>{res.data.product?.name}</p>
-//                   <p>{res.data.totalPrice}</p>
-//                  </div>
-//                  <Link className='order-payment mt-2' onClick={()=> CloseDropDown()} to={"order/payment"}>الشراء</Link>
-//                 </li> : <li>لايوجد منتجات حتي الأن</li>
-
-//             }
-//           </ul>
-
-//         </UnopDropdown>
-//         {
-//             res?.data?._id ?<span className='notification'></span> :null
-//           }
-//       </div>  :null
-//       }
-
-//       {
-//         auth ?<button onClick={()=>Logout()} className='nav-btn' style={{backgroundColor:"#242672"}}> <img src={logout} style={{width:"20px",marginLeft:"15px"}}  alt="" /> تسجيل خروج </button> : <Link onClick={()=>window.scrollTo({ top: 0, behavior: 'smooth' })} to='/login'><button className='nav-btn'> <FontAwesomeIcon icon={faUser} /> تسجيل الدخول </button></Link>
-//       }
-//     </div>
-//   </div>
-// </nav>
-//     </>
-//   )
-// }
-
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import { Typography } from "@mui/material";
+import user from "../../images/user-placeholder.jpg";
 
-const settings = [
-  {
-    title: "الصفحة الشخصية",
-    link: "/profile",
+import { Icon } from "@iconify/react";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+import { styled, alpha } from "@mui/material/styles";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-];
+  marginLeft: 0,
+
+  [theme.breakpoints.up("xs")]: {
+    marginLeft: theme.spacing(1),
+    width: "50%",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  left: "0px",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  width: "100%",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+}));
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -130,7 +66,35 @@ function Navbar() {
   }, [])
 
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  let auth;
+  if (localStorage.getItem("user") !== null) {
+    auth = JSON.parse(localStorage.getItem("user"));
+  }
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const settings =
+    auth && auth.role === "user"
+      ? [
+          { link: "الصفحة الشخصية", event: () => navigate("/login") },
+          { link: "تسجيل خروج", event: () => logout() },
+        ]
+      : auth && auth.role === "merchant"
+      ? [
+          { link: "الصفحة الشخصية", event: () => navigate("/login") },
+          { link: "تسجيل خروج", event: () => logout() },
+        ]
+      : auth && auth.role === "admin"
+      ? [
+          { link: "لوجة التحكم", event: () => navigate("/dashboard/overview") },
+          { link: "تسجيل خروج", event: () => logout() },
+        ]
+      : null;
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -154,12 +118,18 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const location = useLocation();
 
   return (
     <AppBar
       sx={{
         direction: "rtl",
-        backgroundColor: isScrolled ? "#442DB9" : "transparent",
+        backgroundColor:
+          location.pathname !== "/"
+            ? "#442DB9"
+            : isScrolled
+            ? "#442DB9"
+            : "transparent",
         paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
         paddingY: "2px",
         boxShadow: isScrolled
@@ -175,30 +145,31 @@ function Navbar() {
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
 
-        {localStorage?.user ? (
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="بحث…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
+
+        {settings ? (
           <Box>
-            <Tooltip title="Open settings">
-              <Box
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  background:
-                    "linear-gradient(101.96deg, #01ece7 5.37%, rgb(7 247 176 / 41%) 100.31%)",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  fontWeight: "600",
-                  fontSize: "22px",
-                }}
-                onClick={handleOpenUserMenu}
-              >
-                {user.name[0]}
-              </Box>
-            </Tooltip>
+            <img
+              src={user}
+              alt="user"
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                cursor: "pointer",
+              }}
+              onClick={handleOpenUserMenu}
+            />
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "55px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -214,30 +185,21 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.title} onClick={()=>{
-                  handleCloseUserMenu()
-                  navigate(setting.link)
-                }}>
-                    {setting.title}
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={setting.event}>
+                    {setting.link}
+                  </Typography>
                 </MenuItem>
               ))}
-              <MenuItem
-                onClick={() => {
-                  handleCloseUserMenu();
-                  localStorage.removeItem("user");
-                  localStorage.removeItem("token");
-                  setUser(null);
-                  window.location.href = "/";
-                }}
-              >
-                <Typography>تسجيل الخروج</Typography>
-              </MenuItem>
             </Menu>
           </Box>
         ) : (
-          <Link className="navbar-brand" to="/login">
-            تسجيل الدخول
-          </Link>
+          <Icon
+            icon="streamline:login-1"
+            width={35}
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/login")}
+          />
         )}
       </Toolbar>
     </AppBar>
