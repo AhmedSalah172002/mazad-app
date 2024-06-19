@@ -150,7 +150,6 @@ const Chatting = ({ item }) => {
             addToCartHandel(messages[messages.length - 1]?.userId);
           else addToCartHandel(item.mazad[item.mazad?.length - 1].user._id);
         }
-        navigate("/");
       }
       setTimeLeft(
         calculateTime(
@@ -161,7 +160,7 @@ const Chatting = ({ item }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [item?.date, item?.startTime, item?.endTime, item?.status, timeLeft]);
+  }, [timeLeft]);
 
   return (
     <>
