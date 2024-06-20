@@ -39,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/dashboard" element={<DashboardIndex />}>
           <Route path="overview" element={<Dashboard />} />
+          <Route path="profile" element={<UpdateProfile />} />
         </Route>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
@@ -48,7 +49,6 @@ function App() {
         <Route path="/email-authentication-code" element={<CodePage />} />
         <Route path="/forget-password" element={<ForgetPasswordPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<UpdateProfile />} />
 
         <Route path="/user" element={<ProtectedRoute auth={isUser} />}>
           <Route path="mazad/:productId" element={<MazadChatPage />} />

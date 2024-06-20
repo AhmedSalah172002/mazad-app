@@ -7,7 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import user from "../../images/user-placeholder.jpg";
+import userLogo from "../../images/user-placeholder.jpg";
 
 import { Icon } from "@iconify/react";
 import SearchIcon from "@mui/icons-material/Search";
@@ -81,12 +81,12 @@ function Navbar() {
   const settings =
     auth && auth.role === "user"
       ? [
-          { link: "الصفحة الشخصية", event: () => navigate("/login") },
+          { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : auth && auth.role === "merchant"
       ? [
-          { link: "الصفحة الشخصية", event: () => navigate("/login") },
+          { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : auth && auth.role === "admin"
@@ -158,7 +158,7 @@ function Navbar() {
         {settings ? (
           <Box>
             <img
-              src={user}
+              src={userLogo}
               alt="user"
               style={{
                 width: "50px",
