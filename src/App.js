@@ -29,7 +29,7 @@ import Dashboard from "./pages/Dashboard/overview/view/app-view";
 import { UpdateProfile } from "./pages/UpdateProfile";
 
 function App() {
-  const [isUser, isAdmin, userData] = ProtectedRouteHook();
+  const [isUser, isAdmin, isMerchant] = ProtectedRouteHook();
   return (
     <BrowserRouter>
       <HiddenNav>

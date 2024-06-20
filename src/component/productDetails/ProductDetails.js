@@ -604,7 +604,7 @@ const ProductDetails = () => {
                     onClick={() =>
                       auth.role === "merchant"
                         ? handleTerminateProduct(productId)
-                        : item?.involved.some((e) => e.user === auth._id)
+                        : item?.involved?.some((e) => e.user === auth._id)
                         ? navigate(`/user/mazad/${productId}`)
                         : handelCheckInsurancePayment(productId)
                     }

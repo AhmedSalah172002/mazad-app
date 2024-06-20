@@ -16,12 +16,12 @@ const Chatting = ({ item }) => {
   if (localStorage.getItem("user") !== null) {
     auth = JSON.parse(localStorage.getItem("user"));
   }
-  
-  useEffect(() => {
-    if ((item?.status !== "start-now" || !item?.involved?.some((e) => e.user === auth._id)) && Object.keys(item).length > 0) {
-      navigate("/");
-    }
-  }, [item, item?.status]);
+  console.log(item?.status !== "start-now" , !item?.involved?.some((e) => e.user === auth._id) , Object.keys(item).length > 0);
+  // useEffect(() => {
+  //   if ((item?.status !== "start-now" || !item?.involved?.some((e) => e.user === auth._id)) && Object.keys(item).length > 0) {
+  //     navigate("/");
+  //   }
+  // }, [item, item?.status]);
 
   // time
 
