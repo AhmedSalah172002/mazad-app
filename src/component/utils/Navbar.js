@@ -8,53 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
 import userLogo from '../../images/assets/images/avatars/avatar_25.jpg'
-;
-
+import MenuIcon from '@mui/icons-material/Menu';
 import { Icon } from "@iconify/react";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
-import { styled, alpha } from "@mui/material/styles";
+import { Button, IconButton } from "@mui/material";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
 
-  [theme.breakpoints.up("xs")]: {
-    marginLeft: theme.spacing(1),
-    width: "50%",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  left: "0px",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -80,7 +38,7 @@ function Navbar() {
   };
 
   const settings =
-    auth && auth.role === "user"
+    auth && auth?.role === "user"
       ? [
           { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
           { link: "تسجيل خروج", event: () => logout() },
@@ -111,7 +69,21 @@ function Navbar() {
     const scrollPosition = window.scrollY;
     setIsScrolled(scrollPosition > 5);
   };
+  const pages = [{name:'التصنيفات',id:'cat'},{name:'لماذا نحن ؟',id:'why_us'},{name:'أحدث المنتجات',id:'new_prod'},{name:'كيفية الاستخدام',id:'how_use'}];
+  
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+  
+    const handleOpenNavMenu = (event) => {
+      setAnchorElNav(event.currentTarget);
+    };
 
+  
+    const handleCloseNavMenu = () => {
+      setAnchorElNav(null);
+    };
+  
+ 
+  
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -146,16 +118,53 @@ function Navbar() {
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
 
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="بحث…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" sx={{color:'white'}}>{page?.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } , justifyContent:'center' }}>
+            {pages.map((page) => (
+              <Button
+                key={page.id}
+                onClick={()=> document.getElementById(`${page.id}`).scrollIntoView({behavior: 'smooth'})}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page?.name}
+              </Button>
+            ))}
+          </Box>
         {settings ? (
           <Box>
             <img

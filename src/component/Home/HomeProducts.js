@@ -9,6 +9,7 @@ const HomeProducts = ({ items }) => {
   return (
     <>
       <Box
+      id='new_prod'
         sx={{
           paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
           direction: "rtl",
