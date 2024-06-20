@@ -23,12 +23,12 @@ const MENU_OPTIONS = [
   {
     label: 'Profile',
     icon: 'eva:person-fill',
-    to:'/profile'
+    to:'/dashboard/profile'
   },
   {
     label: 'Settings',
     icon: 'eva:settings-2-fill',
-    to:'/settings'
+    to:'/dashboard/settings'
   },
 ];
 
