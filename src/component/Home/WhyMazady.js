@@ -10,7 +10,10 @@ import { Link } from "react-router-dom";
 const WhyMazady = () => {
   return (
     <>
-      <Box sx={{ textAlign: "center", color: "#2E3D62", marginTop: "50px" }}>
+      <Box
+        id="why_us"
+        sx={{ textAlign: "center", color: "#2E3D62", marginTop: "50px" }}
+      >
         <Typography
           variant="h2"
           component="h2"

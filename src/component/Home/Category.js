@@ -19,6 +19,7 @@ const Category = () => {
   return (
     <>
       <Box
+      id='cat'
         sx={{
           display: "flex",
           justifyContent: "center",
