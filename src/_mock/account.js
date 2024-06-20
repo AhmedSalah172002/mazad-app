@@ -9,6 +9,6 @@ if (localStorage.getItem("user") !== null) {
 export const account = {
   displayName: auth.name,
   email: auth.email,
-  photoURL: photoURL,
+  photoURL: auth?.image || photoURL,
   role: auth.role === 'user' ? 'مستخدم': auth.role === 'merchant' ? "تاجر" : "أدمن"
 };

@@ -7,7 +7,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import userLogo from "../../images/user-placeholder.jpg";
+import userLogo from '../../images/assets/images/avatars/avatar_25.jpg'
+;
 
 import { Icon } from "@iconify/react";
 import SearchIcon from "@mui/icons-material/Search";
@@ -158,7 +159,7 @@ function Navbar() {
         {settings ? (
           <Box>
             <img
-              src={userLogo}
+              src={auth?.image || userLogo}
               alt="user"
               style={{
                 width: "50px",
