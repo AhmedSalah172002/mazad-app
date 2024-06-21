@@ -22,7 +22,7 @@ const CheckInsurancePaymentHook = () => {
         if (loading === false) {
             if (insurancePayment && insurancePayment.status === "success") {
                 if (insurancePayment.session.url) {
-                    window.open(insurancePayment.session.url)
+                    window.location.href=insurancePayment.session.url
                 }
             } else {
                 notify("فشل فى اكمال الطلب من فضلك حاول مره اخرى", "warn")
