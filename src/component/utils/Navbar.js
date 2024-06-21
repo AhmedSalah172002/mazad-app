@@ -7,23 +7,20 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import userLogo from '../../images/assets/images/avatars/avatar_25.jpg'
-import MenuIcon from '@mui/icons-material/Menu';
+import userLogo from "../../images/assets/images/avatars/avatar_25.jpg";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Icon } from "@iconify/react";
 import { Button, IconButton } from "@mui/material";
 
-
-
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [user, setUser] = React.useState({name: 'Test'});
+  const [user, setUser] = React.useState({ name: "Test" });
 
   React.useEffect(() => {
-    if(localStorage.user && localStorage.user != 'undefined'){
-      setUser(JSON.parse(localStorage.user))
+    if (localStorage.user && localStorage.user != "undefined") {
+      setUser(JSON.parse(localStorage.user));
     }
-  }, [])
-
+  }, []);
 
   const navigate = useNavigate();
   let auth;
@@ -40,12 +37,18 @@ function Navbar() {
   const settings =
     auth && auth?.role === "user"
       ? [
-          { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
+          {
+            link: "الصفحة الشخصية",
+            event: () => navigate("/dashboard/profile"),
+          },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : auth && auth.role === "merchant"
       ? [
-          { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
+          {
+            link: "الصفحة الشخصية",
+            event: () => navigate("/dashboard/profile"),
+          },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : auth && auth.role === "admin"
@@ -69,21 +72,23 @@ function Navbar() {
     const scrollPosition = window.scrollY;
     setIsScrolled(scrollPosition > 5);
   };
-  const pages = [{name:'التصنيفات',id:'cat'},{name:'لماذا نحن ؟',id:'why_us'},{name:'أحدث المنتجات',id:'new_prod'},{name:'كيفية الاستخدام',id:'how_use'}];
-  
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-  
-    const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
-    };
+  const pages = [
+    { name: "التصنيفات", id: "cat" },
+    { name: "لماذا نحن ؟", id: "why_us" },
+    { name: "أحدث المنتجات", id: "new_prod" },
+    { name: "كيفية الاستخدام", id: "how_use" },
+  ];
 
-  
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-  
- 
-  
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -118,53 +123,90 @@ function Navbar() {
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" sx={{color:'white'}}>{page?.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } , justifyContent:'center' }}>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+            sx={{
+              display: { xs: "block", md: "none" },
+            }}
+          >
             {pages.map((page) => (
-              <Button
-                key={page.id}
-                onClick={()=> document.getElementById(`${page.id}`).scrollIntoView({behavior: 'smooth'})}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page?.name}
-              </Button>
+              <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <Typography
+                  onClick={() => {
+                    if (location.pathname !== "/") {
+                      navigate("/");
+                    }
+                    const element = document.getElementById(page.id);
+                    if (element) {
+                      element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "end",
+                        inline: "nearest",
+                      });
+                    }
+                  }}
+                  textAlign="center"
+                  sx={{ color: "white" }}
+                >
+                  {page?.name}
+                </Typography>
+              </MenuItem>
             ))}
-          </Box>
+          </Menu>
+        </Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: { xs: "none", md: "flex" },
+            justifyContent: "center",
+          }}
+        >
+          {pages.map((page) => (
+            <Button
+              key={page.id}
+              onClick={() => {
+                if (location.pathname !== "/") {
+                  navigate("/");
+                }
+
+                const element = document.getElementById(page.id);
+                if (element) {
+                  element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "end",
+                    inline: "nearest",
+                  });
+                }
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {page?.name}
+            </Button>
+          ))}
+        </Box>
         {settings ? (
           <Box>
             <img
