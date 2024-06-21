@@ -7,8 +7,8 @@ if (localStorage.getItem("user") !== null) {
   auth = JSON.parse(localStorage.getItem("user"));
 }
 export const account = {
-  displayName: auth.name,
-  email: auth.email,
+  displayName: auth?.name,
+  email: auth?.email,
   photoURL: auth?.image || photoURL,
-  role: auth.role === 'user' ? 'مستخدم': auth.role === 'merchant' ? "تاجر" : "أدمن"
+  role: auth?.role === 'user' ? 'مستخدم': auth?.role === 'merchant' ? "تاجر" : "أدمن"
 };

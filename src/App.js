@@ -30,7 +30,7 @@ import { UpdateProfile } from "./pages/UpdateProfile";
 import { GetMerchantProducts } from "./pages/Dashboard/merchant/GetMerchantProducts";
 
 function App() {
-  const [isUser, isAdmin, userData] = ProtectedRouteHook();
+  const [isUser, isAdmin, isMerchant] = ProtectedRouteHook();
   return (
     <BrowserRouter>
       <HiddenNav>

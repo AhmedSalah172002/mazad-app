@@ -25,6 +25,7 @@ const HowToUse = () => {
   return (
     <>
       <Box
+      id='how_use'
         sx={{
           paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
           marginY: "15vh",

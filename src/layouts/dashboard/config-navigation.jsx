@@ -15,7 +15,7 @@ if (localStorage.getItem("user") !== null) {
 }
 
 const navConfig =
-  auth.role === "user"
+  auth?.role === "user"
     ? [
         {
           title: "الصفحة الشخصية",
@@ -23,7 +23,7 @@ const navConfig =
           icon: <SvgColor src={profile} sx={{ width: 1, height: 1 }} />,
         },
       ]
-    : auth.role === "merchant"
+    : auth?.role === "merchant"
     ? [
         {
           title: "الصفحة الشخصية",

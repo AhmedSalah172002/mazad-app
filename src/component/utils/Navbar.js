@@ -7,65 +7,20 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/mazady-logo-white.png";
-import userLogo from '../../images/assets/images/avatars/avatar_25.jpg'
-;
-
+import userLogo from "../../images/assets/images/avatars/avatar_25.jpg";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Icon } from "@iconify/react";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
-import { styled, alpha } from "@mui/material/styles";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-
-  [theme.breakpoints.up("xs")]: {
-    marginLeft: theme.spacing(1),
-    width: "50%",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  left: "0px",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import { Button, IconButton } from "@mui/material";
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [user, setUser] = React.useState({name: 'Test'});
+  const [user, setUser] = React.useState({ name: "Test" });
 
   React.useEffect(() => {
-    if(localStorage.user && localStorage.user != 'undefined'){
-      setUser(JSON.parse(localStorage.user))
+    if (localStorage.user && localStorage.user != "undefined") {
+      setUser(JSON.parse(localStorage.user));
     }
-  }, [])
-
+  }, []);
 
   const navigate = useNavigate();
   let auth;
@@ -80,14 +35,20 @@ function Navbar() {
   };
 
   const settings =
-    auth && auth.role === "user"
+    auth && auth?.role === "user"
       ? [
-          { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
+          {
+            link: "الصفحة الشخصية",
+            event: () => navigate("/dashboard/profile"),
+          },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : auth && auth.role === "merchant"
       ? [
-          { link: "الصفحة الشخصية", event: () => navigate("/dashboard/profile") },
+          {
+            link: "الصفحة الشخصية",
+            event: () => navigate("/dashboard/profile"),
+          },
           { link: "تسجيل خروج", event: () => logout() },
         ]
       : auth && auth.role === "admin"
@@ -110,6 +71,22 @@ function Navbar() {
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     setIsScrolled(scrollPosition > 5);
+  };
+  const pages = [
+    { name: "التصنيفات", id: "cat" },
+    { name: "لماذا نحن ؟", id: "why_us" },
+    { name: "أحدث المنتجات", id: "new_prod" },
+    { name: "كيفية الاستخدام", id: "how_use" },
+  ];
+
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
   React.useEffect(() => {
@@ -146,16 +123,90 @@ function Navbar() {
           <img src={logo} style={{ width: "70px" }} alt="logo" />
         </Link>
 
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="بحث…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+            sx={{
+              display: { xs: "block", md: "none" },
+            }}
+          >
+            {pages.map((page) => (
+              <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <Typography
+                  onClick={() => {
+                    if (location.pathname !== "/") {
+                      navigate("/");
+                    }
+                    const element = document.getElementById(page.id);
+                    if (element) {
+                      element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "end",
+                        inline: "nearest",
+                      });
+                    }
+                  }}
+                  textAlign="center"
+                  sx={{ color: "white" }}
+                >
+                  {page?.name}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: { xs: "none", md: "flex" },
+            justifyContent: "center",
+          }}
+        >
+          {pages.map((page) => (
+            <Button
+              key={page.id}
+              onClick={() => {
+                if (location.pathname !== "/") {
+                  navigate("/");
+                }
 
+                const element = document.getElementById(page.id);
+                if (element) {
+                  element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "end",
+                    inline: "nearest",
+                  });
+                }
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {page?.name}
+            </Button>
+          ))}
+        </Box>
         {settings ? (
           <Box>
             <img

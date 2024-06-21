@@ -16,12 +16,24 @@ const Chatting = ({ item }) => {
   if (localStorage.getItem("user") !== null) {
     auth = JSON.parse(localStorage.getItem("user"));
   }
-  
   useEffect(() => {
-    if ((item?.status !== "start-now" || !item?.involved?.some((e) => e.user === auth._id)) && Object.keys(item).length > 0) {
+    if (
+      (item?.status !== "start-now" ||
+        !item?.involved?.some((e) => e.user === auth._id)) &&
+      Object.keys(item).length > 0
+    ) {
       navigate("/");
     }
   }, [item, item?.status]);
+
+  useEffect(()=>{
+    setTimeLeft(
+      calculateTime(
+        item?.date,
+        item?.status === "not-started" ? item?.startTime : item?.endTime
+      )
+    );
+  },[item])
 
   // time
 
@@ -96,11 +108,11 @@ const Chatting = ({ item }) => {
       return;
     }
     const condition =
-      Number(val) >= (Number(lastMessage) + item.lowestBidValue || 0);
+      Number(val) >= (Number(lastMessage  > 0 ? lastMessage: item.initialPrice) + item.lowestBidValue || 0);
 
     if (
       val !== "" &&
-      (+val >= lastMazadPrice + item.lowestBidValue ||
+      (+val >= (lastMazadPrice > 0 ? lastMazadPrice : item.initialPrice ) + item.lowestBidValue ||
         (item.mazad.length < 1 &&
           +val >= item.initialPrice + item.lowestBidValue)) &&
       condition
@@ -139,24 +151,25 @@ const Chatting = ({ item }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (
-        timeLeft.days === 0 &&
-        timeLeft.hours === 0 &&
-        timeLeft.minutes === 0 &&
-        timeLeft.seconds === 0
-      ) {
-        if ((item.mazad?.length > 0 || messages.length > 0) && Object.keys(item).length > 0) {
-          if (messages.length > 0)
-            addToCartHandel(messages[messages.length - 1]?.userId);
-          else addToCartHandel(item.mazad[item.mazad?.length - 1].user._id);
-        }
-      }
       setTimeLeft(
         calculateTime(
           item?.date,
           item?.status === "not-started" ? item?.startTime : item?.endTime
         )
       );
+      if (
+        timeLeft.days === 0 &&
+        timeLeft.hours === 0 &&
+        timeLeft.minutes === 0 &&
+        timeLeft.seconds === 0 &&
+        Object.keys(item).length > 0
+      ) {
+        if (item.mazad?.length > 0 || messages.length > 0) {
+          if (messages.length > 0)
+            addToCartHandel(messages[messages.length - 1]?.userId);
+          else addToCartHandel(item.mazad[item.mazad?.length - 1].user._id);
+        }
+      }
     }, 1000);
 
     return () => clearInterval(timer);

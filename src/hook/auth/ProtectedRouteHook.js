@@ -2,37 +2,45 @@ import React, { useEffect, useState } from 'react'
 
 const ProtectedRouteHook = () => {
 
-    const [userData, setUserData] = useState()
     const [isUser, setIsUser] = useState()
+    const [isMerchant, setIsMerchant] = useState()
     const [isAdmin, setIsAdmin] = useState()
 
-
+    let auth;
+   
     React.useEffect(() => {
-        if(localStorage.user && localStorage.user != 'undefined'){
-            setUserData(JSON.parse(localStorage.user))
-        }
+        if (localStorage.getItem("user") !== null) {
+            auth = JSON.parse(localStorage.getItem("user"));
+          }
     }, [])
-
 
     useEffect(() => {
 
-        if (userData != null) {
-            if (userData.role === "user") {
+        if (auth != null) {
+            if (auth.role === "user") {
                 setIsUser(true)
                 setIsAdmin(false)
-            } else {
+                setIsMerchant(false)
+
+            } else if (auth.role ==="merchant") {
                 setIsUser(false)
+                setIsMerchant(true)
+                setIsAdmin(false)
+            }else{
+                setIsUser(false)
+                setIsMerchant(false)
                 setIsAdmin(true)
             }
         } else {
-            setIsAdmin(false)
             setIsUser(false)
+            setIsMerchant(false)
+            setIsAdmin(false)
         }
     }, [])
 
 
 
-    return [isUser, isAdmin, userData]
+    return [isUser, isAdmin, isMerchant]
 }
 
 export default ProtectedRouteHook
