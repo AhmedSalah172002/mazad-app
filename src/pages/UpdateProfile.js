@@ -214,8 +214,8 @@ export const UpdateProfile = () => {
                   {errors.has("image") && errors.get("image")}
                 </Typography>
               </Box>
-
               <TextField
+                dir="rtl"
                 fullWidth
                 sx={{ mb: 2 }}
                 required
@@ -225,6 +225,7 @@ export const UpdateProfile = () => {
                 onChange={handleChange}
               />
               <TextField
+                dir="rtl"
                 fullWidth
                 sx={{ mb: 2 }}
                 required
@@ -234,6 +235,7 @@ export const UpdateProfile = () => {
                 onChange={handleChange}
               />
               <TextField
+                dir="rtl"
                 fullWidth
                 sx={{ mb: 2 }}
                 required
