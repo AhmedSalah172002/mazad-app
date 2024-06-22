@@ -28,6 +28,7 @@ import ProductsPage from "./pages/ProductsPage";
 import Dashboard from "./pages/Dashboard/overview/view/app-view";
 import { UpdateProfile } from "./pages/UpdateProfile";
 import { GetMerchantProducts } from "./pages/Dashboard/merchant/GetMerchantProducts";
+import { GetAdminCategories } from "./pages/Dashboard/admin/GetAdminCategories";
 
 function App() {
   const [isUser, isAdmin, isMerchant] = ProtectedRouteHook();
@@ -41,10 +42,8 @@ function App() {
         <Route path="/dashboard" element={<DashboardIndex />}>
           <Route path="overview" element={<Dashboard />} />
           <Route path="profile" element={<UpdateProfile />} />
-          
-
           <Route path="products" element={<GetMerchantProducts />} />
-
+          <Route path="categories" element={<GetAdminCategories />} />
 
         </Route>
         <Route path="/" element={<HomePage />} />

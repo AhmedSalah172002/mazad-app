@@ -7,6 +7,7 @@ import user from "../../images/assets/icons/navbar/ic_user.svg";
 import products from "../../images/assets/icons/navbar/products.svg";
 import blog from "../../images/assets/icons/navbar/ic_blog.svg";
 import profile from "../../images/assets/icons/navbar/profile.svg";
+import category from "../../images/assets/icons/navbar/category-svgrepo-com.svg";
 
 
 let auth;
@@ -56,6 +57,11 @@ const navConfig =
           title: "التعليقات",
           path: "blog",
           icon: <SvgColor src={blog} sx={{ width: 1, height: 1 }} />,
+        },
+        {
+          title: "الفئات",
+          path: "categories",
+          icon: <SvgColor src={category} sx={{ width: 1, height: 1 }} />,
         },
       ];
 
