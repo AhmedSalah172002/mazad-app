@@ -68,7 +68,6 @@ export const CreateUpdateProductDialog = ({
   method,
   createUpdateDialogOpen,
   setCreateUpdateDialogOpen,
-  setMethod,
   targetProduct,
   setTargetProduct,
   products,
@@ -192,6 +191,17 @@ export const CreateUpdateProductDialog = ({
       );
       return false;
     }
+    if (
+      formData?.images?.length &&
+      formData?.images[0] instanceof File &&
+      formData?.images?.length > 3
+    ) {
+      window.scrollTo({ top: "0", behavior: "smooth" });
+      setErrors(
+        new Map().set("image", "يمكنك رفع 3 صور بحد اقصى من الصور المتعددة")
+      );
+      return false;
+    }
 
     // prepare data
     const data = new FormData();
@@ -253,6 +263,19 @@ export const CreateUpdateProductDialog = ({
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    if (
+      formData?.images?.length &&
+      formData?.images[0] instanceof File &&
+      formData?.images?.length > 3
+    ) {
+      window.scrollTo({ top: "0", behavior: "smooth" });
+      setErrors(
+        new Map().set("image", "يمكنك رفع 3 صور بحد اقصى من الصور المتعددة")
+      );
+      return false;
+    }
+
     if (!canUpdate(formData, targetProduct)) {
       return false;
     }

@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { arEG } from '@mui/material/locale';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { CreateUpdateProductDialog } from './CreateUpdateProductDialog';
+import { DeleteProductDialog } from './DeleteProductDialog';
 
 const PRODUCT_STATUS = {
   "not-started": 'لم يبدأ',
@@ -24,6 +25,7 @@ export const GetMerchantProducts = () => {
   const [products, setProducts] = useState([]);
   const [method, setMethod] = useState('create')
   const [createUpdateDialogOpen, setCreateUpdateDialogOpen] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [targetProduct, setTargetProduct] = useState(null)
 
   const handleEdit = (row) => {
@@ -33,6 +35,7 @@ export const GetMerchantProducts = () => {
   }
   const handleRemove = (row) => {
     setTargetProduct(row)
+    setDeleteDialogOpen(true)
   }
 
   const columns = [
@@ -102,7 +105,7 @@ export const GetMerchantProducts = () => {
   ];
 
   useEffect(() => {
-    baseUrl.get('/api/v1/products?limit=50')
+    baseUrl.get('/api/v1/products?limit=500')
       .then(response => {
         setProducts(response?.data?.data)
       })
@@ -139,14 +142,20 @@ export const GetMerchantProducts = () => {
           method={method}
           createUpdateDialogOpen={createUpdateDialogOpen}
           setCreateUpdateDialogOpen={setCreateUpdateDialogOpen}
-          setMethod={setMethod}
           targetProduct={targetProduct}
           setTargetProduct={setTargetProduct}
           products={products}
           setProducts={setProducts}
-
         />
 
+        <DeleteProductDialog
+          deleteDialogOpen={deleteDialogOpen}
+          setDeleteDialogOpen={setDeleteDialogOpen}
+          targetProduct={targetProduct}
+          setTargetProduct={setTargetProduct}
+          products={products}
+          setProducts={setProducts}
+        />
 
       </Container>
 
