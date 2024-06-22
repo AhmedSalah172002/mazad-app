@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import baseUrl from "../../../Api/baseURL";
-import { Avatar, Button, Container, IconButton, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Container,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { Icon } from '@iconify/react/dist/iconify.js';
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { CreateUpdateCategoryDialog } from "./CreateUpdateCategoryDialog";
+import { DeleteCategoryDialog } from "./DeleteCategoryDialog";
 
 export const GetAdminCategories = () => {
   const [categories, setCategories] = useState([]);
+  const [method, setMethod] = useState("create");
+  const [createUpdateDialogOpen, setCreateUpdateDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [targetCategory, setTargetCategory] = useState(null);
 
   useEffect(() => {
     baseUrl.get("/api/v1/category?limit=500").then((response) => {
@@ -14,10 +26,13 @@ export const GetAdminCategories = () => {
   }, []);
 
   const handleEdit = (row) => {
-
+    setTargetCategory(row);
+    setMethod("update");
+    setCreateUpdateDialogOpen(true);
   };
   const handleRemove = (row) => {
-
+    setTargetCategory(row);
+    setDeleteDialogOpen(true);
   };
 
   const columns = [
@@ -82,7 +97,14 @@ export const GetAdminCategories = () => {
           {" "}
           الفئات{" "}
         </Typography>
-        <Button variant="contained" onClick={() => {}}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setMethod("create");
+            setTargetCategory(null);
+            setCreateUpdateDialogOpen(true);
+          }}
+        >
           {" "}
           انشاء فئة{" "}
         </Button>
@@ -102,6 +124,25 @@ export const GetAdminCategories = () => {
           }}
         />
       </div>
+
+      <CreateUpdateCategoryDialog
+        method={method}
+        createUpdateDialogOpen={createUpdateDialogOpen}
+        setCreateUpdateDialogOpen={setCreateUpdateDialogOpen}
+        targetCategory={targetCategory}
+        setTargetCategory={setTargetCategory}
+        categories={categories}
+        setCategories={setCategories}
+      />
+
+      <DeleteCategoryDialog
+        deleteDialogOpen={deleteDialogOpen}
+        setDeleteDialogOpen={setDeleteDialogOpen}
+        targetCategory={targetCategory}
+        setTargetCategory={setTargetCategory}
+        categories={categories}
+        setCategories={setCategories}
+      />
     </Container>
   );
 };
