@@ -7,6 +7,7 @@ import checkoutReducer from './checkoutReducer'
 import orderReducer from './orderReducer'
 import loggedUserReducer from './loggedUserReducer'
 import categoryReducer from './categoryReducer'
+import onBoardingReducer from './onBoardingReducer'
 
 
 
@@ -18,5 +19,6 @@ export default combineReducers({
     checkoutReducer,
     orderReducer,
     loggedUserReducer,
-    categoryReducer
+    categoryReducer,
+    onBoardingReducer
 })
