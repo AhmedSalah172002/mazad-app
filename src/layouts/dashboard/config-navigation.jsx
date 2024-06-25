@@ -8,6 +8,8 @@ import products from "../../images/assets/icons/navbar/products.svg";
 import blog from "../../images/assets/icons/navbar/ic_blog.svg";
 import profile from "../../images/assets/icons/navbar/profile.svg";
 import category from "../../images/assets/icons/navbar/category-svgrepo-com.svg";
+import payments from "../../images/assets/icons/navbar/payments.svg";
+
 
 
 let auth;

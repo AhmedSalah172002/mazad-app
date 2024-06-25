@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import bele from "../../images/bele.jpg";
+import userLogo from "../../images/assets/images/avatars/avatar_25.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -168,7 +168,7 @@ const ProductCard = ({ status, item }) => {
             }}
           >
             <img
-              src={bele}
+              src={item?.user?.image || userLogo}
               alt="img"
               style={{
                 width: "40px",
@@ -187,7 +187,7 @@ const ProductCard = ({ status, item }) => {
                   marginBottom: "5px",
                 }}
               >
-                جود بيلينجهام
+                {item?.user?.name}
               </Typography>
               <Typography
                 variant="body2"
