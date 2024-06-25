@@ -26,14 +26,14 @@ const Chatting = ({ item }) => {
     }
   }, [item, item?.status]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setTimeLeft(
       calculateTime(
         item?.date,
         item?.status === "not-started" ? item?.startTime : item?.endTime
       )
     );
-  },[item])
+  }, [item]);
 
   // time
 
@@ -59,7 +59,7 @@ const Chatting = ({ item }) => {
     )
   );
 
-  const socket = io.connect("http://127.0.0.1:9000");
+  const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [messageColors, setMessageColors] = useState([]);
@@ -108,11 +108,15 @@ const Chatting = ({ item }) => {
       return;
     }
     const condition =
-      Number(val) >= (Number(lastMessage  > 0 ? lastMessage: item.initialPrice) + item.lowestBidValue || 0);
+      Number(val) >=
+      (Number(lastMessage > 0 ? lastMessage : item.initialPrice) +
+        item.lowestBidValue || 0);
 
     if (
       val !== "" &&
-      (+val >= (lastMazadPrice > 0 ? lastMazadPrice : item.initialPrice ) + item.lowestBidValue ||
+      (+val >=
+        (lastMazadPrice > 0 ? lastMazadPrice : item.initialPrice) +
+          item.lowestBidValue ||
         (item.mazad.length < 1 &&
           +val >= item.initialPrice + item.lowestBidValue)) &&
       condition

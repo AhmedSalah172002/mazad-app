@@ -2,8 +2,10 @@ import React from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import star1 from "../../images/star1.svg";
 import star2 from "../../images/star2.svg";
+import { useNavigate } from "react-router-dom";
 
 const HomeLogin = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Box
@@ -46,6 +48,7 @@ const HomeLogin = () => {
                   background: "#ffffff",
                 },
               }}
+              onClick={()=> navigate("/login") }
             >
               تسجيل الدخول{" "}
             </Button>{" "}
