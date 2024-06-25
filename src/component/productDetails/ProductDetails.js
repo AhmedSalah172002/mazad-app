@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import { Icon } from "@iconify/react";
 import userLogo from "../../images/assets/images/avatars/avatar_25.jpg";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import GetProductDetails from "../../hook/products/GetProductDetails";
 import { NozProgress } from "nozolan-library";
 import {
@@ -34,6 +34,14 @@ const ProductDetails = () => {
   const [handelCheckInsurancePayment, loading] = CheckInsurancePaymentHook();
   const [handleTerminateProduct] = TerminateProductStatusHook();
   const [rateDialogOpen, setRateDialogOpen] = useState(false);
+  const [loggedUser, setLoggedUser] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.user) {
+      const user = JSON.parse(localStorage.user);
+      setLoggedUser(user);
+    }
+  }, []);
 
   let auth;
   if (localStorage.getItem("user") !== null) {
@@ -604,14 +612,14 @@ const ProductDetails = () => {
                       item?.status === "finished"
                     }
                     onClick={() =>
-                      auth.role === "merchant"
+                      auth?.role === "merchant"
                         ? handleTerminateProduct(productId)
                         : item?.involved?.some((e) => e.user === auth._id)
                         ? navigate(`/user/mazad/${productId}`)
                         : handelCheckInsurancePayment(productId)
                     }
                   >
-                    {auth.role === "merchant"
+                    {auth?.role === "merchant"
                       ? "انهاء المزاد"
                       : "المزايدة الأن"}
                   </Button>
@@ -715,46 +723,53 @@ const ProductDetails = () => {
                       setRateDialogOpen={setRateDialogOpen}
                       product={item}
                     />
-                    <Typography
-                      onClick={() => setRateDialogOpen(true)}
-                      sx={{
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                        fontSize: "18px",
-                        fontWeight: "700",
-                        color: "#403DA8",
-                      }}
-                    >
-                      <Icon
-                        icon="material-symbols:star-rate"
-                        width={25}
-                        style={{ color: "#585858" }}
-                      />
-                      تقييم البائع
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                        fontSize: "18px",
-                        fontWeight: "700",
-                        color: "#403DA8",
-                        cursor: "pointer",
-                      }}
-                      onClick={() =>
-                        (window.location.href = `tel:${item?.user?.phone}`)
-                      }
-                    >
-                      <Icon
-                        icon="vaadin:chat"
-                        width={25}
-                        style={{ color: "#585858" }}
-                      />
-                      مراسلة البائع
-                    </Box>
+                    {loggedUser?.role == "user" ? (
+                      <>
+                        <Typography
+                          onClick={() => setRateDialogOpen(true)}
+                          sx={{
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            fontSize: "18px",
+                            fontWeight: "700",
+                            color: "#403DA8",
+                          }}
+                        >
+                          <Icon
+                            icon="material-symbols:star-rate"
+                            width={25}
+                            style={{ color: "#585858" }}
+                          />
+                          تقييم البائع
+                        </Typography>
+
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            fontSize: "18px",
+                            fontWeight: "700",
+                            color: "#403DA8",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            (window.location.href = `tel:${item?.user?.phone}`)
+                          }
+                        >
+                          <Icon
+                            icon="vaadin:chat"
+                            width={25}
+                            style={{ color: "#585858" }}
+                          />
+                          مراسلة البائع
+                        </Box>
+                      </>
+                    ) : (
+                      <Link to={"/login"}> Login </Link>
+                    )}
                   </Box>
                 </Box>
               </Box>
