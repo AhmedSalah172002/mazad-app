@@ -2,8 +2,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import { Icon } from "@iconify/react";
-import bele from "../../images/bele.jpg";
-import ProductCard from "../Home/ProductCard";
+import userLogo from "../../images/assets/images/avatars/avatar_25.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import GetProductDetails from "../../hook/products/GetProductDetails";
 import { NozProgress } from "nozolan-library";
@@ -661,7 +660,7 @@ const ProductDetails = () => {
                     sx={{ display: "flex", alignItems: "center", gap: "8px" }}
                   >
                     <img
-                      src={bele}
+                      src={item?.user?.image || userLogo}
                       alt="img"
                       style={{
                         width: "70px",
@@ -680,7 +679,7 @@ const ProductDetails = () => {
                           marginBottom: "5px",
                         }}
                       >
-                        جود بيلينجهام
+                        {item?.user?.name}
                       </Typography>
                       <Typography
                         variant="body2"
@@ -733,7 +732,11 @@ const ProductDetails = () => {
                         fontSize: "18px",
                         fontWeight: "700",
                         color: "#403DA8",
+                        cursor:'pointer'
+
                       }}
+                      onClick={() => window.location.href = `tel:${item?.user?.phone}`}
+
                     >
                       <Icon
                         icon="vaadin:chat"

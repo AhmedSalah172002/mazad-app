@@ -155,6 +155,8 @@ function Navbar() {
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
                 <Typography
+                sx={{color:'black',textAlign:"center"
+                }}
                   onClick={() => {
                     if (location.pathname !== "/") {
                       navigate("/");
@@ -168,8 +170,6 @@ function Navbar() {
                       });
                     }
                   }}
-                  textAlign="center"
-                  sx={{ color: "white" }}
                 >
                   {page?.name}
                 </Typography>

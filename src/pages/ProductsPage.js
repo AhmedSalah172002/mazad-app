@@ -77,7 +77,7 @@ const ProductsPage = () => {
       setPriceFilter(
         `initialPrice[gte]=${minPrice}&initialPrice[lte]=${maxPrice}`
       );
-    else setPriceFilter(`initialPrice[gte]=${minPrice}`);
+    else setPriceFilter(`initialPrice[gte]=${minPrice||0}`);
     setCategoryFilter(Object.keys(checkedValues).join("&"));
   };
   const resetChecked = () => {

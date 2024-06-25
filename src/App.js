@@ -42,9 +42,12 @@ function App() {
         <Route path="/dashboard" element={<DashboardIndex />}>
           <Route path="overview" element={<Dashboard />} />
           <Route path="profile" element={<UpdateProfile />} />
-          <Route path="products" element={<GetMerchantProducts />} />
-          <Route path="categories" element={<GetAdminCategories />} />
-
+          <Route path={""} element={<ProtectedRoute auth={isMerchant} />}>
+            <Route path="products" element={<GetMerchantProducts />} />
+          </Route>
+          <Route path={""} element={<ProtectedRoute auth={isAdmin} />}>
+            <Route path="categories" element={<GetAdminCategories />} />
+          </Route>
         </Route>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
@@ -57,9 +60,7 @@ function App() {
 
         <Route path="/user" element={<ProtectedRoute auth={isUser} />}>
           <Route path="mazad/:productId" element={<MazadChatPage />} />
-          <Route path="my-orders" element={<UserOrdersPage />} />
-          <Route path="order/:orderId" element={<OrderDetailsPage />} />
-          <Route path="order/payment" element={<PaymentPage />} />
+          <Route path="payments/:cartId" element={<PaymentPage />} />
         </Route>
 
         <Route element={<ProtectedRoute auth={isAdmin} />}>

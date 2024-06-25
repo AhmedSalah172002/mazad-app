@@ -12,6 +12,10 @@ import { Fade, Zoom, Bounce, Slide } from "react-awesome-reveal";
 const HomePage = () => {
   const [items, filter, setFilter, onPress, pageCount, results] =
     GetAllProducts(4);
+  let auth;
+  if (localStorage.getItem("user") !== null) {
+    auth = JSON.parse(localStorage.getItem("user"));
+  }
   return (
     <>
       <Fade>
@@ -29,9 +33,11 @@ const HomePage = () => {
       <Slide direction="right">
         <HowToUse />
       </Slide>
-      <Bounce>
-        <HomeLogin />
-      </Bounce>
+      {!auth && (
+        <Bounce>
+          <HomeLogin />
+        </Bounce>
+      )}
       <Slide>
         <HomeReviews />
       </Slide>

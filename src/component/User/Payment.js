@@ -6,17 +6,17 @@ import { ToastContainer } from 'react-toastify'
 import OrderPayCardHook from '../../hook/checkout/OrderPayCardHook'
 import AddAddressHook from '../../hook/address/AddAddressHook'
 
-const Payment = () => {
+const Payment = ({cartId}) => {
    const [res] =GetAddressHook()
    const [alias, detalis, phone,city, onChangeAlias,onChangeCity, onChangeDetalis, onChangePhone, onSubmit]=AddAddressHook()
-   const [handelCreateOrderCARD] = OrderPayCardHook(res.data)
+   const [handelCreateOrderCARD] = OrderPayCardHook(res.data,cartId)
    
     const handelPay = () => {
         handelCreateOrderCARD() 
     }
  return (
     <>
-    <div dir='rtl' className="payment mt-5 mb-5">
+    <div dir='rtl' style={{marginTop:'7rem',padding:'15px'}} className="payment mb-5">
         <div className="container">
            <div className="payment-cont ">
            <h2 className='mb-5'>إتمام عملية الدفع</h2>
