@@ -13,6 +13,8 @@ import {
 import CheckInsurancePaymentHook from "../../hook/checkout/CheckInsurancePaymentHook";
 import TerminateProductStatusHook from "../../hook/products/TerminateProductStatusHook";
 import { ToastContainer } from "react-toastify";
+import { RateMerchantDialog } from "./RateMerchantDialog";
+import { ReviewMerchant } from "./ReviewMerchant";
 
 const customRenderItem = (item) => {
   return (
@@ -31,6 +33,7 @@ const ProductDetails = () => {
   const [item] = GetProductDetails(productId);
   const [handelCheckInsurancePayment, loading] = CheckInsurancePaymentHook();
   const [handleTerminateProduct] = TerminateProductStatusHook();
+  const [rateDialogOpen, setRateDialogOpen] = useState(false);
 
   let auth;
   if (localStorage.getItem("user") !== null) {
@@ -707,8 +710,15 @@ const ProductDetails = () => {
                     </Box>
                   </Box>
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
-                    <Box
+                    <RateMerchantDialog
+                      rateDialogOpen={rateDialogOpen}
+                      setRateDialogOpen={setRateDialogOpen}
+                      product={item}
+                    />
+                    <Typography
+                      onClick={() => setRateDialogOpen(true)}
                       sx={{
+                        cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
                         gap: "5px",
@@ -718,12 +728,12 @@ const ProductDetails = () => {
                       }}
                     >
                       <Icon
-                        icon="material-symbols:person"
+                        icon="material-symbols:star-rate"
                         width={25}
                         style={{ color: "#585858" }}
                       />
-                      صفحة البائع
-                    </Box>
+                      تقييم البائع
+                    </Typography>
                     <Box
                       sx={{
                         display: "flex",
@@ -732,11 +742,11 @@ const ProductDetails = () => {
                         fontSize: "18px",
                         fontWeight: "700",
                         color: "#403DA8",
-                        cursor:'pointer'
-
+                        cursor: "pointer",
                       }}
-                      onClick={() => window.location.href = `tel:${item?.user?.phone}`}
-
+                      onClick={() =>
+                        (window.location.href = `tel:${item?.user?.phone}`)
+                      }
                     >
                       <Icon
                         icon="vaadin:chat"
@@ -748,167 +758,7 @@ const ProductDetails = () => {
                   </Box>
                 </Box>
               </Box>
-              <Box
-                sx={{
-                  marginTop: "35px",
-                  background: "#9747FF2B",
-                  padding: "40px 20px",
-                  borderRadius: "15px",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "5px",
-                    marginBottom: "35px",
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    sx={{
-                      fontWeight: "700",
-                    }}
-                  >
-                    تقييم البائع :
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                      fontSize: "18px",
-                      fontWeight: "700",
-                      color: "#403DA8",
-                    }}
-                  >
-                    <Icon
-                      icon="twemoji:star"
-                      width={25}
-                      style={{ color: "#585858" }}
-                    />
-                    3
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "5px",
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    component="body2"
-                    sx={{
-                      fontWeight: "700",
-                    }}
-                  >
-                    سرعة التوصيل
-                  </Typography>
-                  <Box
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "700",
-                      color: "#403DA8",
-                    }}
-                  >
-                    4.9
-                  </Box>
-                </Box>
-                <hr />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "5px",
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    component="body2"
-                    sx={{
-                      fontWeight: "700",
-                    }}
-                  >
-                    التواصل
-                  </Typography>
-                  <Box
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "700",
-                      color: "#403DA8",
-                    }}
-                  >
-                    4.7
-                  </Box>
-                </Box>
-                <hr />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "5px",
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    component="body2"
-                    sx={{
-                      fontWeight: "700",
-                    }}
-                  >
-                    الخبرة الشاملة
-                  </Typography>
-                  <Box
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "700",
-                      color: "#403DA8",
-                    }}
-                  >
-                    4.6
-                  </Box>
-                </Box>
-                <hr />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "5px",
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    component="body2"
-                    sx={{
-                      fontWeight: "700",
-                    }}
-                  >
-                    الإلتزام
-                  </Typography>
-                  <Box
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "700",
-                      color: "#403DA8",
-                    }}
-                  >
-                    4.8
-                  </Box>
-                </Box>
-              </Box>
+              <ReviewMerchant review={item?.user?.reviews} />
             </Box>
           </Grid>
         </Grid>
