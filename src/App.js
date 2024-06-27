@@ -31,6 +31,9 @@ import { GetMerchantProducts } from "./pages/Dashboard/merchant/GetMerchantProdu
 import { GetAdminCategories } from "./pages/Dashboard/admin/GetAdminCategories";
 import { MerchantReviews } from "./pages/Dashboard/merchant/MerchantReviews";
 import { GetAllMerchants } from "./pages/Dashboard/admin/GetAllMerchants";
+import { AdminAllOrders } from "./pages/Dashboard/admin/AdminAllOrders";
+import { MerchantOrders } from "./pages/Dashboard/merchant/MerchantOrders";
+import { UserOrders } from "./pages/Dashboard/user/UserOrders";
 
 function App() {
   const [isUser, isAdmin, isMerchant] = ProtectedRouteHook();
@@ -44,16 +47,23 @@ function App() {
         <Route path="/dashboard" element={<DashboardIndex />}>
           <Route path="overview" element={<Dashboard />} />
           <Route path="profile" element={<UpdateProfile />} />
+          <Route path={""} element={<ProtectedRoute auth={isUser} />}>
+            <Route path="user/orders" element={<UserOrders />} />
+          </Route>
           <Route path={""} element={<ProtectedRoute auth={isMerchant} />}>
             <Route path="products" element={<GetMerchantProducts />} />
             <Route path="reviews/:merchantId" element={<MerchantReviews />} />
+            <Route path="merchant/orders" element={<MerchantOrders />} />
           </Route>
           <Route path={""} element={<ProtectedRoute auth={isAdmin} />}>
             <Route path="categories" element={<GetAdminCategories />} />
             <Route path="merchants" element={<GetAllMerchants />} />
-            <Route path="admin/merchant/:merchantId/reviews" element={<MerchantReviews />} />
+            <Route
+              path="admin/merchant/:merchantId/reviews"
+              element={<MerchantReviews />}
+            />
+            <Route path="admin/orders" element={<AdminAllOrders />} />
           </Route>
-          
         </Route>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />

@@ -169,8 +169,14 @@ export const GetMerchantProducts = () => {
     },
   ];
 
+  const token = localStorage?.token
+
   useEffect(() => {
-    baseUrl.get("/api/v1/products?limit=500").then((response) => {
+    baseUrl.get("/api/v1/products?limit=500", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
       setProducts(response?.data?.data);
     });
   }, []);
@@ -206,7 +212,7 @@ export const GetMerchantProducts = () => {
               {" "}
               انشاء منتج{" "}
             </Button>
-            <Button variant="contained" onClick={()=>onBoardingMerchant()}>
+            <Button variant="contained" onClick={() => onBoardingMerchant()}>
               {" "}
               {!auth?.stripe_payouts_enabled || !auth?.stripe_charges_enabled
                 ? "ربط الحساب البنكي"

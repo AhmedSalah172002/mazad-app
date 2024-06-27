@@ -73,6 +73,8 @@ export const CreateUpdateProductDialog = ({
   products,
   setProducts,
 }) => {
+  const token = localStorage?.token
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -122,7 +124,7 @@ export const CreateUpdateProductDialog = ({
 
   useEffect(() => {
     baseUrl
-      .get("/api/v1/category")
+      .get("/api/v1/category", {headers: {Authorization: `Bearer ${token}`}})
       .then((response) => setCategories(response.data?.data));
   }, []);
 
@@ -221,7 +223,6 @@ export const CreateUpdateProductDialog = ({
     // send request
     setLoading(true);
     try {
-      const token = localStorage.token;
       const response = await baseUrl.post("/api/v1/products", data, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -316,7 +317,6 @@ export const CreateUpdateProductDialog = ({
     setLoading(true);
     // send request
     try {
-      const token = localStorage.token;
       const response = await baseUrl.put(
         `/api/v1/products/${targetProduct?._id}`,
         data,
