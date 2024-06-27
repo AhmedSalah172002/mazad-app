@@ -18,11 +18,16 @@ export const GetAdminCategories = () => {
   const [createUpdateDialogOpen, setCreateUpdateDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [targetCategory, setTargetCategory] = useState(null);
+  const token = localStorage?.token;
 
   useEffect(() => {
-    baseUrl.get("/api/v1/category?limit=500").then((response) => {
-      setCategories(response?.data?.data);
-    });
+    baseUrl
+      .get("/api/v1/category?limit=500", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setCategories(response?.data?.data);
+      });
   }, []);
 
   const handleEdit = (row) => {

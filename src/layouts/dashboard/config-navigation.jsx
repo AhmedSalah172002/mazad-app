@@ -26,6 +26,11 @@ const navConfig =
         path: "profile",
         icon: <SvgColor src={profile} sx={{ width: 1, height: 1 }} />,
       },
+      {
+        title: "الطلبات",
+        path: "user/orders",
+        icon: <Icon icon={'gg:list'} sx={{ width: 1, height: 1, fontSize: '20px' }} />,
+      },
     ]
     : auth?.role === "merchant"
       ? [
@@ -43,6 +48,11 @@ const navConfig =
           title: "التقيمات",
           path: `reviews/${auth?._id}`,
           icon: <Icon style={{ fontSize: '20px' }} icon={'material-symbols:reviews'} />,
+        },
+        {
+          title: "الطلبات",
+          path: "merchant/orders",
+          icon: <Icon icon={'gg:list'} sx={{ width: 1, height: 1, fontSize: '20px' }} />,
         },
       ]
       : [
@@ -75,6 +85,11 @@ const navConfig =
           title: "البائعين",
           path: "merchants",
           icon: <Icon icon={'fa-solid:users'} sx={{ width: 1, height: 1, fontSize: '20px' }} />,
+        },
+        {
+          title: "الطلبات",
+          path: "admin/orders",
+          icon: <Icon icon={'gg:list'} sx={{ width: 1, height: 1, fontSize: '20px' }} />,
         },
       ];
 
