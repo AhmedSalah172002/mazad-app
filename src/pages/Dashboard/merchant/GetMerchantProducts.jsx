@@ -172,7 +172,7 @@ export const GetMerchantProducts = () => {
   const token = localStorage?.token
 
   useEffect(() => {
-    baseUrl.get("/api/v1/products?limit=500", {
+    baseUrl.get("/api/v1/products/special?limit=500", {
       headers: {
         Authorization: `Bearer ${token}`
       }
