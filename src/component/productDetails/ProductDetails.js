@@ -619,7 +619,7 @@ const ProductDetails = () => {
                         : handelCheckInsurancePayment(productId)
                     }
                   >
-                    {auth?.role === "merchant"
+                    {auth?.role === "merchant" && item?.user?._id === auth?._id
                       ? "انهاء المزاد"
                       : "المزايدة الأن"}
                   </Button>
