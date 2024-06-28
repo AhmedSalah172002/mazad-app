@@ -32,7 +32,8 @@ export const createCategory = (formatData) => async (dispatch) => {
 //get all category with pagination
 export const getAllCategory = () => async (dispatch) => {
   try {
-    const response = await useGetData(`/api/v1/category`);
+    const token = localStorage?.token
+    const response = await useGetData(`/api/v1/category`, {headers: {Authorization: `Bearer ${token}`}});
     dispatch({
       type: GET_ALL_CATEGORY,
       payload: response,
