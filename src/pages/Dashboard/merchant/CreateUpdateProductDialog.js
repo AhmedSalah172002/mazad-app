@@ -73,7 +73,7 @@ export const CreateUpdateProductDialog = ({
   products,
   setProducts,
 }) => {
-  const token = localStorage?.token
+  const token = localStorage?.token;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -124,7 +124,7 @@ export const CreateUpdateProductDialog = ({
 
   useEffect(() => {
     baseUrl
-      .get("/api/v1/category", {headers: {Authorization: `Bearer ${token}`}})
+      .get("/api/v1/category?limit=500")
       .then((response) => setCategories(response.data?.data));
   }, []);
 

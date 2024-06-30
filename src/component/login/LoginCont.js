@@ -30,7 +30,7 @@ const cacheRtl = createCache({
 
 
 const LoginCont = () => {
-  const [email, password, loading, onChangeEmail, onChangePassword, onSubmit] = LoginHook();
+  const {email, password, loading, onChangeEmail, onChangePassword, onSubmit} = LoginHook();
 
   return (
     <CacheProvider value={cacheRtl}>

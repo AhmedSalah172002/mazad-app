@@ -9,20 +9,26 @@ import authTop from "../../images/auth-top.png";
 import authBottom from "../../images/auth-bottom.png";
 import LoginHook from "../../hook/auth/LoginHook";
 import { Link } from "react-router-dom";
-
-
+import { NozProgress } from "nozolan-library";
 
 const Login = () => {
-  const [email, password, loading, onChangeEmail, onChangePassword, onSubmit] =
-    LoginHook();
-    const theme = createTheme({
-      direction: "rtl",
-    });
-    
-    const cacheRtl = createCache({
-      key: "muirtl",
-      stylisPlugins: [rtlPlugin],
-    });
+  const {
+    email,
+    password,
+    loading,
+    errors,
+    onChangeEmail,
+    onChangePassword,
+    onSubmit,
+  } = LoginHook();
+  const theme = createTheme({
+    direction: "rtl",
+  });
+
+  const cacheRtl = createCache({
+    key: "muirtl",
+    stylisPlugins: [rtlPlugin],
+  });
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -71,73 +77,78 @@ const Login = () => {
                 >
                   تسجيل الدخول
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <TextField
-                    dir="rtl"
-                    type="email"
-                    label="البريد الالكترونى"
-                    sx={{ marginBottom: "10px", width: "70%" }}
-                    value={email}
-                    onChange={(e) => {
-                      onChangeEmail(e);
+                <form onSubmit={onSubmit}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexWrap: "wrap",
                     }}
-                  />
-
-                  <TextField
-                    type="password"
-                    dir="rtl"
-                    label="كلمة المرور"
-                    sx={{ marginBottom: "10px", width: "70%" }}
-                    value={password}
-                    onChange={(e) => {
-                      onChangePassword(e);
-                    }}
-                  />
-                </Box>
-
-                <Typography
-                  variant="body2"
-                  sx={{ width: "70%", margin: "0 auto 15px" }}
-                >
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    onClick={() =>
-                      window.scrollTo({ top: 0, behavior: "smooth" })
-                    }
-                    to="/forget-password"
                   >
-                    هل نسيت كلمة المرور ؟
-                  </Link>
-                </Typography>
+                    <TextField
+                      error={errors.has("email")}
+                      helperText={errors.get("email")}
+                      dir="rtl"
+                      type="email"
+                      label="البريد الالكترونى"
+                      sx={{ marginBottom: "10px", width: "70%" }}
+                      value={email}
+                      onChange={(e) => {
+                        onChangeEmail(e);
+                      }}
+                    />
 
-                <Button
-                  fullWidth
-                  variant="contained"
-                  style={{
-                    background: "#403DA8",
-                    background:
-                      "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
-                    boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
-                    color: "white",
-                    fontSize: "22px",
-                    width: "fit-content",
-                    display: "block",
-                    margin: "10px auto",
-                    padding: "10px 70px",
-                    borderRadius: "10px",
-                  }}
-                  onClick={onSubmit}
-                >
-                  تسجيل الدخول
-                </Button>
+                    <TextField
+                      error={errors.has("password")}
+                      helperText={errors.get("password")}
+                      type="password"
+                      dir="rtl"
+                      label="كلمة المرور"
+                      sx={{ marginBottom: "10px", width: "70%" }}
+                      value={password}
+                      onChange={(e) => {
+                        onChangePassword(e);
+                      }}
+                    />
+                  </Box>
 
+                  <Typography
+                    variant="body2"
+                    sx={{ width: "70%", margin: "0 auto 15px" }}
+                  >
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      onClick={() =>
+                        window.scrollTo({ top: 0, behavior: "smooth" })
+                      }
+                      to="/forget-password"
+                    >
+                      هل نسيت كلمة المرور ؟
+                    </Link>
+                  </Typography>
+
+                  <Button
+                    type={"submit"}
+                    fullWidth
+                    variant="contained"
+                    style={{
+                      background: "#403DA8",
+                      background:
+                        "linear-gradient(256.46deg, #000000 -30.19%, #403DA8 52.98%, #000000 160.52%)",
+                      boxShadow: "0px 2px 9px 2px rgba(0, 0, 0, 0.3)",
+                      color: "white",
+                      fontSize: "22px",
+                      width: "fit-content",
+                      display: "block",
+                      margin: "10px auto",
+                      padding: "10px 70px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    تسجيل الدخول{" "}
+                  </Button>
+                </form>
                 <Typography variant="body2" sx={{ textAlign: "center" }}>
                   <Link
                     style={{ textDecoration: "none" }}

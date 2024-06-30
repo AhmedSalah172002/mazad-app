@@ -22,9 +22,7 @@ export const GetAdminCategories = () => {
 
   useEffect(() => {
     baseUrl
-      .get("/api/v1/category?limit=500", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/v1/category?limit=500")
       .then((response) => {
         setCategories(response?.data?.data);
       });
