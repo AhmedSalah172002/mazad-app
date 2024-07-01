@@ -80,7 +80,6 @@ const ProductCard = ({ status, item }) => {
           <Box
             style={{
               margin: "0px auto 20px",
-              width: "100%",
               height: "250px",
               borderRadius: "15px 15px 0 0",
               overflow: "hidden",
@@ -101,6 +100,8 @@ const ProductCard = ({ status, item }) => {
                     margin: "auto",
                     width: "100%",
                     height: "100%",
+                    objectFit: 'cover',
+                    verticalAlign: 'bottom',
                     borderRadius: "15px 15px 0 0",
                   }}
                   alt="prod"
@@ -113,6 +114,8 @@ const ProductCard = ({ status, item }) => {
                     display: "block",
                     width: "100%",
                     height: "100%",
+                    objectFit: 'cover',
+                    verticalAlign: 'bottom',
                     borderRadius: "15px 15px 0 0",
                   }}
                   alt="prod"

@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { CircularProgress, Container, Typography } from "@mui/material";
+import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { useNavigate } from "react-router-dom";
-import uploadImage from "../images/upload.jpg";
+import uploadImage from "../images/assets/images/avatars/avatar_25.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLoggedUser } from "../redux/actions/loggedUserAction";
 import notify from "../hook/useNotifaction";
+import mazadyGif from "../images/Mazady.gif";
+import CameraIcon from "../component/utils/CameraIcon";
 
 const theme = createTheme({
   direction: "rtl",
@@ -162,95 +164,119 @@ export const UpdateProfile = () => {
       <ThemeProvider theme={theme}>
         <Box
           sx={{
-            padding: "15vh 0",
+            padding: "5vh 0",
           }}
         >
           <Container>
             <Box component="form" onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
+              <Grid
+                sx={{ display: "flex", alignItems: "center" }}
+                container
+                spacing={2}
               >
-                <label htmlFor="inputImg">
-                  <img
-                    style={{
-                      height: "200px",
-                      width: "200px",
-                      objectFit: "contain",
-                      cursor: "pointer",
-                      borderRadius: "50%",
+                <Grid item xs={12} sm={12} md={12} lg={6}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      boxShadow: " rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                      padding: "15px",
+                      my: 2,
+                      position: "relative",
+                      borderRadius: "8px",
                     }}
-                    src={formData.image ? formData.image : uploadImage}
-                    alt="user image"
-                  />
-                </label>
-                <input
-                  onChange={handleChangeImage}
-                  id={"inputImg"}
-                  type="file"
-                  hidden
-                />
-
-                {formData.image && formData.image != uploadImage ? (
-                  <Button
-                    onClick={() => {
-                      setFormData((prev) => ({
-                        ...prev,
-                        image: uploadImage,
-                        file: "delete",
-                      }));
-                    }}
-                    variant="contained"
-                    color={"error"}
-                    sx={{ mt: 2 }}
                   >
-                    delete
-                  </Button>
-                ) : null}
-                <Typography sx={{ fontSize: "16px", color: "red", my: 1 }}>
-                  {errors.has("image") && errors.get("image")}
-                </Typography>
-              </Box>
-              <TextField
-                dir="rtl"
-                fullWidth
-                sx={{ mb: 2 }}
-                required
-                label="الاسم"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <TextField
-                dir="rtl"
-                fullWidth
-                sx={{ mb: 2 }}
-                required
-                label="البريد الالكترونى"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <TextField
-                dir="rtl"
-                fullWidth
-                sx={{ mb: 2 }}
-                required
-                label="رقم الهاتف"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
+                    <div className="active-profile">نشط الأن</div>
+                    <label
+                      htmlFor="inputImg"
+                      className="update-img-label"
+                      style={{ position: "relative", my: 4 }}
+                    >
+                      <img
+                        className="update-img"
+                        style={{
+                          height: "100px",
+                          width: "100px",
+                          objectFit: "contain",
+                          cursor: "pointer",
+                          borderRadius: "50%",
+                        }}
+                        src={formData.image ? formData.image : uploadImage}
+                        alt="user image"
+                      />
+
+                      <div className="camera-img">
+                        <CameraIcon />
+                        <span>Update photo</span>
+                      </div>
+                    </label>
+
+                    <input
+                      onChange={handleChangeImage}
+                      id={"inputImg"}
+                      type="file"
+                      hidden
+                    />
+
+                    {formData.image && formData.image != uploadImage ? (
+                      <button
+                        className="delete-profile-img"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            image: uploadImage,
+                            file: "delete",
+                          }));
+                        }}
+                      >
+                        حذف الصورة
+                      </button>
+                    ) : null}
+                    <Typography sx={{ fontSize: "16px", color: "red", my: 1 }}>
+                      {errors.has("image") && errors.get("image")}
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={6}>
+                  <TextField
+                    dir="rtl"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    required
+                    label="الاسم"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    dir="rtl"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    required
+                    label="البريد الالكترونى"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    dir="rtl"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    required
+                    label="رقم الهاتف"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
               <Button
                 fullWidth
-                sx={{ mb: 2 }}
+                sx={{ mb: 2 , background:'#1C252E' , borderRadius:'8px' }}
                 variant="contained"
                 color="primary"
                 type="submit"
                 disabled={loading}
+
               >
                 {loading ? (
                   <CircularProgress sx={{ color: "white" }} />
@@ -258,7 +284,10 @@ export const UpdateProfile = () => {
                   "تعديل"
                 )}
               </Button>
+                </Grid>
+              </Grid>
             </Box>
+            <img src={mazadyGif} style={{width:'100%',borderRadius:'8px',height:'300px'}} alt='cover' />
           </Container>
         </Box>
       </ThemeProvider>
