@@ -1,14 +1,24 @@
-import React from 'react'
-import gif from '../../images/home.gif'
+import React from "react";
+import gif from "../../images/home.gif";
+import { Box } from "@mui/material";
 const HomeGif = () => {
   return (
-    <div style={{margin:'15px 0px'}}>
-        <div className='container' >
-        <img src={gif} style={{width:'100%',borderRadius:'8px',height:'450px'}} alt='cover' />
-        </div>
-      
-    </div>
-  )
-}
+    <Box
+      sx={{
+        paddingX: { xs: "1rem", sm: "2rem", lg: "6rem" },
+        marginY: "15vh",
+      }}
+    >
+      <img
+        src={gif}
+        style={{
+          width: "100%",
+          borderRadius: "8px",
+        }}
+        alt="cover"
+      />
+    </Box>
+  );
+};
 
-export default HomeGif
+export default HomeGif;

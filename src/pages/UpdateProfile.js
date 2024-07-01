@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import uploadImage from "../images/assets/images/avatars/avatar_25.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLoggedUser } from "../redux/actions/loggedUserAction";
@@ -35,7 +35,7 @@ function canUpdate(userData, formData) {
   }
 }
 
-export const UpdateProfile = () => {
+export const UpdateProfile = ({ forEdit = false }) => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -168,126 +168,277 @@ export const UpdateProfile = () => {
           }}
         >
           <Container>
-            <Box component="form" onSubmit={handleSubmit}>
-              <Grid
-                sx={{ display: "flex", alignItems: "center" }}
-                container
-                spacing={2}
-              >
-                <Grid item xs={12} sm={12} md={12} lg={6}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      boxShadow: " rgba(149, 157, 165, 0.2) 0px 8px 24px",
-                      padding: "15px",
-                      my: 2,
-                      position: "relative",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <div className="active-profile">نشط الأن</div>
-                    <label
-                      htmlFor="inputImg"
-                      className="update-img-label"
-                      style={{ position: "relative", my: 4 }}
+            <img
+              src={mazadyGif}
+              style={{ width: "100%", borderRadius: "8px", height: "300px" }}
+              alt="cover"
+              className="mb-4"
+            />
+            {/* {forEdit && (
+              <Box component="form" onSubmit={handleSubmit}>
+                <Grid
+                  sx={{ display: "flex", alignItems: "center" }}
+                  container
+                  spacing={2}
+                >
+                  <Grid item xs={12} sm={12} md={12} lg={6}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        boxShadow: " rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                        padding: "15px",
+                        my: 2,
+                        position: "relative",
+                        borderRadius: "8px",
+                      }}
                     >
-                      <img
-                        className="update-img"
-                        style={{
-                          height: "100px",
-                          width: "100px",
-                          objectFit: "contain",
-                          cursor: "pointer",
-                          borderRadius: "50%",
-                        }}
-                        src={formData.image ? formData.image : uploadImage}
-                        alt="user image"
+                      <div className="active-profile">نشط الأن</div>
+                      <label
+                        htmlFor="inputImg"
+                        className="update-img-label"
+                        style={{ position: "relative", my: 4 }}
+                      >
+                        <img
+                          className="update-img"
+                          style={{
+                            height: "100px",
+                            width: "100px",
+                            objectFit: "contain",
+                            cursor: "pointer",
+                            borderRadius: "50%",
+                          }}
+                          src={formData.image ? formData.image : uploadImage}
+                          alt="user"
+                        />
+
+                        <div className="camera-img">
+                          <CameraIcon />
+                          <span>Update photo</span>
+                        </div>
+                      </label>
+
+                      <input
+                        onChange={handleChangeImage}
+                        id={"inputImg"}
+                        type="file"
+                        hidden
                       />
 
-                      <div className="camera-img">
-                        <CameraIcon />
-                        <span>Update photo</span>
-                      </div>
-                    </label>
-
-                    <input
-                      onChange={handleChangeImage}
-                      id={"inputImg"}
-                      type="file"
-                      hidden
-                    />
-
-                    {formData.image && formData.image != uploadImage ? (
-                      <button
-                        className="delete-profile-img"
-                        onClick={() => {
-                          setFormData((prev) => ({
-                            ...prev,
-                            image: uploadImage,
-                            file: "delete",
-                          }));
-                        }}
+                      {formData.image && formData.image != uploadImage ? (
+                        <button
+                          className="delete-profile-img"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              image: uploadImage,
+                              file: "delete",
+                            }));
+                          }}
+                        >
+                          حذف الصورة
+                        </button>
+                      ) : null}
+                      <Typography
+                        sx={{ fontSize: "16px", color: "red", my: 1 }}
                       >
-                        حذف الصورة
-                      </button>
-                    ) : null}
-                    <Typography sx={{ fontSize: "16px", color: "red", my: 1 }}>
-                      {errors.has("image") && errors.get("image")}
-                    </Typography>
-                  </Box>
+                        {errors.has("image") && errors.get("image")}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={6}>
+                    <TextField
+                      dir="rtl"
+                      fullWidth
+                      sx={{ mb: 2 }}
+                      required
+                      label="الاسم"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      dir="rtl"
+                      fullWidth
+                      sx={{ mb: 2 }}
+                      required
+                      label="البريد الالكترونى"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      dir="rtl"
+                      fullWidth
+                      sx={{ mb: 2 }}
+                      required
+                      label="رقم الهاتف"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
+                    <Button
+                      fullWidth
+                      sx={{ mb: 2, background: "#1C252E", borderRadius: "8px" }}
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <CircularProgress sx={{ color: "white" }} />
+                      ) : (
+                        "تعديل"
+                      )}
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={6}>
-                  <TextField
-                    dir="rtl"
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    required
-                    label="الاسم"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    dir="rtl"
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    required
-                    label="البريد الالكترونى"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    dir="rtl"
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    required
-                    label="رقم الهاتف"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-              <Button
-                fullWidth
-                sx={{ mb: 2 , background:'#1C252E' , borderRadius:'8px' }}
-                variant="contained"
-                color="primary"
-                type="submit"
-                disabled={loading}
+              </Box>
+            )} */}
 
-              >
-                {loading ? (
-                  <CircularProgress sx={{ color: "white" }} />
-                ) : (
-                  "تعديل"
-                )}
-              </Button>
-                </Grid>
-              </Grid>
-            </Box>
-            <img src={mazadyGif} style={{width:'100%',borderRadius:'8px',height:'300px'}} alt='cover' />
+            <div className="rounded bg-slate-50 shadow flex items-center justify-center flex-column gap-3 p-5 relative">
+              <div className="active-profile">نشط الأن</div>
+              {forEdit && (
+                <>
+                  <Link
+                    to={"/dashboard/profile"}
+                    className="absolute left-[20px] top-[20px]"
+                  >
+                    رجوع
+                  </Link>
+                  <Box component="form" onSubmit={handleSubmit}>
+                    <div
+                      className="flex flex-column items-center justify-center gap-3"
+                      container
+                      spacing={2}
+                    >
+                      <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <label
+                          htmlFor="inputImg"
+                          className="update-img-label relative"
+                        >
+                          <img
+                            className="update-img"
+                            style={{
+                              height: "100px",
+                              width: "100px",
+                              objectFit: "contain",
+                              cursor: "pointer",
+                              borderRadius: "50%",
+                            }}
+                            src={formData.image ? formData.image : uploadImage}
+                            alt="user"
+                          />
+
+                          <div className="camera-img">
+                            <CameraIcon />
+                            <span>Update photo</span>
+                          </div>
+                        </label>
+
+                        <input
+                          onChange={handleChangeImage}
+                          id={"inputImg"}
+                          type="file"
+                          hidden
+                        />
+
+                        {formData.image && formData.image != uploadImage ? (
+                          <button
+                            className="delete-profile-img"
+                            onClick={() => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                image: uploadImage,
+                                file: "delete",
+                              }));
+                            }}
+                          >
+                            حذف الصورة
+                          </button>
+                        ) : null}
+                        <Typography
+                          sx={{ fontSize: "16px", color: "red", my: 1 }}
+                        >
+                          {errors.has("image") && errors.get("image")}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <TextField
+                          dir="rtl"
+                          fullWidth
+                          sx={{ mb: 2 }}
+                          required
+                          label="الاسم"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          dir="rtl"
+                          fullWidth
+                          sx={{ mb: 2 }}
+                          required
+                          label="البريد الالكترونى"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          dir="rtl"
+                          fullWidth
+                          sx={{ mb: 2 }}
+                          required
+                          label="رقم الهاتف"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                        />
+                        <Button
+                          fullWidth
+                          sx={{
+                            mb: 2,
+                            background: "#1C252E",
+                            borderRadius: "8px",
+                          }}
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <CircularProgress sx={{ color: "white" }} />
+                          ) : (
+                            "تعديل"
+                          )}
+                        </Button>
+                      </Grid>
+                    </div>
+                  </Box>
+                </>
+              )}
+              {!forEdit && (
+                <>
+                  <Link to={"edit"} className="absolute left-[20px] top-[20px]">
+                    تعديل
+                  </Link>
+                  <img
+                    src={formData.image ? formData.image : uploadImage}
+                    alt="userPic"
+                    style={{
+                      height: "100px",
+                      width: "100px",
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <p className="mb-0 font-bold">{formData.name}</p>
+                  <p className="mb-0">{formData.email}</p>
+                  <p className="mb-0">{formData.phone}</p>
+                </>
+              )}
+            </div>
           </Container>
         </Box>
       </ThemeProvider>

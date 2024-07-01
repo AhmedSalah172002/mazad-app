@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import DashboardIndex from "./layouts/dashboard/index";
 
@@ -46,7 +46,10 @@ function App() {
       <Routes>
         <Route path="/dashboard" element={<DashboardIndex />}>
           <Route path="overview" element={<Dashboard />} />
-          <Route path="profile" element={<UpdateProfile />} />
+          <Route path="profile" element={<Outlet />}>
+            <Route path="" element={<UpdateProfile />} />
+            <Route path="edit" element={<UpdateProfile forEdit={true} />} />
+          </Route>
           <Route path={""} element={<ProtectedRoute auth={isUser} />}>
             <Route path="user/orders" element={<UserOrders />} />
           </Route>
