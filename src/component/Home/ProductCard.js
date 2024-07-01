@@ -100,8 +100,8 @@ const ProductCard = ({ status, item }) => {
                     margin: "auto",
                     width: "100%",
                     height: "100%",
-                    objectFit: 'cover',
-                    verticalAlign: 'bottom',
+                    objectFit: "cover",
+                    verticalAlign: "bottom",
                     borderRadius: "15px 15px 0 0",
                   }}
                   alt="prod"
@@ -114,8 +114,8 @@ const ProductCard = ({ status, item }) => {
                     display: "block",
                     width: "100%",
                     height: "100%",
-                    objectFit: 'cover',
-                    verticalAlign: 'bottom',
+                    objectFit: "cover",
+                    verticalAlign: "bottom",
                     borderRadius: "15px 15px 0 0",
                   }}
                   alt="prod"
@@ -260,162 +260,164 @@ const ProductCard = ({ status, item }) => {
               ? "جارية"
               : "منتهية"}
           </Box>
-          <Box
-            sx={{
-              direction: "ltr",
-              position: "absolute",
-              bottom: "220px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              borderRadius: "10px",
-              width: "220px",
-              height: "50px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              zIndex: "4",
-            }}
-          >
+          {!(status === "finished") && (
             <Box
               sx={{
+                direction: "ltr",
+                position: "absolute",
+                bottom: "220px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                borderRadius: "10px",
+                width: "220px",
+                height: "50px",
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
                 justifyContent: "center",
-              }}
-            >
-              <Typography
-                variant="body2"
-                component="body2"
-                sx={{
-                  fontWeight: "700",
-                }}
-              >
-                {timeLeft?.days}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="body2"
-                sx={{
-                  fontWeight: "700",
-                }}
-              >
-                يوم
-              </Typography>
-            </Box>
-            <Typography
-              variant="h6"
-              component="h6"
-              sx={{
-                fontWeight: "600",
-                marginX: "8px",
-              }}
-            >
-              :
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
+                backgroundColor: "#fff",
+                zIndex: "4",
               }}
             >
-              <Typography
-                variant="body2"
-                component="body2"
+              <Box
                 sx={{
-                  fontWeight: "700",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                {timeLeft?.hours}
-              </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft?.days}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  يوم
+                </Typography>
+              </Box>
               <Typography
-                variant="body2"
-                component="body2"
+                variant="h6"
+                component="h6"
                 sx={{
-                  fontWeight: "700",
+                  fontWeight: "600",
+                  marginX: "8px",
                 }}
               >
-                ساعة
+                :
               </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft?.hours}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  ساعة
+                </Typography>
+              </Box>
+              <Typography
+                variant="h6"
+                component="h6"
+                sx={{
+                  fontWeight: "600",
+                  marginX: "8px",
+                }}
+              >
+                :
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft?.minutes}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  دقيقة
+                </Typography>
+              </Box>
+              <Typography
+                variant="h6"
+                component="h6"
+                sx={{
+                  fontWeight: "600",
+                  marginX: "8px",
+                }}
+              >
+                :
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  {timeLeft?.seconds}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  sx={{
+                    fontWeight: "700",
+                  }}
+                >
+                  ثانية
+                </Typography>
+              </Box>
             </Box>
-            <Typography
-              variant="h6"
-              component="h6"
-              sx={{
-                fontWeight: "600",
-                marginX: "8px",
-              }}
-            >
-              :
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography
-                variant="body2"
-                component="body2"
-                sx={{
-                  fontWeight: "700",
-                }}
-              >
-                {timeLeft?.minutes}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="body2"
-                sx={{
-                  fontWeight: "700",
-                }}
-              >
-                دقيقة
-              </Typography>
-            </Box>
-            <Typography
-              variant="h6"
-              component="h6"
-              sx={{
-                fontWeight: "600",
-                marginX: "8px",
-              }}
-            >
-              :
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography
-                variant="body2"
-                component="body2"
-                sx={{
-                  fontWeight: "700",
-                }}
-              >
-                {timeLeft?.seconds}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="body2"
-                sx={{
-                  fontWeight: "700",
-                }}
-              >
-                ثانية
-              </Typography>
-            </Box>
-          </Box>
+          )}
         </Box>
       </Link>
     </>

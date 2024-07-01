@@ -170,7 +170,12 @@ export const UpdateProfile = ({ forEdit = false }) => {
           <Container>
             <img
               src={mazadyGif}
-              style={{ width: "100%", borderRadius: "8px", height: "300px" }}
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                height: "350px",
+                objectFit: "cover",
+              }}
               alt="cover"
               className="mb-4"
             />
