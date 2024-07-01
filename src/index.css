@@ -484,3 +484,103 @@ body {
   margin: auto;
   width: 50%;
 }
+
+.camera-img {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: black;
+  overflow: hidden;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.camera-img span {
+  margin: 0;
+  font-family: "Public Sans Variable", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.update-img-label,
+.update-img {
+  transition: 0.3s;
+}
+
+.update-img:hover .camera-img,
+.update-img-label:hover .camera-img {
+  opacity: 0.8;
+  visibility: visible;
+}
+
+.delete-profile-img {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 15px 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  font-family: "Public Sans Variable", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.71429;
+  text-transform: unset;
+  min-width: 64px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: none;
+  color: #b71d18;
+  background-color: rgba(255 86 48 /0.16);
+}
+.active-profile{
+  height: 24px;
+    min-width: 24px;
+    line-height: 0;
+    cursor: default;
+    -webkit-box-align: center;
+    align-items: center;
+    white-space: nowrap;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0px 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    color: #118D57;
+    background-color: rgb(34 197 94 / 16%);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

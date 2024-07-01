@@ -1,8 +1,11 @@
 import React from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import heroImage from "../../images/hero.svg";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Box
@@ -104,6 +107,7 @@ const Hero = () => {
                 fontWeight: "600",
                 color:'#ffffff'
               }}
+              onClick={()=>navigate('/products')}
             >
               إبدأ في البحث{" "}
             </Button>

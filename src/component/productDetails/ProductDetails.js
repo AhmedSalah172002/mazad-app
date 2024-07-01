@@ -573,17 +573,6 @@ const ProductDetails = () => {
                       >
                         {item?.mazad?.length} مناقصة
                       </Typography>
-                      <Typography
-                        variant="body1"
-                        component="body1"
-                        sx={{
-                          fontSize: "18px",
-                          fontWeight: "800",
-                          color: "#403DA8",
-                        }}
-                      >
-                        "اظهار السجل"
-                      </Typography>
                     </>
                   )}
 
@@ -612,14 +601,14 @@ const ProductDetails = () => {
                       item?.status === "finished"
                     }
                     onClick={() =>
-                      auth?.role === "merchant"
+                      auth?.role === "merchant" && item?.user?._id === auth?._id
                         ? handleTerminateProduct(productId)
                         : item?.involved?.some((e) => e.user === auth._id)
                         ? navigate(`/user/mazad/${productId}`)
                         : handelCheckInsurancePayment(productId)
                     }
                   >
-                    {auth?.role === "merchant"
+                    {auth?.role === "merchant" && item?.user?._id === auth?._id
                       ? "انهاء المزاد"
                       : "المزايدة الأن"}
                   </Button>
