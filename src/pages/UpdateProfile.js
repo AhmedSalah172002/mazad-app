@@ -116,6 +116,9 @@ export const UpdateProfile = ({ forEdit = false }) => {
     setLoading(true);
     await dispatch(updateLoggedUser(data));
     setLoading(false);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   const response = useSelector(
@@ -318,7 +321,17 @@ export const UpdateProfile = ({ forEdit = false }) => {
                       container
                       spacing={2}
                     >
-                      <Grid item xs={12} sm={12} md={12} lg={6}>
+                      <Grid
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        item
+                        xs={12}
+                        sm={12}
+                        md={12}
+                        lg={6}
+                      >
                         <label
                           htmlFor="inputImg"
                           className="update-img-label relative"

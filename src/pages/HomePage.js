@@ -8,7 +8,6 @@ import HowToUse from "../component/Home/HowToUse";
 import HomeLogin from "../component/Home/HomeLogin";
 import HomeReviews from "../component/Home/HomeReviews";
 import { Fade, Zoom, Bounce, Slide } from "react-awesome-reveal";
-import HomeGif from "../component/Home/HomeGif";
 
 const HomePage = () => {
   const [items, filter, setFilter, onPress, pageCount, results] =
@@ -35,7 +34,6 @@ const HomePage = () => {
         <HowToUse />
       </Slide>
       <Zoom>
-        <HomeGif />
       </Zoom>
       {!auth && (
         <Bounce>
