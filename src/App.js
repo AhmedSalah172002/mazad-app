@@ -45,7 +45,6 @@ function App() {
 
       <Routes>
         <Route path="/dashboard" element={<DashboardIndex />}>
-          <Route path="overview" element={<Dashboard />} />
           <Route path="profile" element={<Outlet />}>
             <Route path="" element={<UpdateProfile />} />
             <Route path="edit" element={<UpdateProfile forEdit={true} />} />
@@ -61,6 +60,8 @@ function App() {
           <Route path={""} element={<ProtectedRoute auth={isAdmin} />}>
             <Route path="categories" element={<GetAdminCategories />} />
             <Route path="merchants" element={<GetAllMerchants />} />
+            <Route path="overview" element={<Dashboard />} />
+
             <Route
               path="admin/merchant/:merchantId/reviews"
               element={<MerchantReviews />}
