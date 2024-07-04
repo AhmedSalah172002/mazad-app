@@ -49,7 +49,7 @@ export default function Header({ onOpenNav }) {
   return (
     <AppBar
       sx={{
-        
+        left:'0 !important',
         boxShadow: 'none',
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
